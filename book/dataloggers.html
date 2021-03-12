@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Measurements and Data Analysis for Agricultural Engineers using Python</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="css/softcover.css"> -->
+<link rel="stylesheet" href="css/pygments.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+<script src = "js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+
+<link rel="stylesheet" href="css/custom.css">
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+    "HTML-CSS": {
+      availableFonts: ["TeX"],
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"],
+      equationNumbers: {
+        autoNumber: "AMS",
+        
+      },
+      Macros: {
+        PolyTeX:    "Poly{\\TeX}",
+        PolyTeXnic: "Poly{\\TeX}nic",
+        "softcover": "\\texttt{softcover}",
+    "unitvec": ["{\\hat #1}", 1]
+      }
+    },
+    showProcessingMessages: false,
+    messageStyle: "none",
+    imageFont: null
+      });
+    
+ </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+ <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#chapters-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PyAgEng</a><p class="navbar-text"> - Matti Pastell</p>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right" id="chapters-nav">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Table of Contents<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="index.html"><strong>Table of Contents</strong></a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="preface.html"><strong>Preface</strong></a></li>
+                    
+                    <li role="separator" class="divider"></li>
+                    
+                        <li><a href="sampling.html"> <strong>Chapter 1: </strong>Measurement basics</a></li>
+                    
+                        <li><a href="dataloggers.html"> <strong>Chapter 2: </strong>Datalogger hardware and sensor connections</a></li>
+                    
+                        <li><a href="connecting_to_computers.html"> <strong>Chapter 3: </strong>Connecting loggers to computers</a></li>
+                    
+                        <li><a href="programming.html"> <strong>Chapter 4: </strong>Introduction to Programming and Python</a></li>
+                    
+                        <li><a href="scipy.html"> <strong>Chapter 5: </strong>Scientific Python</a></li>
+                    
+                        <li><a href="plotting.html"> <strong>Chapter 6: </strong>Plotting</a></li>
+                    
+                        <li><a href="spectrum.html"> <strong>Chapter 7: </strong>Frequency Analysis</a></li>
+                    
+                        <li><a href="dsp.html"> <strong>Chapter 8: </strong>Digital Signal Processing</a></li>
+                    
+                        <li><a href="references.html"> <strong>Chapter 9: </strong>References</a></li>
+                    
+                
+
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- container-fluid -->
+</nav>
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class = "twelwe columns col-md-12">
+
+             <div id="book">
+  <div class="chapter" data-chapter="dataloggers" data-number="2" data-tralics-id="cid12" id="cid12">
+   <h1>
+    <a class="heading hyperref" href="dataloggers.html#cid12">
+     <span class="number">
+      Chapter 2
+     </span>
+     Datalogger hardware and sensor connections
+    </a>
+   </h1>
+   <p>
+    This chapter focuses on choosing the correct hardware for your measurement
+system and how to connect sensors to loggers.
+   </p>
+  </div>
+  <div class="section" data-number="2.1" data-tralics-id="cid13" id="cid13">
+   <h2>
+    <a class="heading hyperref" href="dataloggers.html#cid13">
+     <span class="number">
+      2.1
+     </span>
+     Datalogger options
+    </a>
+   </h2>
+   <p>
+    When choosing a datalogger you should consider at least the following:
+   </p>
+   <ul>
+    <li>
+     Resolution, input impedance and span.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     The types of channels you need: current, resistance, voltage,
+thermocouple, force sensors.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Interface: do you need a standalone logger, real time graphs or
+internet access.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Power consumption and size.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Durability and protection of the logger.
+     <span class="intersentencespace">
+     </span>
+     Operating temperature.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Software: does the logger come with useful software.
+     <span class="intersentencespace">
+     </span>
+     Which
+programming languages can you use to make your own software?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Price, unfortunately most projects are have a limited budget and not
+wasting money on hardware can make a real difference on how much
+data you can collect (=how many loggers and sites you can use).
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    Always ask for a product demonstration if possible!
+   </p>
+   <div class="subsection" data-number="2.1.1" data-tralics-id="uid89" id="uid89">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid89">
+      <span class="number">
+       2.1.1
+      </span>
+      Microcontrollers
+     </a>
+    </h3>
+    <p>
+     Microcontrollers that you program yourself are the most affordable way to
+build a measurement system.
+     <span class="intersentencespace">
+     </span>
+     Many controllers have internal ADCs with either 10bit
+or 12bit resolution.
+     <span class="intersentencespace">
+     </span>
+     They can also be used to interface more accurate ADC chips
+as well.
+     <span class="intersentencespace">
+     </span>
+     You will need to program the controller yourself, but there are a lot
+examples available for simple systems.
+     <span class="intersentencespace">
+     </span>
+     You can use microcontrollers to build a
+standalone system e.g.
+     <span class="intersentencespace">
+     </span>
+     using SD-cards or you can interface to a computer.
+     <span class="intersentencespace">
+     </span>
+     Most
+microcontrollers are programmed in C or C++, but there exists also
+     <a href="https://micropython.org/" target="_blank">
+      MicroPython
+     </a>
+     which is a version of Python
+running on a microcontroller.
+    </p>
+    <p>
+     These are some good options for data collection projects:
+    </p>
+    <p>
+     <a href="https://micropython.org/" target="_blank">
+      <strong>
+       MicroPython
+      </strong>
+     </a>
+     is an implementation of Python 3.4
+running on a microcontroller.
+     <span class="intersentencespace">
+     </span>
+     The development boards costs 20 - 30£ and have
+12bit ADC. The board also supports UART, SPI and I2C protocols for communication.
+    </p>
+    <p>
+     <a href="http://arduino.cc" target="_blank">
+      <strong>
+       Arduino
+      </strong>
+     </a>
+     is a popular family of boards, that is
+programmed in its own
+language (which is a C/C++ library).
+     <span class="intersentencespace">
+     </span>
+     The original Arduino boards are based on
+ATMega microcontrollers with 10bit ADC and the newer ARM based Arduino DUE
+has 12 bit ADC.
+    </p>
+    <p>
+     <a href="https://developer.mbed.org/" target="_blank">
+      <strong>
+       mbed
+      </strong>
+     </a>
+     project is backed by ARM and can be used with
+many affordable microcontroller boards.
+     <span class="intersentencespace">
+     </span>
+     Most of the boards have 12bit ADC.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="2.2" data-tralics-id="cid14" id="cid14">
+   <h2>
+    <a class="heading hyperref" href="dataloggers.html#cid14">
+     <span class="number">
+      2.2
+     </span>
+     Dedicated DAQs
+    </a>
+   </h2>
+   <div class="subsection" data-number="2.2.1" data-tralics-id="uid90" id="uid90">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid90">
+      <span class="number">
+       2.2.1
+      </span>
+      Cheap DAQs
+     </a>
+    </h3>
+    <p>
+     Cheap data acquisition boards (DAQ) are usually USB boards that require
+a computer to work.
+     <span class="intersentencespace">
+     </span>
+     Cheapest ones cost around 100 € have a 12bit differential
+ADC and 10KHz sample rate.
+    </p>
+    <p>
+     I have personally good experience from these 2 boards:
+    </p>
+    <p>
+     <strong>
+      NI-USB 6008
+     </strong>
+     8 single-ended or 4 differential inputs, programmable range
+(-10 – 10V max, -1 – 1V min), counter, 2 DAC channels.
+    </p>
+    <p>
+     <strong>
+      Labjack U3
+     </strong>
+     has similar specifications, but with higher sample rate and
+supports I2C and SPI protocols
+    </p>
+    <p>
+     Some of the cheap DAQs work only in limited temperature and humidity ranges.
+     <span class="intersentencespace">
+     </span>
+     Check the operating conditions from the datasheet if you plan to use them in
+field or barn conditions.
+     <span class="intersentencespace">
+     </span>
+     The devices can have a lot of error outside the
+recommended range even if they seem to give a sensible output.
+    </p>
+   </div>
+   <div class="subsection" data-number="2.2.2" data-tralics-id="uid91" id="uid91">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid91">
+      <span class="number">
+       2.2.2
+      </span>
+      More expensive DAQs
+     </a>
+    </h3>
+    <p>
+     If you need higher speed and higher resolution the price increases quite
+rapidly.
+     <span class="intersentencespace">
+     </span>
+     Here are some examples for different applications:
+    </p>
+    <p>
+     <strong>
+      NI USB-6341
+     </strong>
+     16 analog inputs, 500 kS/s, 16-bit resolution, ±10 V. 4
+counters, 2 DACs.
+     <span class="intersentencespace">
+     </span>
+     1150 €.
+    </p>
+    <p>
+     <strong>
+      Agilent 34970A
+     </strong>
+     Agilent 34970A has a lot of different channels.
+    </p>
+    <ul>
+     <li>
+      Up to 120 channels for different sensors and very accurate 22bit resolution,
+but not very fast (250 channels/s).
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Can measure thermocouples, current, small voltage etc.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Has some memory and can be programmed using serial connection.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <p>
+     <strong>
+      Datataker
+     </strong>
+     is a company that makes standalone dataloggers.
+     <span class="intersentencespace">
+     </span>
+     For example
+     <code>
+      Datataker DT80
+     </code>
+     measures voltage, current resistance, frequency.
+    </p>
+    <ul>
+     <li>
+      15 channel @ 25Hz.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Serial and ethernet interface, internal memory.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Expansion modules for more channels and CAN logging.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <p>
+     <strong>
+      Vector GL1000
+     </strong>
+     is a datalogger designed for collecting data
+from CANBUS and combine it with GPS and sensors.
+     <span class="intersentencespace">
+     </span>
+     It can be used together with
+Vector’s software.
+    </p>
+    <ul>
+     <li>
+      Log data from tractor ECU and ISOBUS via CAN-bus (2 CAN channels).
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Option to add GPS.
+     </li>
+     <li>
+      4 Analog inputs.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      The logger costs 1700 €, but the software to use it with costs much
+more than the logger.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="section" data-number="2.3" data-tralics-id="cid15" id="cid15">
+   <h2>
+    <a class="heading hyperref" href="dataloggers.html#cid15">
+     <span class="number">
+      2.3
+     </span>
+     Connecting sensors to loggers
+    </a>
+   </h2>
+   <p>
+    This chapter is about connecting sensors to data loggers.
+    <span class="intersentencespace">
+    </span>
+    It is
+something that most beginners struggle with, but is actually quite
+simple and you’ll learn it quickly.
+   </p>
+   <p>
+    Affordable data loggers usually have only voltage channels.
+    <span class="intersentencespace">
+    </span>
+    These
+are either single-ended
+    <a class="hyperref" href="dataloggers.html#fig-single_ended">
+     Figure
+     <span class="ref">
+      2.1
+     </span>
+    </a>
+    or
+differential Figure
+    <a class="hyperref" href="dataloggers.html#fig-differential">
+     <span class="ref">
+      2.2
+     </span>
+    </a>
+    .
+    <span class="intersentencespace">
+    </span>
+    You can measure changes in
+resistance or current using voltage channels
+with simple circuits and some elementary algebra.
+   </p>
+   <div class="subsection" data-number="2.3.1" data-tralics-id="uid102" id="uid102">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid102">
+      <span class="number">
+       2.3.1
+      </span>
+      Input types and voltage signals
+     </a>
+    </h3>
+    <div class="subsubsection" data-number="2.3.1.1" data-tralics-id="uid103" id="uid103">
+     <h4>
+      <a class="heading" href="#uid103">
+       Single-ended connection
+      </a>
+     </h4>
+     <p>
+      <strong>
+       Single-ended inputs
+      </strong>
+      have a shared ground level for all
+inputs and the logger.
+      <span class="intersentencespace">
+      </span>
+      The measurement is made between the common
+ground level and the positive input.
+      <span class="intersentencespace">
+      </span>
+      You need to make sure all the
+connected signals have the same ground level.
+      <span class="intersentencespace">
+      </span>
+      Interference in one ground
+wire will show up in all channels.
+      <span class="intersentencespace">
+      </span>
+      You can only measure positive voltages.
+      <span class="intersentencespace">
+      </span>
+      Single-ended connection is also sometimes called
+      <em>
+       unipolar
+      </em>
+      .
+     </p>
+     <div class="center figure" data-number="2.1" data-tralics-id="uid104" id="fig-single_ended">
+      <div class="graphics image">
+       <img alt="images/single_ended" src="images/single_ended.png"/>
+      </div>
+      <div class="caption">
+       <span class="header">
+        Figure 2.1:
+       </span>
+       <span class="description">
+        Single-ended connection
+       </span>
+      </div>
+     </div>
+    </div>
+    <div class="subsubsection" data-number="2.3.1.2" data-tralics-id="uid105" id="uid105">
+     <h4>
+      <a class="heading" href="#uid105">
+       Differential connection
+      </a>
+     </h4>
+     <p>
+      <strong>
+       Differential inputs
+      </strong>
+      measure the voltage between the
+negative and positive channel.
+      <span class="intersentencespace">
+      </span>
+      They are more accurate than single-ended inputs And
+there is no interference from other channels and the connection is not affected as
+much by external noise.
+      <span class="intersentencespace">
+      </span>
+      This is also sometimes called
+      <em>
+       bipolar connection
+      </em>
+      and can
+also measure both positive and negative voltage.
+     </p>
+     <div class="center figure" data-number="2.2" data-tralics-id="uid106" id="fig-differential">
+      <div class="graphics image">
+       <img alt="images/differential" src="images/differential.png"/>
+      </div>
+      <div class="caption">
+       <span class="header">
+        Figure 2.2:
+       </span>
+       <span class="description">
+        Differential connection.
+        <span class="intersentencespace">
+        </span>
+       </span>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="2.3.2" data-tralics-id="uid107" id="uid107">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid107">
+      <span class="number">
+       2.3.2
+      </span>
+      Current signals
+     </a>
+    </h3>
+    <p>
+     Current signals are more noise tolerant than voltage signals and are
+therefore sometimes used with long wiring.
+     <span class="intersentencespace">
+     </span>
+     And some sensors just output
+current instead of voltage.
+     <span class="intersentencespace">
+     </span>
+     The most common range for current signals is
+4–20mA, but there are also other ranges.
+     <span class="intersentencespace">
+     </span>
+     Some sensors in the department
+that give current outputs are ultrasound distance sensors, infrared
+thermometers and air flow sensors.
+    </p>
+    <ul>
+     <li>
+      Some dataloggers have current channels and you can directly measure
+current signals.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      You can measure current with a voltage logger using a resistor
+(sometimes called a shunt)
+      <a class="hyperref" href="dataloggers.html#fig-shunt">
+       Figure
+       <span class="ref">
+        2.3
+       </span>
+      </a>
+      .
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      The voltage drop across the resistor is
+      <span class="inline_math">
+       \( V=IR  \)
+      </span>
+      so the current signal
+from the sensor is
+      <span class="inline_math">
+       \( I=\frac{V}{R}  \)
+      </span>
+      and you need to choose an
+appropriate resistance for the input span.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <div class="center figure" data-number="2.3" data-tralics-id="uid111" id="fig-shunt">
+     <div class="graphics image">
+      <img alt="images/current" src="images/current.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 2.3:
+      </span>
+      <span class="description">
+       Measuring current with a voltage input using a shunt resistor.
+       <span class="intersentencespace">
+       </span>
+      </span>
+     </div>
+    </div>
+    <p>
+     <strong>
+      Example:
+     </strong>
+    </p>
+    <p>
+     Suppose you want to connect an ultrasound distance sensor that outputs
+4-20mA to LabJack U3 low voltage channel.
+     <span class="intersentencespace">
+     </span>
+     You will need to choose the
+shunt resistor so that the maximum voltage is 3.6V (channel’s maximum) at 20mA.
+    </p>
+    <p>
+     <span class="inline_math">
+      \( R = \frac{V}{I} = \frac{3.6V}{0.02A} = 180 \Omega  \)
+     </span>
+    </p>
+    <p>
+     So you will need to use a resistor that is close to but smaller than
+180Ω.
+    </p>
+   </div>
+   <div class="subsection" data-number="2.3.3" data-tralics-id="uid112" id="uid112">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid112">
+      <span class="number">
+       2.3.3
+      </span>
+      Voltage divider
+     </a>
+    </h3>
+    <p>
+     The voltage divider circuit in
+     <a class="hyperref" href="dataloggers.html#fig-jansov">
+      Figure
+      <span class="ref">
+       2.4
+      </span>
+     </a>
+     is very useful for
+three reasons:
+    </p>
+    <ol>
+     <li>
+      It lets you measure resistance with a voltage channel.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      You can use it lower the input voltage of signals over your loggers
+range.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      It helps you understand most other circuits.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ol>
+    <p>
+     You should choose fairly small resistor values (&lt;1kΩ) if there is
+not a lot current(standard resistors can only stand 5W) in the circuit
+and the output current from sensors is typically very small.
+    </p>
+    <div class="equation">
+     \[ 
+V_{OUT}=\frac{R_2}{R_1+R_2} \cdot V_{IN}
+ \]
+    </div>
+    <p class="noindent">
+     <strong>
+      Example:
+     </strong>
+     Suppose you wan’t to measure voltage from a sensor that outputs 0–10V
+using a datalogger that can measure from 0–1.2V (e.g.
+     <span class="intersentencespace">
+     </span>
+     Xbee).
+     <span class="intersentencespace">
+     </span>
+     You’ll
+need find appropriate resistors for circuit in Figure
+     <a class="hyperref" href="dataloggers.html#fig-jansov">
+      <span class="ref">
+       2.4
+      </span>
+     </a>
+     .
+     <span class="intersentencespace">
+     </span>
+     It
+seems that you need
+     <span class="inline_math">
+      \( \approx \)
+     </span>
+     10th (
+     <span class="inline_math">
+      \( \frac{1.2}{10}  \)
+     </span>
+     ) of the output voltage so you can
+start by choosing 1kΩ as R1.
+     <span class="intersentencespace">
+     </span>
+     The calculation using equation
+for voltage divider then becomes:
+    </p>
+    <p>
+     <span class="inline_math">
+      \(  1.2V = \frac{R_2}{1000\Omega + R_2} \cdot 10V  \)
+     </span>
+     <span class="inline_math">
+      \( \Leftrightarrow R_2 = \frac{1000\Omega}{\frac{10}{1.2}-1} \approx 136 \Omega  \)
+     </span>
+    </p>
+    <p>
+     The nearest standard resistor value to 136Ω is 130Ω which
+gives you sensor output from 0 – 1.15V.
+    </p>
+   </div>
+   <div class="subsection" data-number="2.3.4" data-tralics-id="uid116" id="uid116">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid116">
+      <span class="number">
+       2.3.4
+      </span>
+      Resistance
+     </a>
+    </h3>
+    <p>
+     You can measure resistance using a voltage divider
+    </p>
+    <ul>
+     <li>
+      Some sensors change their resistance according to the measured
+quantity.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      The resistance of a sensor can measured with the help of a voltage
+divider: place the sensor as R1 and choose
+appropriate R2.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <div class="equation">
+     \[ 
+V_{OUT}=\frac{R_2}{R_1+R_2} \cdot V_{IN}
+ \]
+    </div>
+    <div class="center figure" data-number="2.4" data-tralics-id="uid119" id="fig-jansov" noindent="true">
+     <div class="graphics image">
+      <img alt="images/vdivider" src="images/vdivider.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 2.4:
+      </span>
+      <span class="description">
+       Voltage divider circuit
+      </span>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="2.3.5" data-tralics-id="uid120" id="uid120">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid120">
+      <span class="number">
+       2.3.5
+      </span>
+      Wheatstone bridge
+     </a>
+    </h3>
+    <p>
+     Wheatstone bridge is an alternative circuit for
+measuring resistance.
+     <span class="intersentencespace">
+     </span>
+     It has the same sensitivity as the voltage divider, but
+there is no DC offset so it is simpler to amplify.
+    </p>
+    <p>
+     The circuit is frequently used with strain gages and resistive
+temperature sensors (e.g.
+     <span class="intersentencespace">
+     </span>
+     PT100)
+    </p>
+    <div class="equation">
+     \[ 
+V_G = (\frac{R_x}{R_3+R_x} - \frac{R_2}{R_1+R_2})\cdot V_S
+ \]
+    </div>
+   </div>
+   <div class="subsection" data-number="2.3.6" data-tralics-id="uid121" id="uid121">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid121">
+      <span class="number">
+       2.3.6
+      </span>
+      Amplifying signals
+     </a>
+    </h3>
+    <p>
+     Several sensors (force sensors, thermocouples) give such a small
+output that it needs to be amplified.
+     <span class="intersentencespace">
+     </span>
+     Some dataloggers have built in
+amplifiers and settings for specific sensors or you can buy the amplifier
+separately.
+    </p>
+    <p>
+     You can also make the amplifier yourself using operational amplifier (Op-amp) or
+Instrumentation amplifier components.
+     <span class="intersentencespace">
+     </span>
+     Op-amps have very high input impedance
+and very low output impedance.
+     <span class="intersentencespace">
+     </span>
+     This means that they have very small effect
+on the input circuit.
+     <span class="intersentencespace">
+     </span>
+     This is why they can also be used as buffer amplifiers
+with unity gain for circuits with high output impedance and as
+components in active filters.
+    </p>
+   </div>
+   <div class="subsection" data-number="2.3.7" data-tralics-id="uid122" id="uid122">
+    <h3>
+     <a class="heading hyperref" href="dataloggers.html#uid122">
+      <span class="number">
+       2.3.7
+      </span>
+      ADC input impedance
+     </a>
+    </h3>
+    <p>
+     The input impedance of the measuring circuit must a lot higher than the output impedance of
+the measured circuit/sensor.
+    </p>
+    <ul>
+     <li>
+      <em>
+       Impedance
+      </em>
+      is resistance at a frequency.
+      <span class="intersentencespace">
+      </span>
+      If there is no
+capacitance in the input circuit then input impedance is equal to
+the resistance of the source.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      When the input impedance is high the effect of the measurement to
+the circuit is low (very little current flows through the measuring
+circuit).
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      ADC datasheets usually report either input impedance or highest
+allowed source resistance/impedance.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Input impedance affects the sample-and-hold circuit in the ADC.
+     </li>
+    </ul>
+    <p>
+     ADCs have a sampling capacitor
+     <span class="inline_math">
+      \( C_I  \)
+     </span>
+     that charges during sampling.
+     <span class="intersentencespace">
+     </span>
+     The internal resistance
+     <span class="inline_math">
+      \( R_I  \)
+     </span>
+     and the source resistance
+     <span class="inline_math">
+      \( R_S  \)
+     </span>
+     form an
+RC circuit with the sampling capacitor.
+     <span class="intersentencespace">
+     </span>
+     If
+     <span class="inline_math">
+      \( R_s  \)
+     </span>
+     is too high the
+capacitor doesn’t have time to charge and discharge properly causing:
+Incorrect readings: noise, and high transient voltage peaks.
+    </p>
+    <p>
+     These parameters can in the best case scenario found from the datasheet
+of the ADC and sometimes also results for different
+configurations.
+     <span class="intersentencespace">
+     </span>
+     For other loggers you’ll only find the figure
+for input resistance and no information about capacitor or sampling
+time, in that case you’ll usually be safe if the input resistance is
+50-100 greater than the input impedance.
+    </p>
+    <p>
+     You can refer to (TI 1998) application note for example circuit and calculations.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="2.4" data-tralics-id="cid16" id="cid16">
+   <h2>
+    <a class="heading hyperref" href="dataloggers.html#cid16">
+     <span class="number">
+      2.4
+     </span>
+     Exercices
+    </a>
+   </h2>
+   <ol>
+    <li>
+     How do you connect a sensor with output voltage range of
+0-10V to a datalogger with 0-5V input range?
+     <span class="intersentencespace">
+     </span>
+     Show the circuit and
+relevant component values.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     How do you connect a current sensor with 4-20mA output to a
+voltage channel measuring 0-10V? Show the circuit and
+relevant component values.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     What is the difference between single-ended and differential connection?
+     <span class="intersentencespace">
+     </span>
+     What are the advantages of each connection?
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ol>
+  </div>
+ </div>
+
+
+        <div class="footer" style = "text-align: center;">&copy; <a href="http://mpastell.com">Matti Pastell</a> 2016</div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6474352-9', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+<url>
+  <loc>http://pyageng.mpastell.com/</loc>
+  <lastmod>2016-02-06T13:53:12+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/index.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/preface.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/sampling.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/dataloggers.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/connecting_to_computers.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/programming.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/scipy.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/plotting.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/spectrum.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/dsp.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+<url>
+  <loc>http://pyageng.mpastell.com/book/references.html</loc>
+  <lastmod>2016-02-07T09:24:26+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+</url>
+</urlset>

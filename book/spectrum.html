@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Measurements and Data Analysis for Agricultural Engineers using Python</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="css/softcover.css"> -->
+<link rel="stylesheet" href="css/pygments.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+<script src = "js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+
+<link rel="stylesheet" href="css/custom.css">
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+    "HTML-CSS": {
+      availableFonts: ["TeX"],
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"],
+      equationNumbers: {
+        autoNumber: "AMS",
+        
+      },
+      Macros: {
+        PolyTeX:    "Poly{\\TeX}",
+        PolyTeXnic: "Poly{\\TeX}nic",
+        "softcover": "\\texttt{softcover}",
+    "unitvec": ["{\\hat #1}", 1]
+      }
+    },
+    showProcessingMessages: false,
+    messageStyle: "none",
+    imageFont: null
+      });
+    
+ </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+ <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#chapters-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PyAgEng</a><p class="navbar-text"> - Matti Pastell</p>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right" id="chapters-nav">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Table of Contents<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="index.html"><strong>Table of Contents</strong></a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="preface.html"><strong>Preface</strong></a></li>
+                    
+                    <li role="separator" class="divider"></li>
+                    
+                        <li><a href="sampling.html"> <strong>Chapter 1: </strong>Measurement basics</a></li>
+                    
+                        <li><a href="dataloggers.html"> <strong>Chapter 2: </strong>Datalogger hardware and sensor connections</a></li>
+                    
+                        <li><a href="connecting_to_computers.html"> <strong>Chapter 3: </strong>Connecting loggers to computers</a></li>
+                    
+                        <li><a href="programming.html"> <strong>Chapter 4: </strong>Introduction to Programming and Python</a></li>
+                    
+                        <li><a href="scipy.html"> <strong>Chapter 5: </strong>Scientific Python</a></li>
+                    
+                        <li><a href="plotting.html"> <strong>Chapter 6: </strong>Plotting</a></li>
+                    
+                        <li><a href="spectrum.html"> <strong>Chapter 7: </strong>Frequency Analysis</a></li>
+                    
+                        <li><a href="dsp.html"> <strong>Chapter 8: </strong>Digital Signal Processing</a></li>
+                    
+                        <li><a href="references.html"> <strong>Chapter 9: </strong>References</a></li>
+                    
+                
+
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- container-fluid -->
+</nav>
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class = "twelwe columns col-md-12">
+
+             <div id="book">
+  <div class="chapter" data-chapter="spectrum" data-number="7" data-tralics-id="cid55" id="cid55">
+   <h1>
+    <a class="heading hyperref" href="spectrum.html#cid55">
+     <span class="number">
+      Chapter 7
+     </span>
+     Frequency Analysis
+    </a>
+   </h1>
+  </div>
+  <div class="section" data-number="7.1" data-tralics-id="cid56" id="cid56">
+   <h2>
+    <a class="heading hyperref" href="spectrum.html#cid56">
+     <span class="number">
+      7.1
+     </span>
+     Time and frequency domain
+    </a>
+   </h2>
+   <p>
+    The interesting information in a signal can be found from frequency domain or time domain, or we
+can be interested in both.
+    <span class="intersentencespace">
+    </span>
+    The information in time domain describes
+    <em>
+     when
+    </em>
+    something
+occurs and what the amplitude of the occurrence is.
+    <span class="intersentencespace">
+    </span>
+    e.g.
+    <span class="intersentencespace">
+    </span>
+    milk flow
+rate in different stages of milking, air humidity coming from a grain dryer.
+   </p>
+   <p>
+    The information in frequency domain is periodic, it describes how often
+something happens.
+    <span class="intersentencespace">
+    </span>
+    Typical frequency domain signals are sound, vibration and
+respiration.
+   </p>
+   <ul>
+    <li>
+     <strong>
+      Time domain
+     </strong>
+     : signals are indexed by time
+     <sup class="footnote" id="cha-7_footnote-ref-1">
+      <a href="#cha-7_footnote-1">
+       1
+      </a>
+     </sup>
+     .
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Frequency domain
+     </strong>
+     : signals are indexed by frequency.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      FFT
+     </strong>
+     Fast Fourier transform is used to change signal from one domain to another.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <div class="center figure" data-number="7.1" data-tralics-id="uid283" id="fig-domains">
+    <div class="graphics image">
+     <img alt="images/DSP/domains" src="images/DSP/domains.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 7.1:
+     </span>
+     <span class="description">
+      Time and frequency domain representation of a signal.
+     </span>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="7.2" data-tralics-id="cid57" id="cid57">
+   <h2>
+    <a class="heading hyperref" href="spectrum.html#cid57">
+     <span class="number">
+      7.2
+     </span>
+     Discrete Fourier Transform
+    </a>
+   </h2>
+   <p>
+    Discrete Fourier Transform (DFT) is used to transform a
+signal from time domain to frequency domain.
+    <span class="intersentencespace">
+    </span>
+    That is calculating the
+frequency components from time series data.
+    <span class="intersentencespace">
+    </span>
+    The result of the transform
+is called the spectrum or power spectral density PSD of the signal.
+   </p>
+   <p>
+    DFT is a nonparametric method for estimating the spectrum i.e.
+    <span class="intersentencespace">
+    </span>
+    it
+doesn’t assume that the data follows a specific model and is a fairly robust method.
+    <span class="intersentencespace">
+    </span>
+    Autoregressive models are parametric methods for spectral estimation and they have more strict assumption about the data.
+   </p>
+   <ul>
+    <li>
+     Fast Fourier Transform
+     <strong>
+      FFT
+     </strong>
+     is computationally efficient
+algorithm to compute DFT.
+    </li>
+    <li>
+     In practice the two terms are often used interchangeably.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     DFT works by fitting sine and cosine waves of different frequencies
+to the time series data.
+     <span class="intersentencespace">
+     </span>
+     The correlation between the sine and cosine
+wave of specific frequency then becomes the value of that frequency
+in the frequency spectrum.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    DFT
+    <span class="inline_math">
+     \(  X_k  \)
+    </span>
+    for time series
+    <span class="inline_math">
+     \(  x_n  \)
+    </span>
+    is defined as:
+   </p>
+   <div class="equation" data-number="7.1" data-tralics-id="uid287" id="uid287">
+    \begin{align}
+X_k = \frac{1}{N}\sum_{t=0}^{N-1} x_n \cdot e^{-i 2 \pi \frac{k}{N} n}
+\end{align}
+   </div>
+   <p class="noindent">
+    where
+    <span class="inline_math">
+     \(  k =  0,1 \dots \frac{N}{2}  \)
+    </span>
+   </p>
+   <p>
+    This is the complex form of the transform, but it can also be
+expressed in friendlier form using familiar sines and cosines (Real DFT):
+   </p>
+   <div class="equation" data-number="7.2" data-tralics-id="uid288" id="uid288">
+    \begin{align}
+ReX_k  = \frac{2}{N} \sum_{n=0}^{N-1} x_n \cdot cos(2 \pi \frac{k}{N} n)
+\end{align}
+   </div>
+   <div class="equation" data-number="7.3" data-tralics-id="uid289" id="uid289">
+    \begin{align}
+ImX_k = \frac{-2}{N} \sum_{n=0}^{N-1} x_n \cdot sin(2 \pi \frac{k}{N} n)
+\end{align}
+   </div>
+   <p class="noindent">
+    And the magnitude is:
+   </p>
+   <div class="equation" data-number="7.4" data-tralics-id="uid290" id="uid290">
+    \begin{align}
+MagX_k = \sqrt{ReX_k^2 + ImX_k^2}
+\end{align}
+   </div>
+   <p class="noindent">
+    The power spectral density (PSD)
+    <span class="inline_math">
+     \(  S_k  \)
+    </span>
+    is calculated as in (Percival &amp; Walden 1998):
+   </p>
+   <div class="equation" data-number="7.5" data-tralics-id="uid291" id="uid291">
+    \begin{align}
+S_k  = \frac{MagX_{k}^2}{2}
+\end{align}
+   </div>
+   <p class="noindent">
+    By definition the sum of elements in PSD equal the
+sample variance
+    <span class="inline_math">
+     \(  S_k \equiv \sigma^2  \)
+    </span>
+    , (Percival &amp; Walden 1998) that is:
+   </p>
+   <div class="equation" data-number="7.6" data-tralics-id="uid292" id="eq-denvar">
+    \begin{equation}
+\label{eq:denvar}
+\sum_{j=1}^{k} S_k  = \sigma^2
+\end{equation}
+   </div>
+   <p class="noindent">
+    The spectrum is calculated for fundamental frequencies [spectrum4].
+    <span class="intersentencespace">
+    </span>
+    The frequency resolution of the spectrum
+depends on the number samples used in the Transform and the sampling
+rate and is given by:
+    <span class="inline_math">
+     \(  \frac{\text{Sampling rate}}{N}  \)
+    </span>
+    .
+    <span class="intersentencespace">
+    </span>
+    The
+computation of Real the real DFT is explained in (Smith 1997) Ch.8 and
+the complex DFT in Ch.
+    <span class="intersentencespace">
+    </span>
+    31.
+   </p>
+  </div>
+  <div class="section" data-number="7.3" data-tralics-id="cid58" id="cid58">
+   <h2>
+    <a class="heading hyperref" href="spectrum.html#cid58">
+     <span class="number">
+      7.3
+     </span>
+     Practical DFT using FFT in Python
+    </a>
+   </h2>
+   <p>
+    The good news is that you don’t need to write the equation to the
+computer, but they have already been implemented for you in most
+software packages.
+    <span class="intersentencespace">
+    </span>
+    This means you can use it easily when you remember certain basic principles.
+   </p>
+   <ul>
+    <li>
+     Software usually returns the complex version of FFT and therefore you need to use absolute values of the result when you plot the frequency spectrum.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     The length of the signal must be power of 2 so
+     <span class="inline_math">
+      \(  2^n  \)
+     </span>
+     (256,
+512, 1024) for most FFT implementations, but a lot of software takes
+care of this automatically by truncating or zero padding the data.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    You can use
+    <code>
+     scipy.signal.periodogram
+    </code>
+    to get the power spectrum and
+power spectral density and
+    <code>
+     pyageng.pfft
+    </code>
+    to plot it.
+   </p>
+   <p>
+    <strong>
+     Have a look at an example:
+    </strong>
+   </p>
+   <p>
+    Let’s first create a signal with two frequency components.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c">#Create a signal</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span>
+<span class="n">plot</span><span class="p">((</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">250</span><span class="p">])</span>
+<span class="n">title</span><span class="p">(</span><span class="s">'signal'</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s">'Signal strength'</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">'Sample number'</span><span class="p">)</span>
+</pre>
+    </div>
+   </div>
+   <div class="graphics image">
+    <img alt="images/spectrum/spectrum_figure1_1" src="images/spectrum/spectrum_figure1_1.png"/>
+   </div>
+   <p>
+    We will calculate
+    <span class="inline_math">
+     \( S_k \)
+    </span>
+    for frequencies
+    <span class="inline_math">
+     \( f \)
+    </span>
+    using
+    <code>
+     scipy.signal.periodogram
+    </code>
+    .
+    <span class="intersentencespace">
+    </span>
+    The
+    <code>
+     scaling
+    </code>
+    is set to “density” by default in which case the returned spectra is returned in units magnitude / frequency we set it to spectrum to verify
+    <a class="hyperref" href="spectrum.html#eq-denvar">
+     equation
+     <span class="ref">
+      7.6
+     </span>
+    </a>
+    .
+    <span class="intersentencespace">
+    </span>
+    Setting
+    <code>
+     return_onesided
+    </code>
+    to true returns
+only the first half of FFT in real numbers, which usually what we are interested in.
+   </p>
+   <p>
+    The function accepts the same arguments as
+    <code>
+     scipy.signal.periodogram
+    </code>
+    .
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">,</span> <span class="n">Sk</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">periodogram</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nfft</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">return_onesided</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+<span class="n">scaling</span> <span class="o">=</span> <span class="s">"spectrum"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c"># Check that sum(Sk) equals variance of x</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">Sk</span><span class="p">)</span> <span class="o">==</span> <span class="n">var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="bp">True</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    Finally we use
+    <code>
+     pyageng.pfft
+    </code>
+    the to plot the periodogram, this time using the default scaling.
+    <span class="intersentencespace">
+    </span>
+    The plot shows that main frequencies contained in the signal are around 0.08 and 0.12, the unit is relative to sampling rate.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="kn">import</span> <span class="nn">pyageng</span>
+<span class="n">pyageng</span><span class="o">.</span><span class="n">pfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre>
+    </div>
+   </div>
+   <div class="graphics image">
+    <img alt="images/spectrum/spectrum_figure3_1" src="images/spectrum/spectrum_figure3_1.png"/>
+   </div>
+   <div class="subsection" data-number="7.3.1" data-tralics-id="uid295" id="uid295">
+    <h3>
+     <a class="heading hyperref" href="spectrum.html#uid295">
+      <span class="number">
+       7.3.1
+      </span>
+      FFT pitfalls
+     </a>
+    </h3>
+    <p>
+     There are certain common pitfalls for people new to DFT/FFT. Sometimes
+you can see a clear period in the data, but nothing in the spectrum
+this is usually because the data needs to have a zero mean and can’t
+have any linear trends for FFT to behave nicely.
+     <span class="intersentencespace">
+     </span>
+     Another common
+mistake is to try to improve the resolution by increasing sampling
+rate which also doesn’t work, you need to increase the sampling time
+to get better resolution.
+    </p>
+    <p>
+     <strong>
+      Here is a checklist to successful FFT:
+     </strong>
+    </p>
+    <ol>
+     <li>
+      You need to
+      <strong>
+       remove the mean and linear components
+      </strong>
+      from data
+before computing FFT.
+     </li>
+     <li>
+      The biggest frequency in spectrum is half of the sampling rate.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      The
+      <em>
+       frequency resolution
+      </em>
+      of the spectrum depends on the
+duration of the sample.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      The transform assumes that the signal is stationary (=the
+frequency doesn’t change)
+     </li>
+    </ol>
+   </div>
+   <div class="subsection" data-number="7.3.2" data-tralics-id="uid300" id="uid300">
+    <h3>
+     <a class="heading hyperref" href="spectrum.html#uid300">
+      <span class="number">
+       7.3.2
+      </span>
+      Harmonics
+     </a>
+    </h3>
+    <p>
+     Harmonic waves are are integer multiples (
+     <span class="inline_math">
+      \( 2\cdot f, 3\cdot f, \dots \)
+     </span>
+     )
+of the fundamental frequencies so e.g.
+     <span class="intersentencespace">
+     </span>
+     the fundamental frequency of 1Hz has harmonics in
+2Hz, 3Hz and so on.
+    </p>
+    <p>
+     DFT is calculated only for fundamental frequencies.
+     <span class="intersentencespace">
+     </span>
+     This means that each
+sine and cosine wave used to calculate the power of a frequency is
+uncorrelated with others and no exact harmonics are used in the
+transform.
+     <span class="intersentencespace">
+     </span>
+     In practice this means that there is only one peak in the PSD
+for a perfect sine wave (
+     <a class="hyperref" href="spectrum.html#fig-harmonics">
+      Figure
+      <span class="ref">
+       7.2
+      </span>
+     </a>
+     a and b).
+    </p>
+    <p>
+     However real world signals are usually not perfect sinewaves, they have
+a different shape and their frequency fluctuates.
+     <span class="intersentencespace">
+     </span>
+     Because the
+fundamental frequencies used in DFT are very close to each other it
+means that multiple peaks can be seen in PSD for non-sine wave periodic
+signals.
+    </p>
+    <p>
+     The PSD of sawtooth wave in
+     <a class="hyperref" href="spectrum.html#fig-harmonics">
+      Figure
+      <span class="ref">
+       7.2
+      </span>
+     </a>
+     c has the highest
+peak at its actual (normalized) frequency 0.025, the second peak at
+0.049 and the third at 0.074.
+     <span class="intersentencespace">
+     </span>
+     While these are not exact harmonics they
+are very close and you often see these peaks appearing when you used DFT
+for actual measured signals.
+    </p>
+    <p>
+     It is worth noting that the sawtooth and square waves actual contains
+multiple different frequencies because their rate of change varies.
+     <span class="intersentencespace">
+     </span>
+     The
+sawtooth has a higher frequency when it falls than when it rises and the
+square wave has high frequency when it rises and falls, but zero
+frequency at the top and bottom.
+    </p>
+    <p>
+     Here is the code used to make
+     <a class="hyperref" href="spectrum.html#fig-harmonics">
+      Figure
+      <span class="ref">
+       7.2
+      </span>
+     </a>
+     :
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pyageng</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">plot_signal</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">axis</span><span class="p">(</span><span class="s">'tight'</span><span class="p">)</span>
+    <span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+    <span class="n">xlabel</span><span class="p">(</span><span class="s">'n (samples)'</span><span class="p">)</span>
+    <span class="n">ylabel</span><span class="p">(</span><span class="s">'Amplitude'</span><span class="p">)</span>
+
+<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">321</span><span class="p">)</span>
+<span class="n">sx</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plot_signal</span><span class="p">(</span><span class="n">sx</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"a) Sinusoidal signal"</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">322</span><span class="p">)</span>
+<span class="n">pfft</span><span class="p">(</span><span class="n">sx</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"b) PSD of sinusoidal signal"</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">323</span><span class="p">)</span>
+<span class="n">sax</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">sawtooth</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plot_signal</span><span class="p">(</span><span class="n">sax</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"c) Sawtooth signal"</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">324</span><span class="p">)</span>
+<span class="n">pfft</span><span class="p">(</span><span class="n">sax</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"d) PSD of sawtooth signal"</span><span class="p">)</span>
+
+<span class="n">sqx</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">325</span><span class="p">)</span>
+<span class="n">plot_signal</span><span class="p">(</span><span class="n">sqx</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"e) Square signal"</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">326</span><span class="p">)</span>
+<span class="n">pfft</span><span class="p">(</span><span class="n">sqx</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"f) PSD of square signal"</span><span class="p">)</span>
+
+<span class="c">#Add space between subplots</span>
+<span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+<span class="n">savefig</span><span class="p">(</span><span class="s">'images/DSP/harmonics.png'</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="center figure" data-number="7.2" data-tralics-id="uid301" id="fig-harmonics">
+     <div class="graphics image">
+      <img alt="images/DSP/harmonics" src="images/DSP/harmonics.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 7.2:
+      </span>
+      <span class="description">
+       DFT from sine wave, sawtooth and square wave of the same
+frequency.
+       <span class="intersentencespace">
+       </span>
+       Notice that the PSD of sawtooth and square wave also
+show the harmonics of the frequencies.
+       <span class="intersentencespace">
+       </span>
+       The power is shown in
+linear scale.
+      </span>
+     </div>
+    </div>
+    <clearpage>
+    </clearpage>
+   </div>
+  </div>
+  <div class="section" data-number="7.4" data-tralics-id="cid59" id="cid59">
+   <h2>
+    <a class="heading hyperref" href="spectrum.html#cid59">
+     <span class="number">
+      7.4
+     </span>
+     Welch Transform - spectral averaging
+    </a>
+   </h2>
+   <p>
+    Welch’s Method to calculate PSD uses averaged overlapping FFTs resulting in smoother estimates.
+   </p>
+   <ul>
+    <li>
+     Can be calculated using e.g.
+     <span class="intersentencespace">
+     </span>
+     50% overlap.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Can use windowing resulting in smoother spectra.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Decreases resolution, but gives cleaner PSD.
+    </li>
+    <li>
+     Especially useful if you are only interested in the main frequency
+component (=highest peak).
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <code>
+      scipy.signal.welch
+     </code>
+     command in Python and
+     <code>
+      pyageng.pwelch
+     </code>
+     for plotting.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+  </div>
+  <div class="section" data-number="7.5" data-tralics-id="cid60" id="cid60">
+   <h2>
+    <a class="heading hyperref" href="spectrum.html#cid60">
+     <span class="number">
+      7.5
+     </span>
+     Autoregressive models
+    </a>
+   </h2>
+   <p>
+    <strong>
+     Autoregressive models
+    </strong>
+    assume that each datapoint in a timeseries (
+    <span class="inline_math">
+     \( x_t \)
+    </span>
+    ) can
+obtained with regression of
+    <span class="inline_math">
+     \( n \)
+    </span>
+    previous values (
+    <span class="inline_math">
+     \( x_{t-1}\ldots x_{t-p} \)
+    </span>
+    )
+   </p>
+   <ul>
+    <li>
+     They can be estimated using several different methods: Least
+squares, Yule-walker and Burg.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     The model order
+     <em>
+      p
+     </em>
+     is usually chosen using some information
+criteria: BIC or AIC.
+    </li>
+   </ul>
+   <p>
+    Autoregressive model of order p, AR(p) for time series
+    <span class="inline_math">
+     \( x_t \)
+    </span>
+    is given by:
+   </p>
+   <div class="equation" data-number="7.7" data-tralics-id="uid309" id="uid309">
+    \begin{align}
+x_t = \phi_1 x_{t-1} + \ldots + \phi_p x_{t-p} + \epsilon_t
+\end{align}
+   </div>
+   <p class="noindent">
+    where
+    <span class="inline_math">
+     \( \epsilon_t \)
+    </span>
+    is white noise and
+    <span class="inline_math">
+     \( \phi_1 \ldots \phi_p \)
+    </span>
+    are model coefficients.
+   </p>
+   <p>
+    AIC (Akaike information criteria) is a measure of relative goodness of
+fit and it is used to find the best model.
+    <span class="intersentencespace">
+    </span>
+    It tries to choose the
+optimal number of parameters and avoid overfitting by finding a balance
+between goodness of fit and the number of parameters.
+    <span class="intersentencespace">
+    </span>
+    AIC is calculated
+using:
+   </p>
+   <div class="equation" data-number="7.8" data-tralics-id="uid310" id="uid310">
+    \begin{align}
+\text{AIC} = 2k - 2\text{ln}(L)
+\end{align}
+   </div>
+   <p class="noindent">
+    where k is the number of parameters and L is the maximized likelihood of
+the fitted model.
+   </p>
+  </div>
+  <div class="section" data-number="7.6" data-tralics-id="cid61" id="cid61">
+   <h2>
+    <a class="heading hyperref" href="spectrum.html#cid61">
+     <span class="number">
+      7.6
+     </span>
+     Fitting AR models
+    </a>
+   </h2>
+   <div class="subsection" data-number="7.6.1" data-tralics-id="uid311" id="uid311">
+    <h3>
+     <a class="heading hyperref" href="spectrum.html#uid311">
+      <span class="number">
+       7.6.1
+      </span>
+      Least squares with direct inversion
+     </a>
+    </h3>
+    <p>
+     Due to the fact that AR model of order
+     <span class="inline_math">
+      \( p \)
+     </span>
+     can be viewed as regression
+of
+     <span class="inline_math">
+      \( p \)
+     </span>
+     previous values you can fit them using ordinary least squares as
+you would fit a regular regression model.
+    </p>
+    <p>
+     Suppose we want to fit an AR(3) model to series
+     <span class="inline_math">
+      \( x_t \)
+     </span>
+     with
+     <span class="inline_math">
+      \( N \)
+     </span>
+     elements.
+     <span class="intersentencespace">
+     </span>
+     We can form an overdetermined system:
+    </p>
+    <div class="equation" data-number="7.9" data-tralics-id="uid312" id="uid312">
+     \begin{align}
+\mathbf b = \mathbf A \mathbf \phi
+\end{align}
+    </div>
+    <p class="noindent">
+     where the matrices are:
+    </p>
+    <div class="equation" data-number="7.10" data-tralics-id="uid313" id="uid313">
+     \begin{align}
+\begin{pmatrix}
+  x_4\\
+  x_5\\
+  \vdots\\
+  x_N
+\end{pmatrix}
+=
+\begin{pmatrix}
+  x_3 &amp; x_2 &amp; x_1 \\
+  x_4 &amp; x_3 &amp; x_2 \\
+  \vdots &amp; \vdots &amp; \vdots\\
+  x_{N-1} &amp; x_{N-1} &amp; x_{N-3}
+\end{pmatrix}
+\begin{pmatrix}
+\phi_1\\
+\phi_2\\
+\phi_3
+\end{pmatrix}
+\end{align}
+    </div>
+    <p class="noindent">
+     We can then solve the AR coefficients
+     <span class="inline_math">
+      \( \phi \)
+     </span>
+     using least squares estimator:
+    </p>
+    <div class="equation" data-number="7.11" data-tralics-id="uid314" id="uid314">
+     \begin{align}
+\Phi = (A^\intercal A)^{-1}A^\intercal b
+\end{align}
+    </div>
+    <p class="noindent">
+     This is exactly the same method that is used for linear regression
+models and it is fairly easy to implement using SciPy, but it is not
+very computationally efficient if you have a lot of data.
+    </p>
+   </div>
+   <div class="subsection" data-number="7.6.2" data-tralics-id="uid315" id="uid315">
+    <h3>
+     <a class="heading hyperref" href="spectrum.html#uid315">
+      <span class="number">
+       7.6.2
+      </span>
+      Yule-Walker method
+     </a>
+    </h3>
+    <p>
+     First we need to compute autocorrelation function
+     <span class="inline_math">
+      \( r_t \)
+     </span>
+     Then we can form Yule-Walker equations:
+    </p>
+    <div class="equation" data-number="7.12" data-tralics-id="uid316" id="uid316">
+     \begin{align}
+\mathbf r = \mathbf R \Phi
+\end{align}
+    </div>
+    <div class="equation" data-number="7.13" data-tralics-id="uid317" id="uid317">
+     \begin{align}
+\begin{pmatrix}
+  r_1\\
+    r_2\\
+    \vdots\\
+    r_p
+  \end{pmatrix}
+  &amp;=
+  \begin{pmatrix}
+    r_0    &amp; r_1    &amp; \ldots  &amp; r_{p-1} \\
+    r_1    &amp; r_0      &amp; \ldots  &amp; r_{p-2} \\
+    \vdots &amp; \vdots &amp; \ddots  &amp; \vdots \\
+    r_{p-1} &amp; r_{p-2} &amp; \ldots  &amp;  r_0
+  \end{pmatrix}
+    \begin{pmatrix}
+      \phi_1\\
+      \phi_2\\
+      \vdots\\
+      \phi_{p}\\
+\end{pmatrix}
+ \end{align}
+    </div>
+    <p class="noindent">
+     The parameters
+     <span class="inline_math">
+      \(  \phi  \)
+     </span>
+     can then be solved directly using:
+    </p>
+    <div class="equation">
+     \[ 
+\Phi = \mathbf {R}^{-1}r
+ \]
+    </div>
+   </div>
+   <div class="subsection" data-number="7.6.3" data-tralics-id="uid318" id="uid318">
+    <h3>
+     <a class="heading hyperref" href="spectrum.html#uid318">
+      <span class="number">
+       7.6.3
+      </span>
+      Power spectral density with AR models
+     </a>
+    </h3>
+    <ul>
+     <li>
+      Spectrum is calculated
+      <strong>
+       parametrically
+      </strong>
+      from the model parameters.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      AR spectrum should only be used if the resolution of FFT is not
+sufficient i.e.
+      <span class="intersentencespace">
+      </span>
+      for short samples.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      The model order affects the result significantly so it needs to be
+chosen carefully.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      The spectral estimates might be
+      <strong>
+       completely wrong
+      </strong>
+      if
+the model doesn’t fit to the data well.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Use detrending and filters when needed.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <p>
+     Even though AR models are usually not the preferred method for frequency
+estimation they are extremely useful otherwise.
+     <span class="intersentencespace">
+     </span>
+     AR models are frequently
+used in time series analysis and forecasting, they are also used with
+good results in model based control.
+     <span class="intersentencespace">
+     </span>
+     Madsen (2008) is a good reference for
+AR models and time series analysis.
+    </p>
+   </div>
+   <div class="subsection" data-number="7.6.4" data-tralics-id="uid324" id="uid324">
+    <h3>
+     <a class="heading hyperref" href="spectrum.html#uid324">
+      <span class="number">
+       7.6.4
+      </span>
+      AR spectrum using Python
+     </a>
+    </h3>
+    <p>
+     A small python example (see
+     <code>
+      pyageng
+     </code>
+     -module source for implementation).
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">pyageng</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">pcov</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c">#Least squares estimate</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">pyulear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c">#Yule-Walker estimate</span>
+</pre>
+     </div>
+    </div>
+    <div class="graphics image">
+     <img alt="images/spectrum/spectrum_figure5_1" src="images/spectrum/spectrum_figure5_1.png"/>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="7.7" data-tralics-id="cid62" id="cid62">
+   <h2>
+    <a class="heading hyperref" href="spectrum.html#cid62">
+     <span class="number">
+      7.7
+     </span>
+     Comparison of FFT, Welch and AR
+    </a>
+   </h2>
+   <p>
+    <a class="hyperref" href="spectrum.html#fig-xsignal">
+     Figure
+     <span class="ref">
+      7.3
+     </span>
+    </a>
+    shows a signal that has two frequencies of
+interest with random and high frequency noise.
+    <span class="intersentencespace">
+    </span>
+    Notice that you can’t
+tell that some of the noise is frequency specific from the time series
+data, but there is high frequency peak in the signal spectra
+(
+    <a class="hyperref" href="spectrum.html#fig-spectra">
+     Figure
+     <span class="ref">
+      7.4
+     </span>
+    </a>
+    ).
+    <span class="intersentencespace">
+    </span>
+    The signal is generated with Python using.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="n">x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span> <span class="o">+</span> \
+      <span class="n">randn</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span><span class="o">*</span><span class="mf">0.2</span> <span class="o">+</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="mi">250</span><span class="p">])</span>
+</pre>
+    </div>
+   </div>
+   <div class="center figure" data-number="7.3" data-tralics-id="uid325" id="fig-xsignal">
+    <div class="graphics image">
+     <img alt="images/spectrum/spectrum_xsignal_1" src="images/spectrum/spectrum_xsignal_1.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 7.3:
+     </span>
+     <span class="description">
+      A generated signal with two frequency components and added noise.
+      <span class="intersentencespace">
+      </span>
+     </span>
+    </div>
+   </div>
+   <p>
+    We will calculate the PSD using the different methods and plot them in one figure:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">pyageng</span><span class="o">.</span><span class="n">pfft</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">pyageng</span><span class="o">.</span><span class="n">pwelch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nfft</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">noverlap</span> <span class="o">=</span> <span class="mi">128</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">pyageng</span><span class="o">.</span><span class="n">pcov</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">pyageng</span><span class="o">.</span><span class="n">pcov</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre>
+    </div>
+   </div>
+   <div class="center figure" data-number="7.4" data-tralics-id="uid326" id="fig-spectra">
+    <div class="graphics image">
+     <img alt="images/spectrum/spectrum_spectra_1" src="images/spectrum/spectrum_spectra_1.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 7.4:
+     </span>
+     <span class="description">
+      PSD estimates of signal from
+      <a class="hyperref" href="spectrum.html#fig-xsignal">
+       Figure
+       <span class="ref">
+        7.3
+       </span>
+      </a>
+      with different methods.
+      <span class="intersentencespace">
+      </span>
+      Units are y-axis: Power/frequency; x-axis: Normalized frequency
+     </span>
+    </div>
+   </div>
+   <clearpage>
+   </clearpage>
+  </div>
+  <div class="section" data-number="7.8" data-tralics-id="cid63" id="cid63">
+   <h2>
+    <a class="heading hyperref" href="spectrum.html#cid63">
+     <span class="number">
+      7.8
+     </span>
+     Exercises
+    </a>
+   </h2>
+   <ol>
+    <li>
+     How do you convert a signal from time domain to frequency domain?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     When would you use autoregressive model for PSD estimation?
+     <span class="intersentencespace">
+     </span>
+     How do you choose the correct order of the model?
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ol>
+  </div>
+  <div id="cha-7_footnotes">
+   <ol class="footnotes">
+    <li id="cha-7_footnote-1">
+     Time is on the x-axis
+     <a class="arrow" href="#cha-7_footnote-ref-1">
+      ↑
+     </a>
+    </li>
+   </ol>
+  </div>
+ </div>
+
+
+        <div class="footer" style = "text-align: center;">&copy; <a href="http://mpastell.com">Matti Pastell</a> 2016</div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6474352-9', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

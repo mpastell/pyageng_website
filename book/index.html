@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Measurements and Data Analysis for Agricultural Engineers using Python</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="css/softcover.css"> -->
+<link rel="stylesheet" href="css/pygments.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+<script src = "js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+
+<link rel="stylesheet" href="css/custom.css">
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+    "HTML-CSS": {
+      availableFonts: ["TeX"],
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"],
+      equationNumbers: {
+        autoNumber: "AMS",
+        
+      },
+      Macros: {
+        PolyTeX:    "Poly{\\TeX}",
+        PolyTeXnic: "Poly{\\TeX}nic",
+        "softcover": "\\texttt{softcover}",
+    "unitvec": ["{\\hat #1}", 1]
+      }
+    },
+    showProcessingMessages: false,
+    messageStyle: "none",
+    imageFont: null
+      });
+    
+ </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+ <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#chapters-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PyAgEng</a><p class="navbar-text"> - Matti Pastell</p>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right" id="chapters-nav">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Table of Contents<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="index.html"><strong>Table of Contents</strong></a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="preface.html"><strong>Preface</strong></a></li>
+                    
+                    <li role="separator" class="divider"></li>
+                    
+                        <li><a href="sampling.html"> <strong>Chapter 1: </strong>Measurement basics</a></li>
+                    
+                        <li><a href="dataloggers.html"> <strong>Chapter 2: </strong>Datalogger hardware and sensor connections</a></li>
+                    
+                        <li><a href="connecting_to_computers.html"> <strong>Chapter 3: </strong>Connecting loggers to computers</a></li>
+                    
+                        <li><a href="programming.html"> <strong>Chapter 4: </strong>Introduction to Programming and Python</a></li>
+                    
+                        <li><a href="scipy.html"> <strong>Chapter 5: </strong>Scientific Python</a></li>
+                    
+                        <li><a href="plotting.html"> <strong>Chapter 6: </strong>Plotting</a></li>
+                    
+                        <li><a href="spectrum.html"> <strong>Chapter 7: </strong>Frequency Analysis</a></li>
+                    
+                        <li><a href="dsp.html"> <strong>Chapter 8: </strong>Digital Signal Processing</a></li>
+                    
+                        <li><a href="references.html"> <strong>Chapter 9: </strong>References</a></li>
+                    
+                
+
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- container-fluid -->
+</nav>
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class = "twelwe columns col-md-12">
+
+             <div id="book">
+  <div data-chapter="frontmatter" data-number="0" id="frontmatter">
+   <div id="title_page">
+    <h1 class="title">
+     Measurements and Data Analysis for Agricultural Engineers Using Python
+    </h1>
+    <h2 class="author">
+     Matti Pastell
+    </h2>
+    <h2 class="date">
+     <small>
+      © 2016 Matti Pastell
+     </small>
+    </h2>
+   </div>
+   <h1 class="contents">
+    Contents
+   </h1>
+   <div id="table_of_contents">
+    <ul>
+     <li class="chapter-star">
+      <a class="heading hyperref" href="preface.html">
+       Preface
+      </a>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="sampling.html#cid1">
+       <span class="number">
+        Chapter 1
+       </span>
+       Measurement basics
+      </a>
+     </li>
+     <li>
+      <ul>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid2">
+         <span class="number">
+          1.1
+         </span>
+         Why do we measure things?
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid3">
+         <span class="number">
+          1.2
+         </span>
+         The phases of a successful measurement
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid6">
+           <span class="number">
+            1.2.1
+           </span>
+           Planning
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid13">
+           <span class="number">
+            1.2.2
+           </span>
+           Preparing
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid22">
+           <span class="number">
+            1.2.3
+           </span>
+           Executing
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid27">
+           <span class="number">
+            1.2.4
+           </span>
+           Analysis
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid4">
+         <span class="number">
+          1.3
+         </span>
+         Measurement system components
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid5">
+         <span class="number">
+          1.4
+         </span>
+         Signals
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid31">
+           <span class="number">
+            1.4.1
+           </span>
+           Analog signals
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid34">
+           <span class="number">
+            1.4.2
+           </span>
+           Digital signals
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid6">
+         <span class="number">
+          1.5
+         </span>
+         Analog to digital conversion
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid7">
+         <span class="number">
+          1.6
+         </span>
+         Sampling
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid47">
+           <span class="number">
+            1.6.1
+           </span>
+           Random noise and the Gaussian distribution
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid49">
+           <span class="number">
+            1.6.2
+           </span>
+           Measures of signal quality
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid8">
+         <span class="number">
+          1.7
+         </span>
+         Properties of measurements
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid52">
+           <span class="number">
+            1.7.1
+           </span>
+           Accuracy and precision
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid53">
+           <span class="number">
+            1.7.2
+           </span>
+           Types of errors
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="sampling.html#uid54">
+           <span class="number">
+            1.7.3
+           </span>
+           Dynamic properties of measurements
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid9">
+         <span class="number">
+          1.8
+         </span>
+         Calibration
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid10">
+         <span class="number">
+          1.9
+         </span>
+         More terms
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="sampling.html#cid11">
+         <span class="number">
+          1.10
+         </span>
+         Exercises
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="dataloggers.html#cid12">
+       <span class="number">
+        Chapter 2
+       </span>
+       Datalogger hardware and sensor connections
+      </a>
+     </li>
+     <li>
+      <ul>
+       <li class="section">
+        <a class="heading hyperref" href="dataloggers.html#cid13">
+         <span class="number">
+          2.1
+         </span>
+         Datalogger options
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid89">
+           <span class="number">
+            2.1.1
+           </span>
+           Microcontrollers
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dataloggers.html#cid14">
+         <span class="number">
+          2.2
+         </span>
+         Dedicated DAQs
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid90">
+           <span class="number">
+            2.2.1
+           </span>
+           Cheap DAQs
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid91">
+           <span class="number">
+            2.2.2
+           </span>
+           More expensive DAQs
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dataloggers.html#cid15">
+         <span class="number">
+          2.3
+         </span>
+         Connecting sensors to loggers
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid102">
+           <span class="number">
+            2.3.1
+           </span>
+           Input types and voltage signals
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid107">
+           <span class="number">
+            2.3.2
+           </span>
+           Current signals
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid112">
+           <span class="number">
+            2.3.3
+           </span>
+           Voltage divider
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid116">
+           <span class="number">
+            2.3.4
+           </span>
+           Resistance
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid120">
+           <span class="number">
+            2.3.5
+           </span>
+           Wheatstone bridge
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid121">
+           <span class="number">
+            2.3.6
+           </span>
+           Amplifying signals
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="dataloggers.html#uid122">
+           <span class="number">
+            2.3.7
+           </span>
+           ADC input impedance
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dataloggers.html#cid16">
+         <span class="number">
+          2.4
+         </span>
+         Exercices
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="connecting_to_computers.html#cid17">
+       <span class="number">
+        Chapter 3
+       </span>
+       Connecting loggers to computers
+      </a>
+     </li>
+     <li>
+      <ul>
+       <li class="section">
+        <a class="heading hyperref" href="connecting_to_computers.html#sec-serialport">
+         <span class="number">
+          3.1
+         </span>
+         Serial port
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="connecting_to_computers.html#cid19">
+         <span class="number">
+          3.2
+         </span>
+         USB (universal serial bus)
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="connecting_to_computers.html#cid20">
+         <span class="number">
+          3.3
+         </span>
+         Ethernet
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="connecting_to_computers.html#cid21">
+         <span class="number">
+          3.4
+         </span>
+         Wireless connections
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="connecting_to_computers.html#uid153">
+           <span class="number">
+            3.4.1
+           </span>
+           Bluetooth
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="connecting_to_computers.html#uid154">
+           <span class="number">
+            3.4.2
+           </span>
+           Zigbee
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="connecting_to_computers.html#uid159">
+           <span class="number">
+            3.4.3
+           </span>
+           Radiomodems
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="connecting_to_computers.html#uid160">
+           <span class="number">
+            3.4.4
+           </span>
+           WLAN
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="connecting_to_computers.html#uid161">
+           <span class="number">
+            3.4.5
+           </span>
+           GPRS
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="connecting_to_computers.html#cid22">
+         <span class="number">
+          3.5
+         </span>
+         Exercises
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="programming.html#cid23">
+       <span class="number">
+        Chapter 4
+       </span>
+       Introduction to Programming and Python
+      </a>
+     </li>
+     <li>
+      <ul>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid24">
+         <span class="number">
+          4.1
+         </span>
+         Key Features of Python
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid25">
+         <span class="number">
+          4.2
+         </span>
+         Getting Python and libraries
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid26">
+         <span class="number">
+          4.3
+         </span>
+         Ways to use Python
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid177">
+           <span class="number">
+            4.3.1
+           </span>
+           REPL
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid180">
+           <span class="number">
+            4.3.2
+           </span>
+           Python scripts
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid185">
+           <span class="number">
+            4.3.3
+           </span>
+           IPython Notebook
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid27">
+         <span class="number">
+          4.4
+         </span>
+         Variables and operators
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid197">
+           <span class="number">
+            4.4.1
+           </span>
+           Numeric variables
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid200">
+           <span class="number">
+            4.4.2
+           </span>
+           Basic Math
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid201">
+           <span class="number">
+            4.4.3
+           </span>
+           Strings
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid208">
+           <span class="number">
+            4.4.4
+           </span>
+           Booleans
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid209">
+           <span class="number">
+            4.4.5
+           </span>
+           Naming variables
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid214">
+           <span class="number">
+            4.4.6
+           </span>
+           Variable scope
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid28">
+         <span class="number">
+          4.5
+         </span>
+         Operators
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid29">
+         <span class="number">
+          4.6
+         </span>
+         Keywords
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid30">
+         <span class="number">
+          4.7
+         </span>
+         Collections
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid216">
+           <span class="number">
+            4.7.1
+           </span>
+           Lists
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid224">
+           <span class="number">
+            4.7.2
+           </span>
+           Tuples
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid229">
+           <span class="number">
+            4.7.3
+           </span>
+           Dictionaries
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid31">
+         <span class="number">
+          4.8
+         </span>
+         Iteration and conditionals
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid236">
+           <span class="number">
+            4.8.1
+           </span>
+           For loop
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid237">
+           <span class="number">
+            4.8.2
+           </span>
+           Iterating trough a sequence
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid238">
+           <span class="number">
+            4.8.3
+           </span>
+           Iterating over a dictionary
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid32">
+         <span class="number">
+          4.9
+         </span>
+         Conditional statements
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid33">
+         <span class="number">
+          4.10
+         </span>
+         Combining conditions
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid34">
+         <span class="number">
+          4.11
+         </span>
+         While loop
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid240">
+           <span class="number">
+            4.11.1
+           </span>
+           Example: Finding the square root
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid35">
+         <span class="number">
+          4.12
+         </span>
+         Functions and modules
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid36">
+         <span class="number">
+          4.13
+         </span>
+         Defining functions
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid37">
+         <span class="number">
+          4.14
+         </span>
+         Modules
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid250">
+           <span class="number">
+            4.14.1
+           </span>
+           Importing code from modules
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid38">
+         <span class="number">
+          4.15
+         </span>
+         Files
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid254">
+           <span class="number">
+            4.15.1
+           </span>
+           Writing files
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid255">
+           <span class="number">
+            4.15.2
+           </span>
+           Reading files
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="programming.html#cid39">
+         <span class="number">
+          4.16
+         </span>
+         Date and time
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="programming.html#uid260">
+           <span class="number">
+            4.16.1
+           </span>
+           File formatting for measurements
+          </a>
+         </li>
+        </ul>
+       </li>
+      </ul>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="scipy.html#cid40">
+       <span class="number">
+        Chapter 5
+       </span>
+       Scientific Python
+      </a>
+     </li>
+     <li>
+      <ul>
+       <li class="section">
+        <a class="heading hyperref" href="scipy.html#cid41">
+         <span class="number">
+          5.1
+         </span>
+         NumPy arrays
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="scipy.html#uid278">
+           <span class="number">
+            5.1.1
+           </span>
+           Saving and loading NumPy arrays
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="scipy.html#cid42">
+         <span class="number">
+          5.2
+         </span>
+         pandas dataframes
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="plotting.html#cid43">
+       <span class="number">
+        Chapter 6
+       </span>
+       Plotting
+      </a>
+     </li>
+     <li>
+      <ul>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid44">
+         <span class="number">
+          6.1
+         </span>
+         Line plots
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid45">
+         <span class="number">
+          6.2
+         </span>
+         Scatter plot
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid46">
+         <span class="number">
+          6.3
+         </span>
+         Bar plot
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid47">
+         <span class="number">
+          6.4
+         </span>
+         Errorbars
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid48">
+         <span class="number">
+          6.5
+         </span>
+         Histogram
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid49">
+         <span class="number">
+          6.6
+         </span>
+         Boxplot
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid50">
+         <span class="number">
+          6.7
+         </span>
+         Stem plot
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid51">
+         <span class="number">
+          6.8
+         </span>
+         Contour
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid52">
+         <span class="number">
+          6.9
+         </span>
+         Surface plot
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid53">
+         <span class="number">
+          6.10
+         </span>
+         Subplots
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="plotting.html#cid54">
+         <span class="number">
+          6.11
+         </span>
+         Learning more
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="spectrum.html#cid55">
+       <span class="number">
+        Chapter 7
+       </span>
+       Frequency Analysis
+      </a>
+     </li>
+     <li>
+      <ul>
+       <li class="section">
+        <a class="heading hyperref" href="spectrum.html#cid56">
+         <span class="number">
+          7.1
+         </span>
+         Time and frequency domain
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="spectrum.html#cid57">
+         <span class="number">
+          7.2
+         </span>
+         Discrete Fourier Transform
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="spectrum.html#cid58">
+         <span class="number">
+          7.3
+         </span>
+         Practical DFT using FFT in Python
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="spectrum.html#uid295">
+           <span class="number">
+            7.3.1
+           </span>
+           FFT pitfalls
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="spectrum.html#uid300">
+           <span class="number">
+            7.3.2
+           </span>
+           Harmonics
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="spectrum.html#cid59">
+         <span class="number">
+          7.4
+         </span>
+         Welch Transform - spectral averaging
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="spectrum.html#cid60">
+         <span class="number">
+          7.5
+         </span>
+         Autoregressive models
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="spectrum.html#cid61">
+         <span class="number">
+          7.6
+         </span>
+         Fitting AR models
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="spectrum.html#uid311">
+           <span class="number">
+            7.6.1
+           </span>
+           Least squares with direct inversion
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="spectrum.html#uid315">
+           <span class="number">
+            7.6.2
+           </span>
+           Yule-Walker method
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="spectrum.html#uid318">
+           <span class="number">
+            7.6.3
+           </span>
+           Power spectral density with AR models
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="spectrum.html#uid324">
+           <span class="number">
+            7.6.4
+           </span>
+           AR spectrum using Python
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="spectrum.html#cid62">
+         <span class="number">
+          7.7
+         </span>
+         Comparison of FFT, Welch and AR
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="spectrum.html#cid63">
+         <span class="number">
+          7.8
+         </span>
+         Exercises
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="dsp.html#cid64">
+       <span class="number">
+        Chapter 8
+       </span>
+       Digital Signal Processing
+      </a>
+     </li>
+     <li>
+      <ul>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid65">
+         <span class="number">
+          8.1
+         </span>
+         What is Digital Signal Processing?
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid66">
+         <span class="number">
+          8.2
+         </span>
+         Filter types
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid67">
+         <span class="number">
+          8.3
+         </span>
+         Filter properties
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid68">
+         <span class="number">
+          8.4
+         </span>
+         Filter properties using SciPy
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="dsp.html#uid350">
+           <span class="number">
+            8.4.1
+           </span>
+           Frequency response
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid69">
+         <span class="number">
+          8.5
+         </span>
+         Impulse response
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="dsp.html#uid351">
+           <span class="number">
+            8.5.1
+           </span>
+           Step response
+          </a>
+         </li>
+         <li class="subsection">
+          <a class="heading hyperref" href="dsp.html#uid352">
+           <span class="number">
+            8.5.2
+           </span>
+           Plot all together
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid70">
+         <span class="number">
+          8.6
+         </span>
+         Decibels
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid71">
+         <span class="number">
+          8.7
+         </span>
+         Moving average filter
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="dsp.html#uid358">
+           <span class="number">
+            8.7.1
+           </span>
+           Moving average using SciPy.
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid72">
+         <span class="number">
+          8.8
+         </span>
+         Median filter
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid73">
+         <span class="number">
+          8.9
+         </span>
+         Example: Comparing moving average and median filter
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid74">
+         <span class="number">
+          8.10
+         </span>
+         FIR filters
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="dsp.html#uid368">
+           <span class="number">
+            8.10.1
+           </span>
+           FIR filters with SciPy
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid75">
+         <span class="number">
+          8.11
+         </span>
+         IIR filters
+        </a>
+       </li>
+       <li>
+        <ul>
+         <li class="subsection">
+          <a class="heading hyperref" href="dsp.html#uid378">
+           <span class="number">
+            8.11.1
+           </span>
+           IIR filters with SciPy
+          </a>
+         </li>
+        </ul>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid76">
+         <span class="number">
+          8.12
+         </span>
+         Filtering example
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid77">
+         <span class="number">
+          8.13
+         </span>
+         Modifying sample rate
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid78">
+         <span class="number">
+          8.14
+         </span>
+         Detrending
+        </a>
+       </li>
+       <li class="section">
+        <a class="heading hyperref" href="dsp.html#cid79">
+         <span class="number">
+          8.15
+         </span>
+         Exercises
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="chapter">
+      <a class="heading hyperref" href="references.html#cid80">
+       <span class="number">
+        Chapter 9
+       </span>
+       References
+      </a>
+     </li>
+    </ul>
+   </div>
+   <div class="chapter-star" id="preface">
+   </div>
+  </div>
+ </div>
+
+
+        <div class="footer" style = "text-align: center;">&copy; <a href="http://mpastell.com">Matti Pastell</a> 2016</div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6474352-9', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

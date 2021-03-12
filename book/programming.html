@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Measurements and Data Analysis for Agricultural Engineers using Python</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="css/softcover.css"> -->
+<link rel="stylesheet" href="css/pygments.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+<script src = "js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+
+<link rel="stylesheet" href="css/custom.css">
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+    "HTML-CSS": {
+      availableFonts: ["TeX"],
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"],
+      equationNumbers: {
+        autoNumber: "AMS",
+        
+      },
+      Macros: {
+        PolyTeX:    "Poly{\\TeX}",
+        PolyTeXnic: "Poly{\\TeX}nic",
+        "softcover": "\\texttt{softcover}",
+    "unitvec": ["{\\hat #1}", 1]
+      }
+    },
+    showProcessingMessages: false,
+    messageStyle: "none",
+    imageFont: null
+      });
+    
+ </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+ <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#chapters-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PyAgEng</a><p class="navbar-text"> - Matti Pastell</p>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right" id="chapters-nav">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Table of Contents<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="index.html"><strong>Table of Contents</strong></a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="preface.html"><strong>Preface</strong></a></li>
+                    
+                    <li role="separator" class="divider"></li>
+                    
+                        <li><a href="sampling.html"> <strong>Chapter 1: </strong>Measurement basics</a></li>
+                    
+                        <li><a href="dataloggers.html"> <strong>Chapter 2: </strong>Datalogger hardware and sensor connections</a></li>
+                    
+                        <li><a href="connecting_to_computers.html"> <strong>Chapter 3: </strong>Connecting loggers to computers</a></li>
+                    
+                        <li><a href="programming.html"> <strong>Chapter 4: </strong>Introduction to Programming and Python</a></li>
+                    
+                        <li><a href="scipy.html"> <strong>Chapter 5: </strong>Scientific Python</a></li>
+                    
+                        <li><a href="plotting.html"> <strong>Chapter 6: </strong>Plotting</a></li>
+                    
+                        <li><a href="spectrum.html"> <strong>Chapter 7: </strong>Frequency Analysis</a></li>
+                    
+                        <li><a href="dsp.html"> <strong>Chapter 8: </strong>Digital Signal Processing</a></li>
+                    
+                        <li><a href="references.html"> <strong>Chapter 9: </strong>References</a></li>
+                    
+                
+
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- container-fluid -->
+</nav>
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class = "twelwe columns col-md-12">
+
+             <div id="book">
+  <div class="chapter" data-chapter="programming" data-number="4" data-tralics-id="cid23" id="cid23">
+   <h1>
+    <a class="heading hyperref" href="programming.html#cid23">
+     <span class="number">
+      Chapter 4
+     </span>
+     Introduction to Programming and Python
+    </a>
+   </h1>
+   <p>
+    This chapters tries to cover enough basics of the Python programming
+language in order for you to get started with programming measurement
+software.
+    <span class="intersentencespace">
+    </span>
+    Understanding of basic concepts will help you to look for more
+information from the Internet and understanding the terms used in
+programming books.
+    <span class="intersentencespace">
+    </span>
+    If you want to read more about programming have a
+look at e.g.
+    <span class="intersentencespace">
+    </span>
+    “Think Python”
+    <sup class="footnote" id="cha-4_footnote-ref-1">
+     <a href="#cha-4_footnote-1">
+      1
+     </a>
+    </sup>
+    , which a freely available programming
+book for beginners.
+   </p>
+   <div class="aside" data-number="4.1" data-tralics-id="uid165" id="uid165">
+    <div class="heading">
+     <span class="number">
+      Box 4.1.
+     </span>
+     <span class="description">
+      Code examples
+     </span>
+    </div>
+    <p>
+     The code examples in this book are mostly minimal working examples,
+meaning that you can copy the code to Python terminal and it should run.
+    </p>
+   </div>
+   <p>
+    Overall programming is not difficult and anyone can learn it, but it
+does take some initial effort to learn how to think in terms of code and
+find out what methods are available etc.
+    <span class="intersentencespace">
+    </span>
+    In the end the productivity
+gain that you get for research work (or any work that includes
+repetitive tasks using a computer) is really worth the effort.
+   </p>
+  </div>
+  <div class="section" data-number="4.1" data-tralics-id="cid24" id="cid24">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid24">
+     <span class="number">
+      4.1
+     </span>
+     Key Features of Python
+    </a>
+   </h2>
+   <p>
+    We have chosen to use Python-programming language in this class.
+    <span class="intersentencespace">
+    </span>
+    There
+exists several programming languages and many of them can also be used
+to program measurement systems.
+   </p>
+   <p>
+    Knowledge of one programming language means that it is much easier to
+learn new languages, because the basic ideas and constructs are usually
+very similar.
+   </p>
+   <p>
+    The main reason for choosing Python was that it is quite easy to learn
+and has good driver support for many instruments.
+    <span class="intersentencespace">
+    </span>
+    Python is also taught
+in basic programming courses in many universities e.g.
+    <span class="intersentencespace">
+    </span>
+    MIT and Aalto
+University.
+   </p>
+   <p>
+    <strong>
+     Key Features:
+    </strong>
+   </p>
+   <ul>
+    <li>
+     Python is free and open source software.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Dynamically typed
+    </li>
+    <li>
+     Interpreted scripting language
+    </li>
+    <li>
+     Large standard library (batteries included)
+    </li>
+    <li>
+     Good scientific capabilities i.e.
+     <span class="intersentencespace">
+     </span>
+     SciPy stack.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Significant whitespace
+     </strong>
+     : requires consistent indentation.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Runs on most operating systems: Windows, Mac OS X, Linux.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+  </div>
+  <div class="section" data-number="4.2" data-tralics-id="cid25" id="cid25">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid25">
+     <span class="number">
+      4.2
+     </span>
+     Getting Python and libraries
+    </a>
+   </h2>
+   <ul>
+    <li>
+     We use Anaconda Python distribution which includes several useful
+libraries.
+     <span class="intersentencespace">
+     </span>
+     You can download it freely from:
+     <a href="http://www.continuum.io/downloads" target="_blank">
+      http://www.continuum.io/downloads
+     </a>
+    </li>
+    <li>
+     You can also get a free account to run Python in cloud from
+     <a href="http://wakari.io/" target="_blank">
+      wakari.io
+     </a>
+    </li>
+    <li>
+     You should get Python 2.7, because it is the version that is supported by LabJack drivers.
+     <span class="intersentencespace">
+     </span>
+     The book is
+written in a coding style that will mostly work in Python 2.7 and &gt;= 3.3.4.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     In addition to Anaconda you will need to get the
+     <code>
+      pyageng
+     </code>
+     -library
+     <a href="https://pypi.python.org/pypi/pyageng/0.0.1" target="_blank">
+      https://pypi.python.org/pypi/pyageng/0.0.1
+     </a>
+     .
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+  </div>
+  <div class="section" data-number="4.3" data-tralics-id="cid26" id="cid26">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid26">
+     <span class="number">
+      4.3
+     </span>
+     Ways to use Python
+    </a>
+   </h2>
+   <div class="subsection" data-number="4.3.1" data-tralics-id="uid177" id="uid177">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid177">
+      <span class="number">
+       4.3.1
+      </span>
+      REPL
+     </a>
+    </h3>
+    <p>
+     Python is an interpreted language which means you can run code
+directly using a REPL (read-eval-print-loop).
+     <span class="intersentencespace">
+     </span>
+     This is also often
+called Python terminal.
+     <span class="intersentencespace">
+     </span>
+     You can use the basic Python prompt, but many
+people like IPython better.
+    </p>
+    <ul>
+     <li>
+      Python has a terminal that can be used to execute commands
+interactively.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      IPython is an enhanced Python terminal.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+   <div class="subsection" data-number="4.3.2" data-tralics-id="uid180" id="uid180">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid180">
+      <span class="number">
+       4.3.2
+      </span>
+      Python scripts
+     </a>
+    </h3>
+    <ul>
+     <li>
+      Python programs are text files that consist of series of commands.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Generally we use *.py file extension for Python code.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Commands are executed in sequence one line at a time.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      We’ll use Spyder IDE to edit and run Python scripts.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+   <div class="subsection" data-number="4.3.3" data-tralics-id="uid185" id="uid185">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid185">
+      <span class="number">
+       4.3.3
+      </span>
+      IPython Notebook
+     </a>
+    </h3>
+    <ul>
+     <li>
+      IPython notebooks are a mixture of documentation and code.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Notebooks can be edited interactively and published as a static
+webpage and converted to pdf.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Documentation can be written using markdown markup language
+      <sup class="footnote" id="cha-4_footnote-ref-2">
+       <a href="#cha-4_footnote-2">
+        2
+       </a>
+      </sup>
+     </li>
+     <li>
+      Notebooks are edited using a browser (Chrome, Firefox or Safari).
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="section" data-number="4.4" data-tralics-id="cid27" id="cid27">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid27">
+     <span class="number">
+      4.4
+     </span>
+     Variables and operators
+    </a>
+   </h2>
+   <p>
+    Variables form the basics of any program.
+    <span class="intersentencespace">
+    </span>
+    They are simply used to
+store data and by manipulating variables you can make
+complex computations.
+   </p>
+   <div class="aside" data-number="4.2" data-tralics-id="uid191" id="uid191">
+    <div class="heading">
+     <span class="number">
+      Box 4.2.
+     </span>
+     <span class="description">
+      Variables
+     </span>
+    </div>
+    <ul>
+     <li>
+      Variables are used to store values.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      They can be of different type: int, float, string, bool.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Use command
+      <code>
+       type
+      </code>
+      to get the type of the variable.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Python uses dynamic typing so you don’t need to declare the type of variables yourself.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Variables are defined using the
+      <code>
+       assignment
+      </code>
+      operator
+      <code>
+       =
+      </code>
+      .
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+   <p>
+    Defining variables is simple:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span> <span class="c">#Define variable a with value 3</span>
+</pre>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.4.1" data-tralics-id="uid197" id="uid197">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid197">
+      <span class="number">
+       4.4.1
+      </span>
+      Numeric variables
+     </a>
+    </h3>
+    <ul>
+     <li>
+      Numeric variables can be integers
+      <code>
+       int
+      </code>
+      or floating point numbers
+      <code>
+       float
+      </code>
+      .
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Remember that integer division works differently from floating point
+division.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c">#Define integer variable x</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">8.0</span> <span class="c">#Define float y</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">/</span><span class="mi">10</span> <span class="c">#Integer division</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">/</span><span class="mf">10.0</span> <span class="c">#Floating point division</span>
+<span class="mf">1.2</span>
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.4.2" data-tralics-id="uid200" id="uid200">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid200">
+      <span class="number">
+       4.4.2
+      </span>
+      Basic Math
+     </a>
+    </h3>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">math</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span>
+<span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mf">12.7</span> <span class="o">-</span> <span class="mi">5</span>
+<span class="mf">7.699999999999999</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">8</span> <span class="c">#Raise to power of 8</span>
+<span class="mi">256</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="mf">3.1622776601683795</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">25</span> <span class="o">%</span> <span class="mi">3</span> <span class="c">#Modulus</span>
+<span class="mi">1</span>
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.4.3" data-tralics-id="uid201" id="uid201">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid201">
+      <span class="number">
+       4.4.3
+      </span>
+      Strings
+     </a>
+    </h3>
+    <p>
+     Text is represented using the
+     <code>
+      string
+     </code>
+     datatype.
+     <span class="intersentencespace">
+     </span>
+     Python is very good
+at manipulating strings and can be used to format data collected from
+different sources with relative ease, even if some other program is used
+in further analysis.
+    </p>
+    <p>
+     Here is a demonstration of creating strings and using some string
+functions.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"Agtek481"</span> <span class="c">#Define a string</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="c"># Change case</span>
+<span class="s">'AGTEK481'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"A"</span><span class="p">,</span> <span class="s">"B"</span><span class="p">)</span> <span class="c">#Replace A's with B's</span>
+<span class="s">'Bgtek481'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">" Measurement Technology"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">+</span> <span class="n">s2</span> <span class="c"># Joining two string together</span>
+<span class="s">'Agtek481 Measurement Technology'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="c">#Three first letters of s</span>
+<span class="s">'Agt'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s2</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="c"># Split a string to a list of words.</span>
+<span class="p">[</span><span class="s">'Measurement'</span><span class="p">,</span> <span class="s">'Technology'</span><span class="p">]</span>
+</pre>
+     </div>
+    </div>
+    <div class="subsubsection" data-number="4.4.3.1" data-tralics-id="uid202" id="uid202">
+     <h4>
+      <a class="heading" href="#uid202">
+       Escape sequences in strings
+      </a>
+     </h4>
+     <p>
+      Python uses escape characters to represent special characters inside strings such as:
+     </p>
+     <ul>
+      <li>
+       Linefeed “\n”
+      </li>
+      <li>
+       Carriage return “\r”
+      </li>
+      <li>
+       Tab “\t”
+      </li>
+      <li>
+       Backslash “\\”
+      </li>
+      <li>
+       You can use
+       <em>
+        raw strings
+       </em>
+       or two backslashes to include escape characters in text.
+       <span class="intersentencespace">
+       </span>
+      </li>
+     </ul>
+     <p>
+      Some examples:
+     </p>
+     <div class="code">
+      <div class="highlight">
+       <pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s">"First line</span><span class="se">\n</span><span class="s">Second line"</span><span class="p">)</span> <span class="c"># Test with linefeed</span>
+<span class="n">First</span> <span class="n">line</span>
+<span class="n">Second</span> <span class="n">line</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s">"Column1</span><span class="se">\t</span><span class="s">Column2"</span><span class="p">)</span> <span class="c">#Tab</span>
+<span class="n">Column1</span> <span class="n">Column2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s">r"Column1\tColumn2"</span><span class="p">)</span> <span class="c">#Raw string</span>
+<span class="n">Column1</span>\<span class="n">tColumn2</span>
+</pre>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.4.4" data-tralics-id="uid208" id="uid208">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid208">
+      <span class="number">
+       4.4.4
+      </span>
+      Booleans
+     </a>
+    </h3>
+    <p>
+     The boolean datatype
+     <code>
+      bool
+     </code>
+     has two possible values
+     <code>
+      True
+     </code>
+     and
+     <code>
+      False
+     </code>
+     .
+     <span class="intersentencespace">
+     </span>
+     It can be used to compare different objects together.
+     <span class="intersentencespace">
+     </span>
+     You’ll
+learn more about comparison in the section about sec-condconditionals.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">3</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="bp">False</span>
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.4.5" data-tralics-id="uid209" id="uid209">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid209">
+      <span class="number">
+       4.4.5
+      </span>
+      Naming variables
+     </a>
+    </h3>
+    <p>
+     You should follow a naming convention to make your code more readable.
+     <span class="intersentencespace">
+     </span>
+     Programming languages often have recommended conventions or they can be
+defined separately for each team or project.
+    </p>
+    <p>
+     Here are some conventions that are usual to Python code and is also
+followed in this book:
+    </p>
+    <ul>
+     <li>
+      Choose readable names, favor readability over brevity.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Use lowercase letters for variable and function names.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Use underscore to separate words in variable names e.g.
+      <span class="intersentencespace">
+      </span>
+      outside_temperature
+     </li>
+     <li>
+      Use CamelCase for class names.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+   <div class="subsection" data-number="4.4.6" data-tralics-id="uid214" id="uid214">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid214">
+      <span class="number">
+       4.4.6
+      </span>
+      Variable scope
+     </a>
+    </h3>
+    <p>
+     Variables declared inside the function body are
+     <code>
+      local
+     </code>
+     to that
+function.
+     <span class="intersentencespace">
+     </span>
+     Each function declares a new namespace called scope with each
+execution.
+     <span class="intersentencespace">
+     </span>
+     This means that the variables you create in function body are
+lost after executing the function.
+     <span class="intersentencespace">
+     </span>
+     This is generally a good thing and
+keeps your workspace cleaner.
+    </p>
+    <p>
+     If you need to you can make variables
+     <code>
+      global
+     </code>
+     so that they are
+accessible from any namespace (main program and all functions), but this
+is generally not recommended.
+     <span class="intersentencespace">
+     </span>
+     It can however sometimes be useful for
+debugging purposes.
+    </p>
+    <p>
+     If you need to see what values local variables inside a function have
+you can use print statements inside the function.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="4.5" data-tralics-id="cid28" id="cid28">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid28">
+     <span class="number">
+      4.5
+     </span>
+     Operators
+    </a>
+   </h2>
+   <p>
+    Operators are special symbols that can be used to represent computations
+such as addition and subtraction.
+    <span class="intersentencespace">
+    </span>
+    Operators in programming languages are
+similar to those in mathematics, but they are not the same.
+    <span class="intersentencespace">
+    </span>
+    Also there
+are differences between languages.
+    <span class="intersentencespace">
+    </span>
+    You can see some Python operators
+in the following table:
+   </p>
+   <div class="table" data-number="4.1" data-tralics-id="uid215" id="uid215">
+    <table class="tabular">
+     <tr class="top_border bottom_border">
+      <td class="left_border align_left right_border">
+       <strong>
+        Operator
+       </strong>
+      </td>
+      <td class="align_left right_border">
+       <strong>
+        Action
+       </strong>
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        =
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Assignment.
+       <span class="intersentencespace">
+       </span>
+       Left side is assigned the value of the right side.
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        +
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Addition for numbers.
+       <span class="intersentencespace">
+       </span>
+       Concatenation for strings.
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        -
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Subtraction
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        *
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Multiplication
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        /
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Division
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        %
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Modulus
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        **
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Power
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        +=
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Incremental addition.
+       <span class="intersentencespace">
+       </span>
+       e.g.
+       <span class="intersentencespace">
+       </span>
+       x+=5; is the same as x = x + 5;
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        -=
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Incremental decrement
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       <code>
+        *=
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Multiple by
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="left_border align_left right_border">
+       <code>
+        /=
+       </code>
+      </td>
+      <td class="align_left right_border">
+       Divide by
+      </td>
+     </tr>
+    </table>
+    <div class="caption">
+     <span class="header">
+      Table 4.1:
+     </span>
+     <span class="description">
+      Some Python operators
+     </span>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.6" data-tralics-id="cid29" id="cid29">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid29">
+     <span class="number">
+      4.6
+     </span>
+     Keywords
+    </a>
+   </h2>
+   <p>
+    Keywords are reserved words that have a special meaning, you can’t use
+them for user defined types.
+   </p>
+   <p>
+    <strong>
+     Python keywords:
+    </strong>
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre>and del for is raise assert elif from lambda return break else global not try
+class except if or while continue exec import pass yield def finally in print
+</pre>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.7" data-tralics-id="cid30" id="cid30">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid30">
+     <span class="number">
+      4.7
+     </span>
+     Collections
+    </a>
+   </h2>
+   <div class="subsection" data-number="4.7.1" data-tralics-id="uid216" id="uid216">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid216">
+      <span class="number">
+       4.7.1
+      </span>
+      Lists
+     </a>
+    </h3>
+    <p>
+     Instead of keeping data in a single variable we often need to keep
+multiple elements of the same type together.
+     <span class="intersentencespace">
+     </span>
+     For instance we want to
+collect measurement data together for plotting and calculating
+statistics etc.
+     <span class="intersentencespace">
+     </span>
+     Or we need to keep a list of different options under the
+collection.
+     <span class="intersentencespace">
+     </span>
+     Python has a list datatype for the very purpose.
+    </p>
+    <ul>
+     <li>
+      A list is an ordered collection of items.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Lists can hold items of any data type including other lists.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Elements can be accessed by their index
+     </li>
+     <li>
+      Lists are
+      <strong>
+       mutable
+      </strong>
+      , their elements can be changed after they
+have been created.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span> <span class="c"># A list of numbers</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="c">#Sum of all elements</span>
+<span class="mf">34.3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="c">#Length of the list</span>
+<span class="mi">6</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c">#First element of a list</span>
+<span class="mf">3.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c"># Elements from indices 2-4</span>
+<span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">]</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     <em>
+      Creating List of numbers:
+     </em>
+    </p>
+    <ul>
+     <li>
+      You can create a list of numbers using the
+      <code>
+       range
+      </code>
+      command
+     </li>
+     <li>
+      Note that the endpoint is not included in the list.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c"># Numbers from 0 to 9</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c">#Every third number from 1 to 19</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">19</span><span class="p">]</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     The fact that lists are mutable can lead to some unexpected behavior.
+     <span class="intersentencespace">
+     </span>
+     For example when you pass a list to function it receives the original
+list and can modify it.
+     <span class="intersentencespace">
+     </span>
+     If you want to make sure that the original list
+is not modified you need to
+     <strong>
+      make a copy
+     </strong>
+     of the list.
+    </p>
+    <p>
+     Have a look at the example below where list
+     <code>
+      animals
+     </code>
+     is assigned to
+list
+     <code>
+      animals2
+     </code>
+     .
+     <span class="intersentencespace">
+     </span>
+     Contrary to what we might expect
+     <code>
+      animals2
+     </code>
+     becomes
+an alias
+     <sup class="footnote" id="cha-4_footnote-ref-3">
+      <a href="#cha-4_footnote-3">
+       3
+      </a>
+     </sup>
+     for
+     <code>
+      animals
+     </code>
+     so that modifying
+     <code>
+      animals2
+     </code>
+     also changes
+the original list.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">"cow"</span><span class="p">,</span> <span class="s">"pig"</span><span class="p">,</span> <span class="s">"sheep"</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals2</span> <span class="o">=</span> <span class="n">animals</span> <span class="c">#An alias of the list</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">"chicken"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="c">#Modifying l2 also modified l</span>
+<span class="p">[</span><span class="s">'chicken'</span><span class="p">,</span> <span class="s">'pig'</span><span class="p">,</span> <span class="s">'sheep'</span><span class="p">]</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     We can avoid this behavior by making a copy of the original list:
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">animals2</span> <span class="o">=</span> <span class="n">animals</span><span class="p">[:]</span> <span class="c">#Make a copy instead</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">"turkey"</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span>
+<span class="p">[</span><span class="s">'chicken'</span><span class="p">,</span> <span class="s">'pig'</span><span class="p">,</span> <span class="s">'sheep'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">animals2</span> <span class="c">#Now only animals2 was modified</span>
+<span class="p">[</span><span class="s">'turkey'</span><span class="p">,</span> <span class="s">'pig'</span><span class="p">,</span> <span class="s">'sheep'</span><span class="p">]</span>
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.7.2" data-tralics-id="uid224" id="uid224">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid224">
+      <span class="number">
+       4.7.2
+      </span>
+      Tuples
+     </a>
+    </h3>
+    <ul>
+     <li>
+      Tuples are similar to lists, but they are
+      <em>
+       immutable
+      </em>
+      .
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      They are useful if you want a list of items that can’t be modified.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Many Python functions return tuples.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Items can be accessed using indexing or unpacking.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="c">#Create a tuple</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="c">#Acces by index similar to lists</span>
+<span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t2</span> <span class="o">=</span> <span class="p">(</span><span class="s">"one"</span><span class="p">,</span> <span class="s">"two"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">t2</span> <span class="c">#Unpack the values to variables a and b</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="s">'one'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span>
+<span class="s">'two'</span>
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.7.3" data-tralics-id="uid229" id="uid229">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid229">
+      <span class="number">
+       4.7.3
+      </span>
+      Dictionaries
+     </a>
+    </h3>
+    <ul>
+     <li>
+      Dictionaries are
+      <strong>
+       unordered
+      </strong>
+      collections of key,value pairs.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      They are indexed by keys.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Keys can be any immutable type; strings and numbers can always be
+keys
+     </li>
+    </ul>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">cow</span> <span class="o">=</span> <span class="p">{</span><span class="s">"id"</span> <span class="p">:</span> <span class="mi">230</span><span class="p">,</span> <span class="s">"yield"</span> <span class="p">:</span> <span class="mf">35.2</span><span class="p">,</span> <span class="s">"visits"</span> <span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cow</span><span class="p">[</span><span class="s">"id"</span><span class="p">]</span>
+<span class="mi">230</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cow</span><span class="p">[</span><span class="s">"visits"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span> <span class="c">#Modify a key</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cow</span><span class="p">[</span><span class="s">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Tuopilla"</span> <span class="c">#Add a key</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cow</span>
+<span class="p">{</span><span class="s">'visits'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">'id'</span><span class="p">:</span> <span class="mi">230</span><span class="p">,</span> <span class="s">'yield'</span><span class="p">:</span> <span class="mf">35.2</span><span class="p">,</span> <span class="s">'name'</span><span class="p">:</span> <span class="s">'Tuopilla'</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">cow</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="p">[</span><span class="s">'visits'</span><span class="p">,</span> <span class="s">'id'</span><span class="p">,</span> <span class="s">'yield'</span><span class="p">,</span> <span class="s">'name'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">cow</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">230</span><span class="p">,</span> <span class="mf">35.2</span><span class="p">,</span> <span class="s">'Tuopilla'</span><span class="p">]</span>
+</pre>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.8" data-tralics-id="cid31" id="cid31">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid31">
+     <span class="number">
+      4.8
+     </span>
+     Iteration and conditionals
+    </a>
+   </h2>
+   <p>
+    Iteration is a key element in programming.
+    <span class="intersentencespace">
+    </span>
+    It allows us to perform same
+tasks repeatedly.
+    <span class="intersentencespace">
+    </span>
+    We can for instance:
+   </p>
+   <ul>
+    <li>
+     Collect data from sensors repeatedly with a fixed time interval.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Process a number of files with same analysis code.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Perform iterative search in numeric algorithms until a desired
+answer is found.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <div class="subsection" data-number="4.8.1" data-tralics-id="uid236" id="uid236">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid236">
+      <span class="number">
+       4.8.1
+      </span>
+      For loop
+     </a>
+    </h3>
+    <p>
+     A
+     <code>
+      for
+     </code>
+     loop iterates over a specified number of elements.
+     <span class="intersentencespace">
+     </span>
+     The
+     <code>
+      body
+     </code>
+     of the loop is separated
+     <em>
+      using whitespace
+     </em>
+     : it is
+indented.
+     <span class="intersentencespace">
+     </span>
+     Here we create a list of numbers from 0 to 4 (using
+the range command), iterate trough each element and print the answer to
+screen.
+     <span class="intersentencespace">
+     </span>
+     This kind of loop can be used e.g.
+     <span class="intersentencespace">
+     </span>
+     to take a certain number of
+samples from a datalogger.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="code">
+     <div class="highlight">
+      <pre>0
+1
+2
+3
+4
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.8.2" data-tralics-id="uid237" id="uid237">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid237">
+      <span class="number">
+       4.8.2
+      </span>
+      Iterating trough a sequence
+     </a>
+    </h3>
+    <p>
+     For loop is commonly used to iterate over collections.
+     <span class="intersentencespace">
+     </span>
+     Here we iterate
+over elements of list
+     <code>
+      l
+     </code>
+     and print the square root of each elements.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Square root of "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s">" is "</span>
+             <span class="o">+</span>  <span class="nb">str</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">])))</span>
+</pre>
+     </div>
+    </div>
+    <div class="code">
+     <div class="highlight">
+      <pre>Square root of 3.0 is 1.73205080757
+Square root of 4.0 is 2.0
+Square root of 12 is 3.46410161514
+Square root of 5 is 2.2360679775
+Square root of 2.3 is 1.51657508881
+Square root of 8 is 2.82842712475
+</pre>
+     </div>
+    </div>
+    <p>
+     The loops before are iterating over a list, the elements just happened
+to be numbers.
+     <span class="intersentencespace">
+     </span>
+     You can also iterate over a list of other types e.g
+strings.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">animals</span> <span class="o">=</span> <span class="p">[</span><span class="s">"cow"</span><span class="p">,</span> <span class="s">"pig"</span><span class="p">,</span> <span class="s">"sheep"</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">animal</span> <span class="ow">in</span> <span class="n">animals</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">animal</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">cow</span>
+<span class="n">pig</span>
+<span class="n">sheep</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     You can also iterate over the indexes and values at the same time using
+the
+     <code>
+      enumerate
+     </code>
+     command.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span><span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.8.3" data-tralics-id="uid238" id="uid238">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid238">
+      <span class="number">
+       4.8.3
+      </span>
+      Iterating over a dictionary
+     </a>
+    </h3>
+    <p>
+     You can iterate over the keys of a dictionary.
+     <span class="intersentencespace">
+     </span>
+     Remember that keys are
+unordered so the order of keys is arbitrary.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cow</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">visits</span>
+<span class="nb">id</span>
+<span class="k">yield</span>
+<span class="n">name</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     Or keys and values at the same time:
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">cow</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="p">(</span><span class="s">'visits'</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">(</span><span class="s">'id'</span><span class="p">,</span> <span class="mi">230</span><span class="p">)</span>
+<span class="p">(</span><span class="s">'yield'</span><span class="p">,</span> <span class="mf">35.2</span><span class="p">)</span>
+<span class="p">(</span><span class="s">'name'</span><span class="p">,</span> <span class="s">'Tuopilla'</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.9" data-tralics-id="cid32" id="cid32">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid32">
+     <span class="number">
+      4.9
+     </span>
+     Conditional statements
+    </a>
+   </h2>
+   <p>
+    Conditional statements are used to control whether a certain block of
+code should execute.
+    <span class="intersentencespace">
+    </span>
+    The body of an
+    <code>
+     if
+    </code>
+    statement is evaluated the
+condition is
+    <code>
+     True
+    </code>
+    .
+    <span class="intersentencespace">
+    </span>
+    You can also
+use an optional
+    <code>
+     elif
+    </code>
+    and/or
+    <code>
+     else
+    </code>
+    statements.
+    <span class="intersentencespace">
+    </span>
+    Conditions are
+formed using comparison operators shown in the following table.
+   </p>
+   <p>
+    Suppose we measure temperature T and want to control a heater based on
+it using three power levels.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="k">if</span> <span class="n">T</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">elif</span> <span class="n">T</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="mi">0</span>
+</pre>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.10" data-tralics-id="cid33" id="cid33">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid33">
+     <span class="number">
+      4.10
+     </span>
+     Combining conditions
+    </a>
+   </h2>
+   <p>
+    You can combine conditional statements using
+    <code>
+     and
+    </code>
+    and
+    <code>
+     or
+    </code>
+    operators.
+    <span class="intersentencespace">
+    </span>
+    Conditional statements can also be grouped using parentheses.
+   </p>
+   <p>
+    Turn a heater on if Temperature (T) is too low or relative humidity (RH)
+is too high.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="k">if</span> <span class="n">T</span> <span class="o">&lt;</span> <span class="mi">15</span> <span class="ow">or</span> <span class="n">RH</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">:</span> <span class="c">#Suppose T and RH come from a measurement</span>
+    <span class="n">heater</span> <span class="o">=</span> <span class="bp">True</span>
+</pre>
+    </div>
+   </div>
+   <div class="table" data-number="4.2" data-tralics-id="uid239" id="uid239">
+    <table class="tabular">
+     <tr class="top_border bottom_border">
+      <td class="left_border align_left right_border">
+       <strong>
+        Operator
+       </strong>
+      </td>
+      <td class="align_left right_border">
+       <strong>
+        Meaning
+       </strong>
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       ==
+      </td>
+      <td class="align_left right_border">
+       equals
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       !=
+      </td>
+      <td class="align_left right_border">
+       not equals
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       &lt;
+      </td>
+      <td class="align_left right_border">
+       less than
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       &gt;
+      </td>
+      <td class="align_left right_border">
+       greater than
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       &lt;=
+      </td>
+      <td class="align_left right_border">
+       Less than or equal to
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       &gt;=
+      </td>
+      <td class="align_left right_border">
+       Greater than or equal to
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       and
+      </td>
+      <td class="align_left right_border">
+       Logical AND
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       or
+      </td>
+      <td class="align_left right_border">
+       Logical OR
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       not
+      </td>
+      <td class="align_left right_border">
+       Logigal negation
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="left_border align_left right_border">
+       in
+      </td>
+      <td class="align_left right_border">
+       Test if an element is a member of a sequence
+      </td>
+     </tr>
+    </table>
+    <div class="caption">
+     <span class="header">
+      Table 4.2:
+     </span>
+     <span class="description">
+      Operators for conditional statements.
+     </span>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.11" data-tralics-id="cid34" id="cid34">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid34">
+     <span class="number">
+      4.11
+     </span>
+     While loop
+    </a>
+   </h2>
+   <p>
+    A
+    <code>
+     while
+    </code>
+    loop executes the loop body as long an expression is True.
+    <span class="intersentencespace">
+    </span>
+    It is used when we don’t know how many times the loop should run.
+   </p>
+   <p>
+    In simple measurement program we often use an infinite loop which will
+run until a user closes the program.
+    <span class="intersentencespace">
+    </span>
+    You can also accidentally write a
+while loop that will never terminate if you get the terminating
+condition wrong.
+   </p>
+   <p>
+    <strong>
+     A loop that runs while
+     <span class="inline_math">
+      \(  a &lt; 5  \)
+     </span>
+    </strong>
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre>
+    </div>
+   </div>
+   <div class="code">
+    <div class="highlight">
+     <pre>0
+1
+2
+3
+4
+</pre>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.11.1" data-tralics-id="uid240" id="uid240">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid240">
+      <span class="number">
+       4.11.1
+      </span>
+      Example: Finding the square root
+     </a>
+    </h3>
+    <ul>
+     <li>
+      Heron’s method is the first explicit description on how to compute a
+square root.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Here’s how its used to find
+      <span class="inline_math">
+       \(  \sqrt{x}  \)
+      </span>
+      <ol>
+       <li>
+        Start with a guess, g.
+        <span class="intersentencespace">
+        </span>
+       </li>
+       <li>
+        If
+        <span class="inline_math">
+         \(  g \cdot g  \)
+        </span>
+        is close enough then stop.
+        <span class="intersentencespace">
+        </span>
+       </li>
+       <li>
+        Otherwise create a new guess g using
+        <span class="inline_math">
+         \(  \frac{g+\frac{x}{g}}{2}  \)
+        </span>
+       </li>
+      </ol>
+     </li>
+    </ul>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">g</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="c">#Initial guess</span>
+<span class="n">error</span> <span class="o">=</span> <span class="mi">1</span> <span class="c">#Init error</span>
+<span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0001</span><span class="p">:</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">g</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">g</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">g</span><span class="o">*</span><span class="n">g</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"guess"</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="s">"error"</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Square root of"</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s">"is"</span><span class="p">,</span> <span class="n">g</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="code">
+     <div class="highlight">
+      <pre>guess 3.5 error -2.25
+guess 3.17857142857 error -0.103316326531
+guess 3.16231942215 error -0.000264127712693
+guess 3.16227766044 error -1.74403957942e-09
+Square root of 10 is 3.16227766044
+</pre>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.12" data-tralics-id="cid35" id="cid35">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid35">
+     <span class="number">
+      4.12
+     </span>
+     Functions and modules
+    </a>
+   </h2>
+   <p>
+    Functions can be used group related functionality together.
+    <span class="intersentencespace">
+    </span>
+    They enable
+reuse of code and make programs more readable.
+   </p>
+   <p>
+    We have already used several built in functions, but now it is time to
+learn how you can write your own functions.
+   </p>
+  </div>
+  <div class="section" data-number="4.13" data-tralics-id="cid36" id="cid36">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid36">
+     <span class="number">
+      4.13
+     </span>
+     Defining functions
+    </a>
+   </h2>
+   <p>
+    Function definition in Python is very simple.
+    <span class="intersentencespace">
+    </span>
+    They are defined using
+the
+    <code>
+     def
+    </code>
+    keyword and you can even define functions from the
+terminal.
+    <span class="intersentencespace">
+    </span>
+    The return value of the functions is defined with
+    <code>
+     return
+    </code>
+    statement.
+   </p>
+   <p>
+    Let’s have a look at a simple example of defining a function:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="k">def</span> <span class="nf">adder</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">"""Computes the sum of two numbers"""</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    And here is how its used:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">adder</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">adder</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">)</span>
+<span class="mf">4.3</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    The sequence of names in parentheses after a function definition are
+called the
+    <code>
+     formal parameters
+    </code>
+    of the function.
+    <span class="intersentencespace">
+    </span>
+    When the function is
+called the
+    <code>
+     arguments
+    </code>
+    of the function are bound to the formal
+parameters.
+   </p>
+   <p>
+    For the function
+    <code>
+     adder
+    </code>
+    defined above:
+   </p>
+   <ul>
+    <li>
+     <code>
+      x
+     </code>
+     and
+     <code>
+      y
+     </code>
+     are the formal parameters
+    </li>
+    <li>
+     with the call
+     <code>
+      adder(3, 2)
+     </code>
+     , 3 and 2 are the arguments.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    Functions a documented using
+    <code>
+     docstring
+    </code>
+    s i.e.
+    <span class="intersentencespace">
+    </span>
+    a string following
+immediately after function declaration.
+    <span class="intersentencespace">
+    </span>
+    You can see an example of a
+docstring above.It is a good idea to take the time to write a
+descriptive docstring for your functions.
+   </p>
+  </div>
+  <div class="section" data-number="4.14" data-tralics-id="cid37" id="cid37">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid37">
+     <span class="number">
+      4.14
+     </span>
+     Modules
+    </a>
+   </h2>
+   <ul>
+    <li>
+     A Python module is used to group related code for easy reuse.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     A package can contain several modules with separate namespace.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    Python has several built in packages and Anaconda comes with several
+third party modules as well.
+    <span class="intersentencespace">
+    </span>
+    You can make your own module by placing
+a *.py file in your working directory and import data and methods from
+it.
+   </p>
+   <div class="subsection" data-number="4.14.1" data-tralics-id="uid250" id="uid250">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid250">
+      <span class="number">
+       4.14.1
+      </span>
+      Importing code from modules
+     </a>
+    </h3>
+    <p>
+     The
+     <code>
+      import
+     </code>
+     is used to get commands from modules.
+     <span class="intersentencespace">
+     </span>
+     There are 3 ways
+to use import:
+    </p>
+    <ul>
+     <li>
+      <code>
+       import module
+      </code>
+     </li>
+     <li>
+      <code>
+       from module import object
+      </code>
+     </li>
+     <li>
+      <code>
+       from module import *
+      </code>
+     </li>
+    </ul>
+    <p>
+     Its recommended not to use the third one in scripts.
+     <span class="intersentencespace">
+     </span>
+     Here is a small
+example about how to use three methods using math module:
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">math</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="c">#Use fully qualified name</span>
+<span class="mf">3.141592653589793</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span> <span class="c">#Only import pi to main namespace</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pi</span>
+<span class="mf">3.141592653589793</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span> <span class="c">#Import all objects from math to namespace</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pi</span>
+<span class="mf">3.141592653589793</span>
+</pre>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.15" data-tralics-id="cid38" id="cid38">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid38">
+     <span class="number">
+      4.15
+     </span>
+     Files
+    </a>
+   </h2>
+   <p>
+    Python has a built in
+    <code>
+     file
+    </code>
+    type.
+    <span class="intersentencespace">
+    </span>
+    You can open a file for
+reading, writing or both with
+    <code>
+     open
+    </code>
+    command.
+    <span class="intersentencespace">
+    </span>
+    When writing you can
+choose to overwrite the existing file (“w” option) or append to file
+(“a” option).
+    <span class="intersentencespace">
+    </span>
+    We’ll only handle working with text files here.
+   </p>
+   <p>
+    Open a file for writing and add text to it:
+   </p>
+   <div class="subsection" data-number="4.15.1" data-tralics-id="uid254" id="uid254">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid254">
+      <span class="number">
+       4.15.1
+      </span>
+      Writing files
+     </a>
+    </h3>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">datafile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"sample1.txt"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span> <span class="c">#"w" opens for writing</span>
+<span class="n">datafile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"Starting measurement</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+<span class="n">datafile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     Append data to the same file:
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">datafile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"sample1.txt"</span><span class="p">,</span> <span class="s">"a"</span><span class="p">)</span> <span class="c">#"a" stands for appending</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">datafile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"Line "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+<span class="n">datafile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.15.2" data-tralics-id="uid255" id="uid255">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid255">
+      <span class="number">
+       4.15.2
+      </span>
+      Reading files
+     </a>
+    </h3>
+    <ul>
+     <li>
+      It is easy to read in the whole file in Python using
+      <code>
+       read
+      </code>
+      ,
+      <code>
+       readline
+      </code>
+      or
+      <code>
+       readlines
+      </code>
+      methods.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <p>
+     Read a file to a string using read method:
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">datafile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"sample1.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">text</span> <span class="o">=</span> <span class="n">datafile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">datafile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">text</span>
+<span class="s">'Starting measurement</span><span class="se">\n</span><span class="s">Line 0</span><span class="se">\n</span><span class="s">Line 1</span><span class="se">\n</span><span class="s">Line 2</span><span class="se">\n</span><span class="s">'</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     Read to a list of lines:
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">datafile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"sample1.txt"</span><span class="p">,</span> <span class="s">"r"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">textlines</span> <span class="o">=</span> <span class="n">datafile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">datafile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">textlines</span>
+<span class="p">[</span><span class="s">'Starting measurement</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'Line 0</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'Line 1</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="s">'Line 2</span><span class="se">\n</span><span class="s">'</span><span class="p">]</span>
+</pre>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="4.16" data-tralics-id="cid39" id="cid39">
+   <h2>
+    <a class="heading hyperref" href="programming.html#cid39">
+     <span class="number">
+      4.16
+     </span>
+     Date and time
+    </a>
+   </h2>
+   <ul>
+    <li>
+     We’ll use Python’s
+     <code>
+      datetime
+     </code>
+     module to handle times and dates.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     The module makes it easy to calculate with dates and times and
+adding time stamps to measurement data.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     datetime object can be converted to strings using format specifiers:
+     <a href="http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior" target="_blank">
+      http://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
+     </a>
+    </li>
+   </ul>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="c">#Get current time</span>
+<span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">56</span><span class="p">,</span> <span class="mi">692234</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c">#Get ISO formatted time</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="s">"%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S"</span><span class="p">)</span>
+<span class="s">'2016-02-14 20:28:56'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">vappu</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2014</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c">#Create a datetime object</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">kesto</span> <span class="o">=</span> <span class="n">vappu</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">kesto</span><span class="o">.</span><span class="n">days</span><span class="p">)</span> <span class="o">+</span> <span class="s">" days to vappu"</span><span class="p">)</span>
+<span class="o">-</span><span class="mi">655</span> <span class="n">days</span> <span class="n">to</span> <span class="n">vappu</span>
+</pre>
+    </div>
+   </div>
+   <div class="subsection" data-number="4.16.1" data-tralics-id="uid260" id="uid260">
+    <h3>
+     <a class="heading hyperref" href="programming.html#uid260">
+      <span class="number">
+       4.16.1
+      </span>
+      File formatting for measurements
+     </a>
+    </h3>
+    <p>
+     A common problem in writing measurement software is not
+thinking about analysis stage when you collect the data.
+     <span class="intersentencespace">
+     </span>
+     Knowing what
+software you’ll be using is advantageous, because you can then save your
+data in a format that is easy to open with the program of your choosing.
+    </p>
+    <p>
+     Here are some general rules to bear in mind:
+    </p>
+    <ul>
+     <li>
+      Use clear separators between fields, such as comma or space.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Use automatic file naming if possible.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Make sure that the format you use is easy to open in later analysis.
+      <ul>
+       <li>
+        Make sure you can open the files with correct formatting before collecting a lot of data.
+        <span class="intersentencespace">
+        </span>
+       </li>
+       <li>
+        Make sure you can handle dates in correct format.
+        <span class="intersentencespace">
+        </span>
+       </li>
+      </ul>
+     </li>
+     <li>
+      Include time for each sample or at least the start time and sampling
+rate in file name or header.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Its best to use plain text format if possible.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Always preserve the raw text files when doing analysis:
+      <strong>
+       always keep a back up of the original file
+      </strong>
+      .
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div id="cha-4_footnotes">
+   <ol class="footnotes">
+    <li id="cha-4_footnote-1">
+     <a href="http://www.greenteapress.com/thinkpython/" target="_blank">
+      http://www.greenteapress.com/thinkpython/
+     </a>
+     <a class="arrow" href="#cha-4_footnote-ref-1">
+      ↑
+     </a>
+    </li>
+    <li id="cha-4_footnote-2">
+     <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">
+      https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+     </a>
+     <a class="arrow" href="#cha-4_footnote-ref-2">
+      ↑
+     </a>
+    </li>
+    <li id="cha-4_footnote-3">
+     Both lists point to the same object
+     <a class="arrow" href="#cha-4_footnote-ref-3">
+      ↑
+     </a>
+    </li>
+   </ol>
+  </div>
+ </div>
+
+
+        <div class="footer" style = "text-align: center;">&copy; <a href="http://mpastell.com">Matti Pastell</a> 2016</div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6474352-9', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

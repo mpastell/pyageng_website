@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Measurements and Data Analysis for Agricultural Engineers using Python</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="css/softcover.css"> -->
+<link rel="stylesheet" href="css/pygments.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+<script src = "js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+
+<link rel="stylesheet" href="css/custom.css">
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+    "HTML-CSS": {
+      availableFonts: ["TeX"],
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"],
+      equationNumbers: {
+        autoNumber: "AMS",
+        
+      },
+      Macros: {
+        PolyTeX:    "Poly{\\TeX}",
+        PolyTeXnic: "Poly{\\TeX}nic",
+        "softcover": "\\texttt{softcover}",
+    "unitvec": ["{\\hat #1}", 1]
+      }
+    },
+    showProcessingMessages: false,
+    messageStyle: "none",
+    imageFont: null
+      });
+    
+ </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+ <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#chapters-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PyAgEng</a><p class="navbar-text"> - Matti Pastell</p>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right" id="chapters-nav">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Table of Contents<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="index.html"><strong>Table of Contents</strong></a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="preface.html"><strong>Preface</strong></a></li>
+                    
+                    <li role="separator" class="divider"></li>
+                    
+                        <li><a href="sampling.html"> <strong>Chapter 1: </strong>Measurement basics</a></li>
+                    
+                        <li><a href="dataloggers.html"> <strong>Chapter 2: </strong>Datalogger hardware and sensor connections</a></li>
+                    
+                        <li><a href="connecting_to_computers.html"> <strong>Chapter 3: </strong>Connecting loggers to computers</a></li>
+                    
+                        <li><a href="programming.html"> <strong>Chapter 4: </strong>Introduction to Programming and Python</a></li>
+                    
+                        <li><a href="scipy.html"> <strong>Chapter 5: </strong>Scientific Python</a></li>
+                    
+                        <li><a href="plotting.html"> <strong>Chapter 6: </strong>Plotting</a></li>
+                    
+                        <li><a href="spectrum.html"> <strong>Chapter 7: </strong>Frequency Analysis</a></li>
+                    
+                        <li><a href="dsp.html"> <strong>Chapter 8: </strong>Digital Signal Processing</a></li>
+                    
+                        <li><a href="references.html"> <strong>Chapter 9: </strong>References</a></li>
+                    
+                
+
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- container-fluid -->
+</nav>
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class = "twelwe columns col-md-12">
+
+             <div id="book">
+  <div class="chapter" data-chapter="sampling" data-number="1" data-tralics-id="cid1" id="cid1">
+   <h1>
+    <a class="heading hyperref" href="sampling.html#cid1">
+     <span class="number">
+      Chapter 1
+     </span>
+     Measurement basics
+    </a>
+   </h1>
+  </div>
+  <div class="section" data-number="1.1" data-tralics-id="cid2" id="cid2">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid2">
+     <span class="number">
+      1.1
+     </span>
+     Why do we measure things?
+    </a>
+   </h2>
+   <p>
+    Measurements form the basis of empirical research.
+    <span class="intersentencespace">
+    </span>
+    The purpose of
+measurements are usually divided in the following three categories:
+   </p>
+   <ul>
+    <li>
+     <strong>
+      Observe a process
+     </strong>
+     : Home temperature, electricity
+consumption, water consumption, CO level in garage, medical
+diagnostics.
+     <span class="intersentencespace">
+     </span>
+     Not actually research and not (at least automatic)
+control.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Research
+     </strong>
+     : Test theories with measurements (testing a model
+for plant growth), create experimental models for a relationship
+between factors for phenomena with no existing theory (predict
+cattle lameness based on weight distribution during milking).
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Control
+     </strong>
+     : we want to automatically control a process given
+certain parameters.
+     <span class="intersentencespace">
+     </span>
+     e.g.
+     <span class="intersentencespace">
+     </span>
+     control the fan speed and inlet openings of
+a barn based on temperature and
+     <span class="inline_math">
+      \( CO_2  \)
+     </span>
+     measurements.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    <em>
+     Fault diagnostics
+    </em>
+    is one popular application of measurements based
+on observing a process.
+    <span class="intersentencespace">
+    </span>
+    A machine, animal or a plant is monitored with a
+sensor and model predicts when there is a failure or disease.
+    <span class="intersentencespace">
+    </span>
+    E.g the
+lameness in cattle can be predicted using force sensors, pig cough can
+be measured using sound analysis and bearing failure in machinery can
+predicted based on resonance frequency.
+    <span class="intersentencespace">
+    </span>
+    The models used to predict
+problems can be very simple based on limit values or more complex models
+that are fitted to data based on sample dataset(This is called machine
+learning).
+   </p>
+   <p>
+    The objectives can also overlap e.g.
+    <span class="intersentencespace">
+    </span>
+    we may want to also research the
+process we are controlling.
+    <span class="intersentencespace">
+    </span>
+    The purpose of the measurement affects its
+requirements for accuracy and reliability.
+   </p>
+  </div>
+  <div class="section" data-number="1.2" data-tralics-id="cid3" id="cid3">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid3">
+     <span class="number">
+      1.2
+     </span>
+     The phases of a successful measurement
+    </a>
+   </h2>
+   <div class="subsection" data-number="1.2.1" data-tralics-id="uid6" id="uid6">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid6">
+      <span class="number">
+       1.2.1
+      </span>
+      Planning
+     </a>
+    </h3>
+    <p>
+     Plan the measurements carefully.
+     <span class="intersentencespace">
+     </span>
+     Incomplete planning will compromise the
+whole study.
+     <span class="intersentencespace">
+     </span>
+     Ask the following questions when planning:
+    </p>
+    <ol>
+     <li>
+      What things affect the measured quantity?
+      <span class="intersentencespace">
+      </span>
+      Can you measure or control
+these variables?
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      What is the rate of change of the measured phenomenon?
+      <span class="intersentencespace">
+      </span>
+      What is the
+suitable sampling rate?
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      What is the required accuracy and precision of the measurement?
+      <span class="intersentencespace">
+      </span>
+      This
+together with the sampling rate will determine the needed
+measurement system.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      How are you going to store the data?
+      <span class="intersentencespace">
+      </span>
+      Which format will be the best
+for further processing?
+      <span class="intersentencespace">
+      </span>
+      How to make
+      <code>
+       backups
+      </code>
+      ?
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      The placement of sensors so that you minimize interference to
+signals and the effect to the measurement system to the measured
+system.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Measurement location if you’re taking samples.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ol>
+    <p>
+     These notes try to give you means for answering all of these questions.
+    </p>
+   </div>
+   <div class="subsection" data-number="1.2.2" data-tralics-id="uid13" id="uid13">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid13">
+      <span class="number">
+       1.2.2
+      </span>
+      Preparing
+     </a>
+    </h3>
+    <ol>
+     <li>
+      Build the entire measurement system and make sure you know how to
+use it.
+      <span class="intersentencespace">
+      </span>
+      Practise!
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Write the software and check that it is working.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Make a pilot study and analyze the results to make sure the system
+is working as expected.
+      <span class="intersentencespace">
+      </span>
+      Revise if needed!
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Calibrate the system.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Make a measurement plan with locations and schedule.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Make notes of the circuit you’re using, calibration procedure and
+calibration coefficients.
+      <span class="intersentencespace">
+      </span>
+      Make sure you have notes of all parameters
+used in the system.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Make sure you have all necessary equipment and spares.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Plan how the calibration and performance of the system will be
+followed during long measurements.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ol>
+   </div>
+   <div class="subsection" data-number="1.2.3" data-tralics-id="uid22" id="uid22">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid22">
+      <span class="number">
+       1.2.3
+      </span>
+      Executing
+     </a>
+    </h3>
+    <ol>
+     <li>
+      Follow the plan.
+      <span class="intersentencespace">
+      </span>
+      If you need to make changes, write everything down.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Make exact notes of how the measurements were executed with exact
+times.
+      <span class="intersentencespace">
+      </span>
+      Add everything that you think might have an effect.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Make sure that the system is working during the measurements.
+      <span class="intersentencespace">
+      </span>
+      If
+possible make the software to plot the results continuously or a LCD
+screen showing measured values etc.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Check the performance and calibration of the system according to
+your plan.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ol>
+   </div>
+   <div class="subsection" data-number="1.2.4" data-tralics-id="uid27" id="uid27">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid27">
+      <span class="number">
+       1.2.4
+      </span>
+      Analysis
+     </a>
+    </h3>
+    <ul>
+     <li>
+      Try to analyze the results as soon as possible after the
+measurement.
+      <span class="intersentencespace">
+      </span>
+      This way you’ll still remember what happened in case
+your notes are incomplete and its more likely you can still make
+more measurements if needed.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      If the measurement is running over several months or years make
+preliminary analysis when the experiment is still running.
+      <span class="intersentencespace">
+      </span>
+      It is
+common that you have to return back to planning or collect
+more data after initial analysis.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="section" data-number="1.3" data-tralics-id="cid4" id="cid4">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid4">
+     <span class="number">
+      1.3
+     </span>
+     Measurement system components
+    </a>
+   </h2>
+   <div class="figure" data-number="1.1" data-tralics-id="uid30" id="uid30">
+    <div class="graphics image">
+     <img alt="images/meas_system" src="images/meas_system.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 1.1:
+     </span>
+     <span class="description">
+      The components of a measurement system
+     </span>
+    </div>
+   </div>
+   <p>
+    <strong>
+     Sensor
+    </strong>
+    is a transducer that convert a physical quantity to a
+measurable analog signal.
+   </p>
+   <p>
+    <strong>
+     ADC
+    </strong>
+    (analog-to-digital converter) converts the analog signal to digital
+   </p>
+   <p>
+    A
+    <strong>
+     computer/datalogger/microcontroller
+    </strong>
+    is used to store and display the
+information.
+   </p>
+   <p>
+    The wires from sensor to ADC should be as short as possible to minimize
+noise and level changes.
+    <span class="intersentencespace">
+    </span>
+    Voltage signals suffer from voltage drop when
+long wires are used due to the resistance of the circuit.
+    <span class="intersentencespace">
+    </span>
+    Current
+signals however are a lot less sensitive to interference and don’t have
+a problem with level changes.
+   </p>
+   <p>
+    Digital signals can be transmitted without a loss of information with efficient
+compression (e.g.
+    <span class="intersentencespace">
+    </span>
+    using the Internet) and are therefore the preferred method for
+transmitting data.
+   </p>
+  </div>
+  <div class="section" data-number="1.4" data-tralics-id="cid5" id="cid5">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid5">
+     <span class="number">
+      1.4
+     </span>
+     Signals
+    </a>
+   </h2>
+   <p>
+    A signal is a description of how one parameter relates to another.
+    <span class="intersentencespace">
+    </span>
+    Usually signals are measured as a function of time e.g.
+    <span class="intersentencespace">
+    </span>
+    how temperature
+changes over time, however they can be also measured as function of e.g.
+    <span class="intersentencespace">
+    </span>
+    distance or light intensity.
+   </p>
+   <div class="subsection" data-number="1.4.1" data-tralics-id="uid31" id="uid31">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid31">
+      <span class="number">
+       1.4.1
+      </span>
+      Analog signals
+     </a>
+    </h3>
+    <p>
+     <strong>
+      Analog signals
+     </strong>
+     : (voltage, current) take continuous range of values.
+     <span class="intersentencespace">
+     </span>
+     Most real world signals are continuous.
+    </p>
+    <ul>
+     <li>
+      Commonly used analog signals are voltage signals (0-10V, 0-5V etc.)
+      <span class="intersentencespace">
+      </span>
+      or current signals (4-20mA)
+     </li>
+     <li>
+      Analog signals are converted to digital signals
+using
+      <strong>
+       sampling
+      </strong>
+      and
+      <strong>
+       quantization
+      </strong>
+      i.e.
+      <span class="intersentencespace">
+      </span>
+      Analog-to-Digital(AD) conversion.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+   <div class="subsection" data-number="1.4.2" data-tralics-id="uid34" id="uid34">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid34">
+      <span class="number">
+       1.4.2
+      </span>
+      Digital signals
+     </a>
+    </h3>
+    <p>
+     <strong>
+      Digital signals
+     </strong>
+     are discrete, they can only take limited range of values and are
+sampled at a certain interval.
+     <span class="intersentencespace">
+     </span>
+     With
+     <strong>
+      proper sampling
+     </strong>
+     the digital signal can
+represent all the information present in the original analog signal.
+    </p>
+    <p>
+     The quality of the sample depends on the
+     <strong>
+      accuracy of the AD
+conversion
+     </strong>
+     and the
+     <strong>
+      sampling rate
+     </strong>
+     .
+    </p>
+    <p>
+     Computers can only work with digital signals and they have numerous
+advantages over analog signals:
+    </p>
+    <ul>
+     <li>
+      They can be compressed efficiently
+     </li>
+     <li>
+      Efficient storage and data transfer
+     </li>
+     <li>
+      Several digital signals can be transmitted in the same wire or
+radio channel.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Digital signal processing allows the use of more sophisticated
+filters.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <p>
+     Some digital signals such as the one in USB cable are still voltage
+signals, but they only take two levels representing binary values 0
+and 1.
+     <span class="intersentencespace">
+     </span>
+     Digital signals are also commonly transferred wirelessly or in
+optical fibres.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="1.5" data-tralics-id="cid6" id="cid6">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid6">
+     <span class="number">
+      1.5
+     </span>
+     Analog to digital conversion
+    </a>
+   </h2>
+   <p>
+    Analog-to-digital converterss (
+    <strong>
+     ADC
+    </strong>
+    ) work by taking a sample of the original
+signal and comparing it to a fixed number of known voltage levels.
+    <span class="intersentencespace">
+    </span>
+    The signal is then
+rounded to the closest reference level.
+    <span class="intersentencespace">
+    </span>
+    The resolution of the ADC is
+given in bits which means that the number of values the digitize
+signal can get, for
+    <span class="inline_math">
+     \( n \)
+    </span>
+    bit ADC is
+    <span class="inline_math">
+     \( 2^n \)
+    </span>
+    .
+    <span class="intersentencespace">
+    </span>
+    Each ADC works for a certain
+voltage range e.g.
+    <span class="intersentencespace">
+    </span>
+    0 – 5 V.
+   </p>
+   <ul>
+    <li>
+     Taking a sample of analog signal for digitization is called the
+sample-and-hold method.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Analog signal is rounded to the nearest possible value.
+     <span class="intersentencespace">
+     </span>
+     The
+difference between the original value and the digitized sample is
+called
+     <strong>
+      quantization error
+     </strong>
+     .
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     The difference between adjacent conversion levels is
+called
+     <strong>
+      least significant bit (LSB)
+     </strong>
+    </li>
+    <li>
+     The maximum quantization error is therefore
+     <span class="inline_math">
+      \(  \pm\frac{1}{2}  \)
+     </span>
+     LSB.
+    </li>
+   </ul>
+   <p>
+    Suppose we have an 8bit ADC with the range of
+0-5V. It can produce
+    <span class="inline_math">
+     \( 2^8 = 256  \)
+    </span>
+    distinct numbers (0-255) so
+with the range of 5V its voltage
+    <strong>
+     resolution
+    </strong>
+    is 5/256
+    <span class="inline_math">
+     \( \approx  \)
+    </span>
+    20
+mV. This value is also called
+    <strong>
+     LSB
+    </strong>
+    .
+   </p>
+   <p>
+    This means in practice that when digitized analog values 10 – 30 mV
+are rounded to 20mV and analog values 30 – 50 mV to 40mV etc.
+    <span class="intersentencespace">
+    </span>
+    The
+    <strong>
+     quantization
+    </strong>
+    error for analog value 10mV is 20mV - 10mV =
+    <span class="inline_math">
+     \( \frac{1}{2}  \)
+    </span>
+    LSB.
+   </p>
+   <p>
+    Now if you have a temperature sensor with the sensitivity of
+    <span class="inline_math">
+     \( \frac{10mV}{^{\circ}C}  \)
+    </span>
+    .
+    <span class="intersentencespace">
+    </span>
+    then digitization introduces an
+error of
+    <span class="inline_math">
+     \( \pm 1^{\circ}C  \)
+    </span>
+    to the measurement.
+    <span class="intersentencespace">
+    </span>
+    If you want to increase the
+    <em>
+     precision
+    </em>
+    of your measurement you need to use an ADC with
+higher
+    <em>
+     resolution
+    </em>
+    .
+    <span class="intersentencespace">
+    </span>
+    This still doesn’t guarantee that the measurements
+will be
+    <em>
+     accurate
+    </em>
+    , for that you need
+    <em>
+     calibration
+    </em>
+    .
+   </p>
+   <p>
+    The voltage resolution of the ADC can be calculated with:
+   </p>
+   <div class="equation">
+    \[ 
+V_{res} = \frac{\text{ADC range}}{\text{Number of Levels}}
+ \]
+   </div>
+   <p class="noindent">
+    So the voltage resolution for 12bit ADC with -10 – 10V range is:
+   </p>
+   <div class="equation">
+    \[ 
+\frac{10 - (-10)}{2^{12}} = \frac{20}{4096} \approx 5mV   
+ \]
+   </div>
+   <div class="table" data-number="1.1" data-tralics-id="uid43" id="uid43" noindent="true">
+    <table class="tabular">
+     <tr class="top_border bottom_border">
+      <td class="left_border align_left right_border">
+       Bits
+      </td>
+      <td class="align_left right_border">
+       Levels
+      </td>
+      <td class="align_left right_border">
+       mV
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       8
+      </td>
+      <td class="align_left right_border">
+       256
+      </td>
+      <td class="align_left right_border">
+       20
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       10
+      </td>
+      <td class="align_left right_border">
+       1024
+      </td>
+      <td class="align_left right_border">
+       4.9
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       12
+      </td>
+      <td class="align_left right_border">
+       4096
+      </td>
+      <td class="align_left right_border">
+       1.2
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       14
+      </td>
+      <td class="align_left right_border">
+       16 384
+      </td>
+      <td class="align_left right_border">
+       0.3
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="left_border align_left right_border">
+       16
+      </td>
+      <td class="align_left right_border">
+       65 536
+      </td>
+      <td class="align_left right_border">
+       0.08
+      </td>
+     </tr>
+    </table>
+    <div class="caption">
+     <span class="header">
+      Table 1.1:
+     </span>
+     <span class="description">
+      The number of levels for ADC with different resolutions and the voltage resolution when the measurement are is 0–5V.
+     </span>
+    </div>
+   </div>
+   <p>
+    The number of values we get an ADC determines how accurately we can
+measure things in a certain range.
+    <span class="intersentencespace">
+    </span>
+    We can get the best accuracy when use
+the whole voltage range of the instrument.
+    <span class="intersentencespace">
+    </span>
+    Usually we need to scale the
+signal either by amplifying or reduce the original signal to achieve
+this.
+   </p>
+   <p>
+    We’ll learn some options for reducing the signals amplitude in the
+exercise.
+    <span class="intersentencespace">
+    </span>
+    If you need to amplify a signal you can use operational
+amplifiers, we are not doing that in the course but you can find the
+needed circuits from basic electronics books.
+    <span class="intersentencespace">
+    </span>
+    There are also special
+amplifiers for common small signals e.g.
+    <span class="intersentencespace">
+    </span>
+    for load cells and
+thermocouples.
+   </p>
+   <div class="aside" data-number="1.1" data-tralics-id="uid44" id="uid44">
+    <div class="heading">
+     <span class="number">
+      Box 1.1.
+     </span>
+    </div>
+    <p>
+     ADC resolution fixes either the range or accuracy of your measurement.
+     <span class="intersentencespace">
+     </span>
+     Suppose you have a scale with 10bit resolution.
+     <span class="intersentencespace">
+     </span>
+     If you want to measure
+weight with 1g accuracy it means that the maximum range you can
+have is 1024g.
+    </p>
+    <p>
+     Or if you want to use the same ADC to weigh 10 000 kg of grains the
+maximum resolution you can get is 10 kg.
+     <span class="intersentencespace">
+     </span>
+     If you need either wider range or better accuracy you’ll need to use a
+device with higher resolution.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="1.6" data-tralics-id="cid7" id="cid7">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid7">
+     <span class="number">
+      1.6
+     </span>
+     Sampling
+    </a>
+   </h2>
+   <p>
+    In addition to getting accurate samples of the voltage we also need to
+consider the rate of change of the signal.
+    <span class="intersentencespace">
+    </span>
+    Here are two definitions that
+help us decide how often we need to sample:
+   </p>
+   <p>
+    <strong>
+     The sampling theorem
+    </strong>
+    A continuous signal can be properly sampled, only if it does not
+contain frequency components above one-half of the sampling
+rate.
+    <span class="intersentencespace">
+    </span>
+    <em>
+     (Nyquist criterion, Nyquist-Shannon theorem)
+    </em>
+    .
+   </p>
+   <p>
+    <strong>
+     Proper sampling
+    </strong>
+   </p>
+   <p>
+    If you can reconstruct the analog signal from samples, you must
+have done the sampling correctly.
+    <span class="intersentencespace">
+    </span>
+    (Smith 1997).
+   </p>
+   <p>
+    Note that the highest frequency of interest in a signal is easy to define
+for periodic signals (
+    <em>
+     waveforms with recurring frequencies.
+    </em>
+    ).
+    <span class="intersentencespace">
+    </span>
+    For other signals
+we need to consider how can we reliably measure the fastest peaks e.g for force
+measurements and ECG (electrocardiograph) signals.
+   </p>
+   <p>
+    In practice we usually do not know what is the highest frequency is,
+and we need to find out:
+   </p>
+   <ul>
+    <li>
+     A practical way is to sample as fast as you can and determine the
+required sample rate from the data.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    Choosing an appropriate sample rate is also important because using too high
+sample rate increases the need for data storage, power
+consumption (especially a concern with wireless devices), analysis
+time etc.
+   </p>
+   <p>
+    Signals are often shown in figures as continuous lines because when
+there are many samples in a figure using a symbol for each sample makes
+the plot look messy like in
+    <a class="hyperref" href="sampling.html#fig-jump">
+     Figure
+     <span class="ref">
+      1.2
+     </span>
+    </a>
+    B. It is however
+important to remember that lines are not actual measured values and just
+used to connect the dots (if we give each point in a line a value it is
+called linear interpolation).
+   </p>
+   <p>
+    If you are plotting the data to inspect if you have sampled often enough
+it is a good idea to use a symbol to represent each point and leave the
+lines out.
+    <span class="intersentencespace">
+    </span>
+    Also make sure you zoom close enough to the closest peaks so
+you can really tell how far apart successive samples are.
+   </p>
+   <p>
+    Figure
+    <a class="hyperref" href="sampling.html#fig-jump">
+     <span class="ref">
+      1.2
+     </span>
+    </a>
+    shows a the vertical force influencing a force
+plate while a University lecturer jumps of it.
+    <span class="intersentencespace">
+    </span>
+    The data was sampled
+at 200Hz and then decimated to 40Hz using a computer.
+    <span class="intersentencespace">
+    </span>
+    The lines in
+subplots A and C look deceptive similar, but subplots B and C
+suggest that 200Hz is enough to measure the maximum force, but 40Hz
+is not quite enough and it would be wise to increase the sample rate
+to be sure.
+    <span class="intersentencespace">
+    </span>
+    (The difference between maximum forces is 27N).
+   </p>
+   <div class="center figure" data-number="1.2" data-tralics-id="uid46" id="fig-jump">
+    <div class="graphics image">
+     <img alt="images/step_force" src="images/step_force.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 1.2:
+     </span>
+     <span class="description">
+      The force measured when a person jumps of a force sensor
+represented at at two different sample rates and plot
+types.
+     </span>
+    </div>
+   </div>
+   <div class="subsection" data-number="1.6.1" data-tralics-id="uid47" id="uid47">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid47">
+      <span class="number">
+       1.6.1
+      </span>
+      Random noise and the Gaussian distribution
+     </a>
+    </h3>
+    <p>
+     In electronics noise is a random fluctuation in an electrical
+signal.
+     <span class="intersentencespace">
+     </span>
+     Random noise has a
+     <strong>
+      flat spectral density
+     </strong>
+     and a
+     <strong>
+      Gaussian
+distribution
+     </strong>
+     .
+     <span class="intersentencespace">
+     </span>
+     Noise exists in all electronic circuits.
+     <span class="intersentencespace">
+     </span>
+     <a class="hyperref" href="sampling.html#fig-random">
+      Figure
+      <span class="ref">
+       1.3
+      </span>
+     </a>
+     shows what random noise in a static signal looks like.
+    </p>
+    <div class="center figure" data-number="1.3" data-tralics-id="uid48" id="fig-random">
+     <div class="graphics image">
+      <img alt="images/random_noise" src="images/random_noise.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 1.3:
+      </span>
+      <span class="description">
+       Time series plot and histogram of random noise on static signal
+with "true" value at 0 .
+       <span class="intersentencespace">
+       </span>
+      </span>
+     </div>
+    </div>
+    <p>
+     Measurements systems generally have noise, fluctuation around the true
+value.
+     <span class="intersentencespace">
+     </span>
+     If you only take one sample every 15 minutes the noise level will
+go unnoticed, however when you take several samples from a sensor at
+moderately high sample (e.g.
+     <span class="intersentencespace">
+     </span>
+     10Hz) there is likely some variability in
+the values.
+     <span class="intersentencespace">
+     </span>
+     Although if the noise level in the system is lower than the
+resolution of your ADC it will be hidden.
+     <span class="intersentencespace">
+     </span>
+     You can analyze the amount of
+noise in your system using statistics.
+    </p>
+    <p>
+     Quantization error is also random noise with a standard deviation of
+     <span class="inline_math">
+      \( \frac{1}{\sqrt{12}}  \)
+     </span>
+     LSB. This is usually a small
+addition to the noise already present in the measured analog signal.
+    </p>
+    <p>
+     The fact that random noise has a Gaussian distribution means that the
+the most probable value of the signal is the average value and the
+standard deviation gives us a meaningful estimate of the variability.
+    </p>
+    <p>
+     If the signal is stationary during repeated measurements you can make
+the measured value more precise by taking several samples and averaging.
+     <span class="intersentencespace">
+     </span>
+     If the signal is not stationary, but the noise is random you can use a
+moving average filter.
+    </p>
+    <p>
+     Note that you should check whether or not the noise is Gaussian before
+you do this.
+     <span class="intersentencespace">
+     </span>
+     If the signal is not Gaussian then you should check whether
+the variability in the signal is due to interference and whether or not
+you can get rid off it by improving the measurement
+set up or filtering the signal.
+    </p>
+    <p>
+     The
+     <strong>
+      normal distribution
+     </strong>
+     (Gaussian) defined as
+     <span class="inline_math">
+      \( N(\mu, \sigma)  \)
+     </span>
+     is a bell shaped distribution that has mean
+     <span class="inline_math">
+      \( \mu  \)
+     </span>
+     and standard deviation
+     <span class="inline_math">
+      \( \sigma  \)
+     </span>
+     .
+    </p>
+    <div class="equation">
+     \[ 
+N(\mu, \sigma) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+ \]
+    </div>
+    <p class="noindent">
+     The parameters can be calculated from sample
+     <span class="inline_math">
+      \( x \)
+     </span>
+     with
+     <span class="inline_math">
+      \( N \)
+     </span>
+     numbers using:
+    </p>
+    <div class="equation">
+     \[ 
+\mu = \frac{1}{N} \sum_{i=1}^{N} x_i \\
+\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N} (x_i - \mu)^2}
+ \]
+    </div>
+    <p class="noindent">
+     <strong>
+      Flat spectral density
+     </strong>
+     is another way of saying that the
+noise doesn’t have a specific frequency that causes more variability
+than others.
+     <span class="intersentencespace">
+     </span>
+     You can obtain the spectrogram of the signal using a
+discrete Fourier transform (DFT), commonly calculated using the FFT
+algorithm.
+    </p>
+    <p>
+     Again if there are marked peaks in the spectrum you should try find the
+origins of those peaks.
+     <span class="intersentencespace">
+     </span>
+     Power line interference at 50Hz is quite common
+in measurements, but you can remove it by using a lowpass or band-reject
+filter.
+     <span class="intersentencespace">
+     </span>
+     Generally frequency interference can be removed using digital
+filters (or analog, but digital filters are better).
+    </p>
+   </div>
+   <div class="subsection" data-number="1.6.2" data-tralics-id="uid49" id="uid49">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid49">
+      <span class="number">
+       1.6.2
+      </span>
+      Measures of signal quality
+     </a>
+    </h3>
+    <p>
+     The following measures can be used to describe the quality of the measured signal:
+    </p>
+    <ul>
+     <li>
+      Signal-to-noise ratio
+      <strong>
+       SNR
+      </strong>
+      : is the power ratio between signal and noise.
+      <span class="intersentencespace">
+      </span>
+      The greater the better.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Coefficient of variation
+      <strong>
+       CV
+      </strong>
+      is the inverse of SNR. The smaller the better.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+    <div class="equation">
+     \[ 
+\text{SNR} = \frac{\mu}{\sigma} \qquad \text{CV} = \frac{\sigma}{\mu}
+ \]
+    </div>
+    <p class="noindent">
+     If the signal is normally distributed, then the standard
+error (SE) or typical error between the mean (from the
+signal) and the true mean (actual measured value) is given by:
+    </p>
+    <div class="equation">
+     \[ 
+\text{SE} = \frac{\sigma}{\sqrt{N}}
+ \]
+    </div>
+    <p class="noindent">
+     <strong>
+      Use at least 10 samples to calculate these, and rather 100 or 1000.
+     </strong>
+    </p>
+    <p>
+     Standard deviation is a measure of precision and you should
+     <strong>
+      report it in your results
+     </strong>
+     in addition to the mean.
+     <span class="intersentencespace">
+     </span>
+     Alternatively
+you can use the standard error.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="1.7" data-tralics-id="cid8" id="cid8">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid8">
+     <span class="number">
+      1.7
+     </span>
+     Properties of measurements
+    </a>
+   </h2>
+   <p>
+    This section contains brief explanations about the properties of measurements
+and general terminology.
+    <span class="intersentencespace">
+    </span>
+    It deals with both static and dynamic measurements.
+   </p>
+   <p>
+    <strong>
+     Static measurement
+    </strong>
+    is a measurement of quantity that doesn’t change during sampling
+e.g.
+    <span class="intersentencespace">
+    </span>
+    the weight of a Cow at this instant, moisture of grains from a sample from the dryer.
+   </p>
+   <p>
+    <strong>
+     Dynamic measurement
+    </strong>
+    is a measurement of constantly chancing quantity and needs
+additional consideration compared to static measurements.
+    <span class="intersentencespace">
+    </span>
+    Force
+measurements of moving objects, speed and acceleration etc.
+   </p>
+   <div class="subsection" data-number="1.7.1" data-tralics-id="uid52" id="uid52">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid52">
+      <span class="number">
+       1.7.1
+      </span>
+      Accuracy and precision
+     </a>
+    </h3>
+    <p>
+     Suppose you take several static measurements from in a short period of
+time e.g.
+     <span class="intersentencespace">
+     </span>
+     measure the weight of a cow several times in a row then:
+    </p>
+    <p>
+     <strong>
+      Accuracy
+     </strong>
+     is the difference between the average measured value and correct
+value.
+     <span class="intersentencespace">
+     </span>
+     (=
+     <strong>
+      bias
+     </strong>
+     )
+    </p>
+    <p>
+     <strong>
+      Precision
+     </strong>
+     is the variation between the samples i.e.
+     <span class="intersentencespace">
+     </span>
+     the repeatability of the measurement.
+     <span class="intersentencespace">
+     </span>
+     It is measured with standard deviation.
+    </p>
+    <p>
+     Accuracy is a measure of systematic error and precision is a measure
+of random noise and can be improved using calibration.
+     <span class="intersentencespace">
+     </span>
+     Precision can be
+improved by taking more measurements and averaging or in many cases improving the
+measurement set up.
+    </p>
+    <p>
+     <strong>
+      Note:
+     </strong>
+     Accuracy and precision are not synonyms when it comes to
+technology.
+    </p>
+   </div>
+   <div class="subsection" data-number="1.7.2" data-tralics-id="uid53" id="uid53">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid53">
+      <span class="number">
+       1.7.2
+      </span>
+      Types of errors
+     </a>
+    </h3>
+    <p>
+     <strong>
+      Systematic error
+     </strong>
+     : is measured with accuracy
+    </p>
+    <p>
+     <strong>
+      Random error
+     </strong>
+     : is measured with precision and can reported using standard deviation or standard error.
+    </p>
+    <p>
+     <strong>
+      Absolute error
+     </strong>
+     : magnitude of the difference between the true value and measured value.
+     <span class="intersentencespace">
+     </span>
+     e.g.
+     <span class="intersentencespace">
+     </span>
+     absolute error
+of temperature measurement is
+     <span class="inline_math">
+      \( \pm ^oC  \)
+     </span>
+     .
+    </p>
+    <p>
+     <strong>
+      Relative error
+     </strong>
+     : is the error in %.
+     <span class="intersentencespace">
+     </span>
+     <span class="inline_math">
+      \( \frac{\text{absolute error}}{\text{true value}} \cdot 100\%  \)
+     </span>
+    </p>
+   </div>
+   <div class="subsection" data-number="1.7.3" data-tralics-id="uid54" id="uid54">
+    <h3>
+     <a class="heading hyperref" href="sampling.html#uid54">
+      <span class="number">
+       1.7.3
+      </span>
+      Dynamic properties of measurements
+     </a>
+    </h3>
+    <p>
+     <strong>
+      Step response
+     </strong>
+     : is the measurement systems response to a step input.
+     <span class="intersentencespace">
+     </span>
+     It is used to
+determine the dynamic properties of the system.
+    </p>
+    <list type="description">
+     <label>
+      Rise time
+     </label>
+     <li>
+      is the that takes for the output (measured value) to rise from 10%
+change to 90% change after a step input.
+     </li>
+     <label>
+      Time constant
+      <span class="inline_math">
+       \( \tau  \)
+      </span>
+     </label>
+     <li>
+      is the time that the system takes to reach 0.63
+      <span class="inline_math">
+       \( \frac{1}{e}  \)
+      </span>
+      its final value after a step
+input.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </list>
+    <div class="center figure" data-number="1.4" data-tralics-id="uid57" id="fig-step">
+     <div class="graphics image">
+      <img alt="images/risetime" src="images/risetime.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 1.4:
+      </span>
+      <span class="description">
+       Step response and rise time.
+       <span class="intersentencespace">
+       </span>
+       Step input and the corresponding change in the measured response (output).
+       <span class="intersentencespace">
+       </span>
+      </span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="1.8" data-tralics-id="cid9" id="cid9">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid9">
+     <span class="number">
+      1.8
+     </span>
+     Calibration
+    </a>
+   </h2>
+   <p>
+    In calibration the measured value is compared to the true value (or
+more accurate value obtained from better instrument or lab
+analysis).
+   </p>
+   <ul>
+    <li>
+     Results are used to calculate
+     <em>
+      calibration coefficients
+     </em>
+     .
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Is used to correct systematic error in the measurements.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     It’s important to have enough calibration points, especially if the
+sensors response curve is not linear.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    It usually helps if you know physics you e.g.
+    <span class="intersentencespace">
+    </span>
+    use a known mass to
+calibrate force sensors, rotary movement with known radius to calibrate
+accelerometers, boiling water and ice to calibrate temperature sensors
+etc.
+    <span class="intersentencespace">
+    </span>
+    Calibration also needs to be checked during long running
+measurements because the properties of the sensors or system can change
+over time.
+    <span class="intersentencespace">
+    </span>
+    Sensors in tough environments such as cattle buildings or
+field are especially prone to changes in calibration.
+   </p>
+   <p>
+    Some instruments have calibration certificates from the manufacturer.
+    <span class="intersentencespace">
+    </span>
+    There are specialized calibration labs to do the calibration for you.
+   </p>
+  </div>
+  <div class="section" data-number="1.9" data-tralics-id="cid10" id="cid10">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid10">
+     <span class="number">
+      1.9
+     </span>
+     More terms
+    </a>
+   </h2>
+   <p>
+    <strong>
+     Span
+    </strong>
+    : This is the measurement range of an instrument e.g.
+    <span class="intersentencespace">
+    </span>
+    0-5 V, -10 –
+10V.
+   </p>
+   <p>
+    <strong>
+     Drift:
+    </strong>
+    is the change of the zero level of a measurement over time.
+    <span class="intersentencespace">
+    </span>
+    Drifting
+can occur e.g.
+    <span class="intersentencespace">
+    </span>
+    due to temperature when the properties of the amplifiers or
+sensors change.
+   </p>
+   <p>
+    <strong>
+     Sensitivity
+    </strong>
+    is the change in output of the sensor relative to the input: 10
+    <span class="inline_math">
+     \( \frac{mV}{^o C}  \)
+    </span>
+    ,
+    <span class="inline_math">
+     \( \frac{mV}{V}  \)
+    </span>
+    …
+   </p>
+   <p>
+    <strong>
+     Resolution
+    </strong>
+    tells how accurately a quantity can be measured with a sensor or a
+system.
+    <span class="intersentencespace">
+    </span>
+    For ADCs the resolution is expressed in bits and you can calculate the voltage
+resolution.
+    <span class="intersentencespace">
+    </span>
+    For sensors this is usually indicated in the measured unit e.g.
+    <span class="intersentencespace">
+    </span>
+    <span class="inline_math">
+     \( \pm 0.1 ^{\circ}  \)
+    </span>
+    C or
+    <span class="inline_math">
+     \( \pm 2cm  \)
+    </span>
+    .
+   </p>
+   <div class="aside" data-number="1.2" data-tralics-id="uid61" id="uid61">
+    <div class="heading">
+     <span class="number">
+      Box 1.2.
+     </span>
+    </div>
+    <p>
+     The sensitivity of a 500kg load cell is 2mV/V f.s.
+     <span class="intersentencespace">
+     </span>
+     (full scale).
+     <span class="intersentencespace">
+     </span>
+     With the recommended input voltage 10V the sensitivity is
+20mV/500 kg, which means that if we want to measure force
+with 1 kg resolution we need to be able to measure voltage
+with 0.04 mV resolution.
+    </p>
+   </div>
+   <p>
+    <strong>
+     Hysteresis
+    </strong>
+    means that there is a difference in readings depending whether the
+measured value is approached from above or below (e.g.
+    <span class="intersentencespace">
+    </span>
+    rising or falling temperature).
+   </p>
+  </div>
+  <div class="section" data-number="1.10" data-tralics-id="cid11" id="cid11">
+   <h2>
+    <a class="heading hyperref" href="sampling.html#cid11">
+     <span class="number">
+      1.10
+     </span>
+     Exercises
+    </a>
+   </h2>
+   <ol>
+    <li>
+     LM35A is integrated circuit temperature sensor.
+     <span class="intersentencespace">
+     </span>
+     Answer
+following questions based on the datasheet:(
+     <a href="http://www.ti.com/lit/ds/symlink/lm35.pdf" target="_blank">
+      http://www.ti.com/lit/ds/symlink/lm35.pdf
+     </a>
+     )
+    </li>
+   </ol>
+   <ul>
+    <li>
+     Accuracy
+    </li>
+    <li>
+     Measurement range
+    </li>
+    <li>
+     Rise time from 0-100% in still air?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Write the equation for converting LM35 voltage into temperature in
+     <span class="inline_math">
+      \( ^{\circ}  \)
+     </span>
+     C.
+    </li>
+    <li>
+     What would be a good agricultural application for the sensor?
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <ol>
+    <li>
+     The resolution of an ADC is 12bits and the span is
+0-5V. What is the voltage resolution?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Explain the following terms:
+     <ol>
+      <li>
+       Hysteresis
+      </li>
+      <li>
+       Accuracy
+      </li>
+      <li>
+       Sensitivity
+      </li>
+      <li>
+       Precision
+      </li>
+      <li>
+       Rise time
+      </li>
+      <li>
+       Least significant bit
+      </li>
+     </ol>
+    </li>
+    <li>
+     How do you choose a sampling rate for a dynamic measurement?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     You want to measure weight with 1kg resolution starting from
+0kg.
+     <span class="intersentencespace">
+     </span>
+     What is the maximum weight you can measure with a 12bit ADC?
+    </li>
+    <li>
+     How do you measure the rise time of a system?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     What are the advantages of digital signals over analog signals?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     How would you measure the signal-to-noise ratio of a system?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Define random noise.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ol>
+  </div>
+ </div>
+
+
+        <div class="footer" style = "text-align: center;">&copy; <a href="http://mpastell.com">Matti Pastell</a> 2016</div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6474352-9', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

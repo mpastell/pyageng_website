@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Measurements and Data Analysis for Agricultural Engineers using Python</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="css/softcover.css"> -->
+<link rel="stylesheet" href="css/pygments.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+<script src = "js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+
+<link rel="stylesheet" href="css/custom.css">
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+    "HTML-CSS": {
+      availableFonts: ["TeX"],
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"],
+      equationNumbers: {
+        autoNumber: "AMS",
+        
+      },
+      Macros: {
+        PolyTeX:    "Poly{\\TeX}",
+        PolyTeXnic: "Poly{\\TeX}nic",
+        "softcover": "\\texttt{softcover}",
+    "unitvec": ["{\\hat #1}", 1]
+      }
+    },
+    showProcessingMessages: false,
+    messageStyle: "none",
+    imageFont: null
+      });
+    
+ </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+ <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#chapters-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PyAgEng</a><p class="navbar-text"> - Matti Pastell</p>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right" id="chapters-nav">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Table of Contents<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="index.html"><strong>Table of Contents</strong></a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="preface.html"><strong>Preface</strong></a></li>
+                    
+                    <li role="separator" class="divider"></li>
+                    
+                        <li><a href="sampling.html"> <strong>Chapter 1: </strong>Measurement basics</a></li>
+                    
+                        <li><a href="dataloggers.html"> <strong>Chapter 2: </strong>Datalogger hardware and sensor connections</a></li>
+                    
+                        <li><a href="connecting_to_computers.html"> <strong>Chapter 3: </strong>Connecting loggers to computers</a></li>
+                    
+                        <li><a href="programming.html"> <strong>Chapter 4: </strong>Introduction to Programming and Python</a></li>
+                    
+                        <li><a href="scipy.html"> <strong>Chapter 5: </strong>Scientific Python</a></li>
+                    
+                        <li><a href="plotting.html"> <strong>Chapter 6: </strong>Plotting</a></li>
+                    
+                        <li><a href="spectrum.html"> <strong>Chapter 7: </strong>Frequency Analysis</a></li>
+                    
+                        <li><a href="dsp.html"> <strong>Chapter 8: </strong>Digital Signal Processing</a></li>
+                    
+                        <li><a href="references.html"> <strong>Chapter 9: </strong>References</a></li>
+                    
+                
+
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- container-fluid -->
+</nav>
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class = "twelwe columns col-md-12">
+
+             <div id="book">
+  <div class="chapter" data-chapter="connecting_to_computers" data-number="3" data-tralics-id="cid17" id="cid17">
+   <h1>
+    <a class="heading hyperref" href="connecting_to_computers.html#cid17">
+     <span class="number">
+      Chapter 3
+     </span>
+     Connecting loggers to computers
+    </a>
+   </h1>
+   <p>
+    There are several options with different advantages and disadvantages to
+connect microcontrollers and dataloggers to computers.
+    <span class="intersentencespace">
+    </span>
+    Some of the same protocols can
+also be used to communicate between computers e.g.
+    <span class="intersentencespace">
+    </span>
+    to upload data to a centralized server.
+   </p>
+  </div>
+  <div class="section" data-number="3.1" data-tralics-id="cid18" id="sec-serialport">
+   <h2>
+    <a class="heading hyperref" href="connecting_to_computers.html#sec-serialport">
+     <span class="number">
+      3.1
+     </span>
+     Serial port
+    </a>
+   </h2>
+   <p>
+    Serial protocol is the simplest way to communicate between computers
+and hardware.
+    <span class="intersentencespace">
+    </span>
+    Physical serial ports have been removed from new
+computers, but the protocol is still used by numerous devices with
+USB-adapters.
+   </p>
+   <ul>
+    <li>
+     Has drivers for any operating system and can be programmed wit
+almost any programming language.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Most microcontrollers have a serial port.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     The user needs to set the baudrate (=speed) and sometimes other
+communication protocols.
+     <span class="intersentencespace">
+     </span>
+     Maximum speed 115.2 kbits/s.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Only two devices can be communicate using the same port.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Several devices interface with microcontrollers with serial port
+e.g.
+     <span class="intersentencespace">
+     </span>
+     GPS, LCDs, GSM and GPRS.
+    </li>
+   </ul>
+   <p>
+    Serial ports were originally physical ports in the computer, but
+hardware serial ports are now longer used in similar form because they
+have been replaced by USB-ports.
+    <span class="intersentencespace">
+    </span>
+    However the communication protocol is
+so simple and convenient to program that e.g microcontrollers use the
+same protocol and USB-adapters are used on the computer to from a serial
+port.
+    <span class="intersentencespace">
+    </span>
+    You can find the serial ports connected to your computer from
+“Device manager”(You can type
+    <code>
+     devmgmt.msc
+    </code>
+    ) in windows run dialog (press win+R) to open Device Manager.
+   </p>
+   <p>
+    The easiest way to see traffic from a serial port is to use a terminal
+program such as free Bray’s Terminal
+    <sup class="footnote" id="cha-3_footnote-ref-1">
+     <a href="#cha-3_footnote-1">
+      1
+     </a>
+    </sup>
+   </p>
+   <div class="center figure" data-number="3.1" data-tralics-id="uid136" id="devicemanager">
+    <div class="graphics image">
+     <img alt="images/devicemanager" src="images/devicemanager.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 3.1:
+     </span>
+     <span class="description">
+      Windows Device Manager
+     </span>
+    </div>
+   </div>
+   <p>
+    There are different voltage levels that the serial port protocol
+can use: microcontrollers typically use TTL level (3.3V or 5V) and computers use 15V,
+therefore you need to use correct adapter for each device.
+    <span class="intersentencespace">
+    </span>
+    The
+communication protocol with different voltage levels is the same so you
+can use a level shifter circuit to if you need to connect two devices
+using a different voltage level.
+   </p>
+   <p>
+    Some instruments still use the +15V serial ports (e.g.
+    <span class="intersentencespace">
+    </span>
+    Agilent
+34970A panel meter that is used in the exercises.)
+    <span class="intersentencespace">
+    </span>
+    The advantage of the
+higher voltage level is that it can be used with longer cables.
+   </p>
+   <p>
+    Serial ports have several different settings for baudrate and other
+traffic options.
+    <span class="intersentencespace">
+    </span>
+    Also the wiring may differ between devices.
+    <span class="intersentencespace">
+    </span>
+    So if you
+experience problems always check the traffic settings and make sure you
+use the correct cable.
+    <span class="intersentencespace">
+    </span>
+    Open the cable to check if you can or make a new
+one, if you can’t open a cable without breaking it you can use a
+multimeter to check which wires are connected.
+   </p>
+  </div>
+  <div class="section" data-number="3.2" data-tralics-id="cid19" id="cid19">
+   <h2>
+    <a class="heading hyperref" href="connecting_to_computers.html#cid19">
+     <span class="number">
+      3.2
+     </span>
+     USB (universal serial bus)
+    </a>
+   </h2>
+   <p>
+    USB-port has become the most popular connection for dedicated DAQ
+boards.
+    <span class="intersentencespace">
+    </span>
+    USB has generic drivers for keyboards, mice, printers etc.
+    <span class="intersentencespace">
+    </span>
+    which makes
+it possible for devices from diffent vendors to work without separate drivers.
+   </p>
+   <p>
+    unfortunately there is no device class in the USB standard for for DAQ cards.
+    <span class="intersentencespace">
+    </span>
+    Therefore you Vendor specific drivers, that need to be programmed separately
+for each manufacturer and you may not have drivers for all operating systems.
+   </p>
+   <ul>
+    <li>
+     Programming USB devices is usually more complex than serial port
+devices.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Generally used USB 2.0 is quite fast: data transmission at
+480Mbit/s
+    </li>
+    <li>
+     Newer USB 3.0 standard is specified up to 5 bBit/s, however it is
+not yet widely used in data acquisition hardware.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     USB port can be used to power devices: 5V, 500 mA.
+    </li>
+    <li>
+     Only one device can be connected per port, but 127/controller are
+allowed using a hub.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+  </div>
+  <div class="section" data-number="3.3" data-tralics-id="cid20" id="cid20">
+   <h2>
+    <a class="heading hyperref" href="connecting_to_computers.html#cid20">
+     <span class="number">
+      3.3
+     </span>
+     Ethernet
+    </a>
+   </h2>
+   <p>
+    Can be connected directly directly to computer or local network, or to Internet.
+   </p>
+   <ul>
+    <li>
+     Speed 10, 100 or 1000 Mbit/s.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Devices get an IP address and multiple devices can be connected via
+internet or a local network.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Traffic using TCP/IP or UDP traffic.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Fairly simple to program.
+     <span class="intersentencespace">
+     </span>
+     Works on any operating system and can be
+interfaced with microcontrollers.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Popular in industrial devices.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+  </div>
+  <div class="section" data-number="3.4" data-tralics-id="cid21" id="cid21">
+   <h2>
+    <a class="heading hyperref" href="connecting_to_computers.html#cid21">
+     <span class="number">
+      3.4
+     </span>
+     Wireless connections
+    </a>
+   </h2>
+   <p>
+    There are several possibilities for wireless connections that vary in
+    <em>
+     speed
+    </em>
+    ,
+    <em>
+     power consumption
+    </em>
+    and signal transmission
+    <em>
+     range
+    </em>
+    .
+    <span class="intersentencespace">
+    </span>
+    It pays off to
+spend some time choosing the right one for the application.
+   </p>
+   <p>
+    <strong>
+     The range of the radio signal depends on:
+    </strong>
+   </p>
+   <ul>
+    <li>
+     Frequency.
+     <span class="intersentencespace">
+     </span>
+     Higher frequencies can transfer data faster, but have shorter range.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Obstacles.
+     <span class="intersentencespace">
+     </span>
+     Structures attenuate signals considerably.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Transmission power
+    </li>
+    <li>
+     Antennas.
+     <span class="intersentencespace">
+     </span>
+     Transmitting and receiving antennas.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Receiver sensitivity and SNR.
+    </li>
+   </ul>
+   <div class="aside" data-number="3.1" data-tralics-id="uid152" id="uid152">
+    <div class="heading">
+     <span class="number">
+      Box 3.1.
+     </span>
+     License free bands
+    </div>
+    <p>
+     License free bands for radio communication in Europe are 433, 868,
+2400 and 5700 MHz.
+     <span class="intersentencespace">
+     </span>
+     You are not allowed to use devices that operate
+with 900MHz, those are made for USA.
+    </p>
+   </div>
+   <div class="subsection" data-number="3.4.1" data-tralics-id="uid153" id="uid153">
+    <h3>
+     <a class="heading hyperref" href="connecting_to_computers.html#uid153">
+      <span class="number">
+       3.4.1
+      </span>
+      Bluetooth
+     </a>
+    </h3>
+    <p>
+     Fairly short range and speed &lt;1Mbs.
+     <span class="intersentencespace">
+     </span>
+     Can be programmed as a serial port.
+     <span class="intersentencespace">
+     </span>
+     Bluetooth low energy is very popular in human fittness trackers etc.
+    </p>
+   </div>
+   <div class="subsection" data-number="3.4.2" data-tralics-id="uid154" id="uid154">
+    <h3>
+     <a class="heading hyperref" href="connecting_to_computers.html#uid154">
+      <span class="number">
+       3.4.2
+      </span>
+      Zigbee
+     </a>
+    </h3>
+    <p>
+     Modules for short and long range.
+     <span class="intersentencespace">
+     </span>
+     Forms a mesh network where all
+radios can talk to each other.
+     <span class="intersentencespace">
+     </span>
+     Speed &lt;1Mbs.
+     <span class="intersentencespace">
+     </span>
+     Programmed using a
+serial port.
+    </p>
+    <ul>
+     <li>
+      Simple and affordable modules with low power consumption.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Communication using a serial port, point-to-point or
+point-to-multipoint networks with
+      <span class="inline_math">
+       \( 2^64 \)
+      </span>
+      devices in a network.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Different frequency channels: 2.4GHz, 915MHz, 868MHz.
+      <span class="intersentencespace">
+      </span>
+     </li>
+     <li>
+      Sends messages from sensor to sensor enabling longer transmission
+ranges.
+      <span class="intersentencespace">
+      </span>
+     </li>
+    </ul>
+   </div>
+   <div class="subsection" data-number="3.4.3" data-tralics-id="uid159" id="uid159">
+    <h3>
+     <a class="heading hyperref" href="connecting_to_computers.html#uid159">
+      <span class="number">
+       3.4.3
+      </span>
+      Radiomodems
+     </a>
+    </h3>
+    <p>
+     Radiomodems are usually low frecuency serial port repeaters and can
+have range of up to 10-20km.
+     <span class="intersentencespace">
+     </span>
+     Speed &lt;1Mbs.
+    </p>
+   </div>
+   <div class="subsection" data-number="3.4.4" data-tralics-id="uid160" id="uid160">
+    <h3>
+     <a class="heading hyperref" href="connecting_to_computers.html#uid160">
+      <span class="number">
+       3.4.4
+      </span>
+      WLAN
+     </a>
+    </h3>
+    <p>
+     Range some hunders of meters.
+     <span class="intersentencespace">
+     </span>
+     Speed maximum 100-200Mbs.
+     <span class="intersentencespace">
+     </span>
+     Programmed
+using TCP/IP or UDP. Any ethernet device can be connected to a WLAN
+network.
+    </p>
+   </div>
+   <div class="subsection" data-number="3.4.5" data-tralics-id="uid161" id="uid161">
+    <h3>
+     <a class="heading hyperref" href="connecting_to_computers.html#uid161">
+      <span class="number">
+       3.4.5
+      </span>
+      GPRS
+     </a>
+    </h3>
+    <p>
+     Mobile phone networks.
+     <span class="intersentencespace">
+     </span>
+     Global coverage within mobile phone
+network.
+     <span class="intersentencespace">
+     </span>
+     LTE upload speed up to 50Mbit/s, but depends heavily on network quality.
+     <span class="intersentencespace">
+     </span>
+     Can be used to transmit fairly large amounts of data from local buffer.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="3.5" data-tralics-id="cid22" id="cid22">
+   <h2>
+    <a class="heading hyperref" href="connecting_to_computers.html#cid22">
+     <span class="number">
+      3.5
+     </span>
+     Exercises
+    </a>
+   </h2>
+   <ol>
+    <li>
+     Compare serialport, USB and Ethernet connection.
+     <span class="intersentencespace">
+     </span>
+     What is
+the advantage of each type?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     What factors influence the range of a radio link?
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ol>
+  </div>
+  <div id="cha-3_footnotes">
+   <ol class="footnotes">
+    <li id="cha-3_footnote-1">
+     <a href="https://sites.google.com/site/terminalbpp/" target="_blank">
+      https://sites.google.com/site/terminalbpp/
+     </a>
+     .
+     <a class="arrow" href="#cha-3_footnote-ref-1">
+      ↑
+     </a>
+    </li>
+   </ol>
+  </div>
+ </div>
+
+
+        <div class="footer" style = "text-align: center;">&copy; <a href="http://mpastell.com">Matti Pastell</a> 2016</div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6474352-9', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

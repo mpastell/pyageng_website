@@ -1,0 +1,88 @@
+/* Place custom styles here, scoped by the CSS id '#book' */
+/* To sync up PDF styles, edit custom.sty */
+/* Google for "LaTeX style files" to learn how to use custom.sty */
+
+/*
+
+body #book {
+  background: green;
+}
+
+*/
+
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Raleway Light'), local('Raleway-Light'), url(http://fonts.gstatic.com/s/raleway/v9/-_Ctzj9b56b8RgXW8FArifk_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Raleway'), url(http://fonts.gstatic.com/s/raleway/v9/0dTEPzkLWceF7z0koJaX1A.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Raleway';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Raleway SemiBold'), local('Raleway-SemiBold'), url(http://fonts.gstatic.com/s/raleway/v9/xkvoNo9fC8O2RDydKj12b_k_vArhqVIZ0nv9q090hN8.woff2) format('woff2');
+}
+
+body #book {
+  width : 100%;
+  margin-left : 0px;
+  line-height: 1.6;
+  font-weight: 400;
+  font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #222;
+  text-align: justify;
+}
+
+
+#book h1
+{
+  font-size: 1.5em;
+}
+
+#book h2
+{
+  font-size: 1.3em;
+}
+
+#book h3
+{
+  font-size: 1.1em;
+}
+
+#book ul {
+  list-style: circle inside; }
+#book ol {
+  list-style: decimal inside; }
+#book ul ul,
+#book ul ol,
+#book ol ol,
+#book ol ul {
+  margin: 1.5rem 0 1.5rem 3rem;
+  font-size: 90%; }
+#book li {
+  margin-bottom: 1rem; }
+
+#book .highlight pre {
+  	font-size: 80%;
+  	font-weight: normal;
+    font-family: monospace;
+}
+
+#book code {
+  	font-weight: normal;
+    font-family: helvetica;
+}
+
+#book #table_of_contents ul {
+	list-style-type: none;
+	list-style-position: outside;
+	line-height: 1em;
+  margin : 0px;
+  padding: 0px;
+}

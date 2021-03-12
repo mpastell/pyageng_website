@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Measurements and Data Analysis for Agricultural Engineers using Python</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="css/softcover.css"> -->
+<link rel="stylesheet" href="css/pygments.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+<script src = "js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+
+<link rel="stylesheet" href="css/custom.css">
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+    "HTML-CSS": {
+      availableFonts: ["TeX"],
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"],
+      equationNumbers: {
+        autoNumber: "AMS",
+        
+      },
+      Macros: {
+        PolyTeX:    "Poly{\\TeX}",
+        PolyTeXnic: "Poly{\\TeX}nic",
+        "softcover": "\\texttt{softcover}",
+    "unitvec": ["{\\hat #1}", 1]
+      }
+    },
+    showProcessingMessages: false,
+    messageStyle: "none",
+    imageFont: null
+      });
+    
+ </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+ <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#chapters-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PyAgEng</a><p class="navbar-text"> - Matti Pastell</p>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right" id="chapters-nav">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Table of Contents<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="index.html"><strong>Table of Contents</strong></a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="preface.html"><strong>Preface</strong></a></li>
+                    
+                    <li role="separator" class="divider"></li>
+                    
+                        <li><a href="sampling.html"> <strong>Chapter 1: </strong>Measurement basics</a></li>
+                    
+                        <li><a href="dataloggers.html"> <strong>Chapter 2: </strong>Datalogger hardware and sensor connections</a></li>
+                    
+                        <li><a href="connecting_to_computers.html"> <strong>Chapter 3: </strong>Connecting loggers to computers</a></li>
+                    
+                        <li><a href="programming.html"> <strong>Chapter 4: </strong>Introduction to Programming and Python</a></li>
+                    
+                        <li><a href="scipy.html"> <strong>Chapter 5: </strong>Scientific Python</a></li>
+                    
+                        <li><a href="plotting.html"> <strong>Chapter 6: </strong>Plotting</a></li>
+                    
+                        <li><a href="spectrum.html"> <strong>Chapter 7: </strong>Frequency Analysis</a></li>
+                    
+                        <li><a href="dsp.html"> <strong>Chapter 8: </strong>Digital Signal Processing</a></li>
+                    
+                        <li><a href="references.html"> <strong>Chapter 9: </strong>References</a></li>
+                    
+                
+
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- container-fluid -->
+</nav>
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class = "twelwe columns col-md-12">
+
+             <div id="book">
+  <div class="chapter" data-chapter="scipy" data-number="5" data-tralics-id="cid40" id="cid40">
+   <h1>
+    <a class="heading hyperref" href="scipy.html#cid40">
+     <span class="number">
+      Chapter 5
+     </span>
+     Scientific Python
+    </a>
+   </h1>
+   <p>
+    Python has a collection of scientific libraries that is called the SciPy
+stack
+    <sup class="footnote" id="cha-5_footnote-ref-1">
+     <a href="#cha-5_footnote-1">
+      1
+     </a>
+    </sup>
+    .
+    <span class="intersentencespace">
+    </span>
+    It consists of powerful data structures to manipulate
+multidimensional using simple expressions and powerful routines to
+perform analysis and data manipulation.
+   </p>
+   <p>
+    The SciPy stack consists of the following Python modules:
+   </p>
+   <ul>
+    <li>
+     <code>
+      NumPy
+     </code>
+     .
+     <span class="intersentencespace">
+     </span>
+     Multidimensional arrays and basic operations
+    </li>
+    <li>
+     <code>
+      SciPy
+     </code>
+     .
+     <span class="intersentencespace">
+     </span>
+     A library for scientific computing which contains functionality
+for statistics, signal processing, optimization and linear algebra.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <code>
+      matplotlib
+     </code>
+     for plotting
+    </li>
+    <li>
+     <code>
+      pandas
+     </code>
+     provides easy to use data structures for data with mixed data types.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <code>
+      Sympy
+     </code>
+     for symbolic math
+    </li>
+    <li>
+     <code>
+      IPython
+     </code>
+     for a rich Python shell
+    </li>
+    <li>
+     <code>
+      nose
+     </code>
+     for testing.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    In addition to these libraries the
+    <code>
+     statsmodels
+    </code>
+    package for statistics and the
+    <code>
+     scikit-learn
+    </code>
+    package for machine learning are very useful.
+   </p>
+   <p>
+    We will use the following statement to import most important
+functionality from NumPy, SciPy and matplotlib into main namespace.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    This form is in my opinion easiest to use for beginners.
+    <span class="intersentencespace">
+    </span>
+    The pylab
+module imports core components from Numpy, Scipy and matplotlib for easy
+interactive use.
+    <span class="intersentencespace">
+    </span>
+    When you get more familiar with Python you can then
+import only the parts that you need.
+    <span class="intersentencespace">
+    </span>
+    Bare in mind that there are also
+other forms that can be used to import modules when you read examples
+from various sources.
+   </p>
+  </div>
+  <div class="section" data-number="5.1" data-tralics-id="cid41" id="cid41">
+   <h2>
+    <a class="heading hyperref" href="scipy.html#cid41">
+     <span class="number">
+      5.1
+     </span>
+     NumPy arrays
+    </a>
+   </h2>
+   <p>
+    Numpy package contains efficient multidimensional arrays that form the
+basics of data manipulation also in Scipy.
+    <span class="intersentencespace">
+    </span>
+    The
+    <code>
+     array
+    </code>
+    datatype is
+the basic type we are using.
+    <span class="intersentencespace">
+    </span>
+    It can used in scalar
+computations, like adding two arrays elementwise, or
+in linear algebra operations.
+   </p>
+   <p>
+    Numpy has methods for reading data from files to arrays, creating arrays
+with a certain range and converting other Python sequences to arrays.
+   </p>
+   <p>
+    The
+    <code>
+     linspace
+    </code>
+    command can be used to create a vector between given
+and start endpoints with predetermined number of elements and
+    <code>
+     arange
+    </code>
+    commands is used to create vector with elements with certain
+difference between elements.
+   </p>
+   <p>
+    Here are some methods to create arrays:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="c">#Five elements from 0 to 1</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">0.</span>  <span class="p">,</span>  <span class="mf">0.25</span><span class="p">,</span>  <span class="mf">0.5</span> <span class="p">,</span>  <span class="mf">0.75</span><span class="p">,</span>  <span class="mf">1.</span>  <span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">)</span> <span class="c">#From 0 to 2 by 0.3</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.3</span><span class="p">,</span>  <span class="mf">0.6</span><span class="p">,</span>  <span class="mf">0.9</span><span class="p">,</span>  <span class="mf">1.2</span><span class="p">,</span>  <span class="mf">1.5</span><span class="p">,</span>  <span class="mf">1.8</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">array</span><span class="p">([</span><span class="mf">3.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> <span class="c">#From list</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">3.2</span><span class="p">,</span>  <span class="mf">1.</span> <span class="p">,</span>  <span class="mf">4.</span> <span class="p">])</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    The advantage of arrays is that they can be used in equations easily
+without looping trough all elements like you would need to do with a
+list.
+   </p>
+   <p>
+    Suppose for instance that we have a 12V power source and we want to
+calculate the power for currents between 0 and 2A. This is given by
+formula
+    <span class="inline_math">
+     \( P=VI \)
+    </span>
+   </p>
+   <p>
+    And the solution using Numpy arrays:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">V</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">I</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">I</span>
+<span class="n">array</span><span class="p">([</span> <span class="mf">0.</span> <span class="p">,</span>  <span class="mf">0.4</span><span class="p">,</span>  <span class="mf">0.8</span><span class="p">,</span>  <span class="mf">1.2</span><span class="p">,</span>  <span class="mf">1.6</span><span class="p">,</span>  <span class="mf">2.</span> <span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">P</span> <span class="o">=</span> <span class="n">V</span><span class="o">*</span><span class="n">I</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">P</span>
+<span class="n">array</span><span class="p">([</span>  <span class="mf">0.</span> <span class="p">,</span>   <span class="mf">4.8</span><span class="p">,</span>   <span class="mf">9.6</span><span class="p">,</span>  <span class="mf">14.4</span><span class="p">,</span>  <span class="mf">19.2</span><span class="p">,</span>  <span class="mf">24.</span> <span class="p">])</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    The following table shows for basic operations on arrays.
+    <span class="intersentencespace">
+    </span>
+    See Numpy
+refence for complete details
+    <a href="http://docs.scipy.org/doc/numpy/reference/" target="_blank">
+     http://docs.scipy.org/doc/numpy/reference/
+    </a>
+    .
+   </p>
+   <div class="table" data-number="5.1" data-tralics-id="uid277" id="uid277">
+    <table class="tabular">
+     <tr class="top_border bottom_border">
+      <td class="align_left right_border">
+       <strong>
+        Operation
+       </strong>
+       and
+       <em>
+        remarks
+       </em>
+      </td>
+      <td class="align_left">
+       <strong>
+        Command
+       </strong>
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       Creating variables:
+      </td>
+      <td class="align_left">
+       a = 1.
+       <span class="intersentencespace">
+       </span>
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       <em>
+        vector: from 1-10
+       </em>
+      </td>
+      <td class="align_left">
+       a = arange(1.
+       <span class="intersentencespace">
+       </span>
+       , 11)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       <em>
+        array
+       </em>
+      </td>
+      <td class="align_left">
+       X = array([[3, 2], [4, 1], [6, 3]])
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       Basic element wise operations
+       <span class="tt">
+        * + -/
+       </span>
+      </td>
+      <td class="align_left">
+       <span class="tt">
+        2.
+        <span class="intersentencespace">
+        </span>
+        + 5.5; a-3; a*b; X/Y
+       </span>
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       Powers
+      </td>
+      <td class="align_left">
+       <span class="tt">
+        2**3; a**2; X**10
+       </span>
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       Square root
+      </td>
+      <td class="align_left">
+       sqrt(a)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       Indexing arrays
+      </td>
+      <td class="align_left">
+       b = a[0:5]
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       <em>
+        Multidimensional arrays [row, column]
+       </em>
+      </td>
+      <td class="align_left">
+       Y = X[0:2, 2:5]
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       Number of elements
+      </td>
+      <td class="align_left">
+       len(x); shape(X)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       Sum
+      </td>
+      <td class="align_left">
+       sum(x); sum(X)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       <em>
+        by colums
+       </em>
+      </td>
+      <td class="align_left">
+       sum(X, 0)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       <em>
+        by rows
+       </em>
+      </td>
+      <td class="align_left">
+       sum(X, 1)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       Average
+      </td>
+      <td class="align_left">
+       mean(x); mean(X)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       <em>
+        by colums
+       </em>
+      </td>
+      <td class="align_left">
+       mean(X, 0)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       <em>
+        by rows
+       </em>
+      </td>
+      <td class="align_left">
+       mean(X, 1)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       Standard deviation
+      </td>
+      <td class="align_left">
+       std(x); std(X)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       <em>
+        by colums
+       </em>
+      </td>
+      <td class="align_left">
+       std(X, 0)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       <em>
+        by rows
+       </em>
+      </td>
+      <td class="align_left">
+       std(X, 1)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       Cumulative sum
+      </td>
+      <td class="align_left">
+       cumsum(x); cumsum(X)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       <em>
+        by colums
+       </em>
+      </td>
+      <td class="align_left">
+       cumsum(X, 0)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       <em>
+        by rows
+       </em>
+      </td>
+      <td class="align_left">
+       cumsum(X, 1)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       Dot product
+      </td>
+      <td class="align_left">
+       dot(a,b); dot(X,Y)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       Transposing a matrix
+      </td>
+      <td class="align_left">
+       transpose(X)
+      </td>
+     </tr>
+     <tr>
+      <td class="align_left right_border">
+       Random numbers
+      </td>
+      <td class="align_left">
+       rand(100)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       <em>
+        from Normal distribution
+       </em>
+      </td>
+      <td class="align_left">
+       randn(10,10)
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       Delete a variable
+      </td>
+      <td class="align_left">
+       del a
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="align_left right_border">
+       Help for a command
+      </td>
+      <td class="align_left">
+       help(mean); help(std)
+      </td>
+     </tr>
+    </table>
+    <div class="caption">
+     <span class="header">
+      Table 5.1:
+     </span>
+     <span class="description">
+      Basic operations and data structures.
+      <span class="intersentencespace">
+      </span>
+      variables
+      <span class="tt">
+       a
+      </span>
+      and
+      <span class="tt">
+       b
+      </span>
+      are vectors and variables
+      <span class="tt">
+       X
+      </span>
+      and
+      <span class="tt">
+       Y
+      </span>
+      are matrices
+     </span>
+    </div>
+   </div>
+   <div class="subsection" data-number="5.1.1" data-tralics-id="uid278" id="uid278">
+    <h3>
+     <a class="heading hyperref" href="scipy.html#uid278">
+      <span class="number">
+       5.1.1
+      </span>
+      Saving and loading NumPy arrays
+     </a>
+    </h3>
+    <p>
+     Numpy has easy methods for reading and writing numerical data to and
+from text files.
+    </p>
+    <p>
+     A simple example:
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">savetxt</span><span class="p">(</span><span class="s">'data.txt'</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">loadtxt</span><span class="p">(</span><span class="s">'data.txt'</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mf">0.57299917</span><span class="p">,</span>  <span class="mf">0.47370978</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.60736374</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">0.5965621</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.85368156</span><span class="p">,</span>  <span class="mf">1.629525</span>  <span class="p">],</span>
+       <span class="p">[</span> <span class="mf">1.6277449</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.07544523</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.57351649</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">2.44221353</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2686372</span> <span class="p">,</span>  <span class="mf">0.14524342</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.24633481</span><span class="p">,</span>  <span class="mf">1.12646824</span><span class="p">,</span>  <span class="mf">1.00443323</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x2</span>
+<span class="n">array</span><span class="p">([[</span> <span class="mf">0.57299917</span><span class="p">,</span>  <span class="mf">0.47370978</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.60736374</span><span class="p">],</span>
+       <span class="p">[</span> <span class="mf">0.5965621</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.85368156</span><span class="p">,</span>  <span class="mf">1.629525</span>  <span class="p">],</span>
+       <span class="p">[</span> <span class="mf">1.6277449</span> <span class="p">,</span> <span class="o">-</span><span class="mf">1.07544523</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.57351649</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">2.44221353</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2686372</span> <span class="p">,</span>  <span class="mf">0.14524342</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.24633481</span><span class="p">,</span>  <span class="mf">1.12646824</span><span class="p">,</span>  <span class="mf">1.00443323</span><span class="p">]])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">==</span> <span class="n">x2</span>
+<span class="n">array</span><span class="p">([[</span> <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">],</span>
+       <span class="p">[</span> <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">],</span>
+       <span class="p">[</span> <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">],</span>
+       <span class="p">[</span> <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">],</span>
+       <span class="p">[</span> <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">,</span>  <span class="bp">True</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     You can also use converters to read in e.g.
+     <span class="intersentencespace">
+     </span>
+     dates.
+     <span class="intersentencespace">
+     </span>
+     The following example
+will load a datafile with dates in the first column and convert the iso
+formatted date to numeric format.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="kn">from</span> <span class="nn">matplotlib.dates</span> <span class="kn">import</span> <span class="n">datestr2num</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loadtxt</span><span class="p">(</span><span class="s">"data.txt"</span><span class="p">,</span> <span class="n">converters</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="n">datestr2num</span><span class="p">})</span>
+</pre>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="5.2" data-tralics-id="cid42" id="cid42">
+   <h2>
+    <a class="heading hyperref" href="scipy.html#cid42">
+     <span class="number">
+      5.2
+     </span>
+     pandas dataframes
+    </a>
+   </h2>
+   <p>
+    NumPy arrays are very useful and efficient when you only have numerical data, but they are a lot less convenient to work with when you have data consisting of multiple data types such as strings, factors and booleans.
+    <span class="intersentencespace">
+    </span>
+    The pandas library provides data structures and functions that make working with mixed data types a lot easier.
+    <span class="intersentencespace">
+    </span>
+    The library is very well documented at
+    <a href="http://pandas.pydata.org" target="_blank">
+     http://pandas.pydata.org
+    </a>
+    , but I will show few examples to give an idea about how the library can be used.
+   </p>
+   <p>
+    The main pandas data structure is the DataFrame.
+    <span class="intersentencespace">
+    </span>
+    The library provides a several functions to read a DataFrame from files (csv, excel, hdf5) or from SQL database.
+    <span class="intersentencespace">
+    </span>
+    You can also construct DataFrames from several data structures e.g.
+    <span class="intersentencespace">
+    </span>
+    lists, dicts and NumPy arrays.
+   </p>
+   <p>
+    Here is a simple example about making a DataFrame from a list of Python dicts:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">cowList</span> <span class="o">=</span> <span class="p">[{</span><span class="s">"id"</span> <span class="p">:</span> <span class="mi">101</span><span class="p">,</span> <span class="s">"weight"</span> <span class="p">:</span> <span class="mi">650</span><span class="p">},</span>
+<span class="o">...</span>            <span class="p">{</span><span class="s">"id"</span> <span class="p">:</span> <span class="mi">102</span><span class="p">,</span> <span class="s">"weight"</span> <span class="p">:</span> <span class="mi">720</span><span class="p">},</span>
+<span class="o">...</span>            <span class="p">{</span><span class="s">"id"</span> <span class="p">:</span> <span class="mi">103</span><span class="p">,</span> <span class="s">"weight"</span> <span class="p">:</span> <span class="mi">800</span><span class="p">},</span>
+<span class="o">...</span>            <span class="p">{</span><span class="s">"id"</span> <span class="p">:</span> <span class="mi">104</span><span class="p">,</span> <span class="s">"weight"</span> <span class="p">:</span> <span class="mi">560</span><span class="p">}]</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c">#Create DataFrame</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cowList</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c">#Look at the contents</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">df</span>
+    <span class="nb">id</span>  <span class="n">weight</span>
+<span class="mi">0</span>  <span class="mi">101</span>     <span class="mi">650</span>
+<span class="mi">1</span>  <span class="mi">102</span>     <span class="mi">720</span>
+<span class="mi">2</span>  <span class="mi">103</span>     <span class="mi">800</span>
+<span class="mi">3</span>  <span class="mi">104</span>     <span class="mi">560</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    Let’s look at a more interesting example of roughage intake data from dairy cows in
+    <span class="tt">
+     feedintake.csv
+    </span>
+    file.
+    <span class="intersentencespace">
+    </span>
+    The dataset contains roughage feeder trough visit information from 48 cows during 24 hours.
+    <span class="intersentencespace">
+    </span>
+    Each row corresponds
+to one visit from a cow with recorded trough number, start and end time, visit duration in seconds and feed intake in kilograms.
+   </p>
+   <p>
+    We will read the data from csv file using pandas:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">feed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">"data/feed_intake.csv"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="c">#Look at the first rows using head function</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">feed</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+   <span class="n">cowID</span>  <span class="n">trough</span>                <span class="n">begin</span>                  <span class="n">end</span>  <span class="n">duration</span>  <span class="n">intake</span>
+<span class="mi">0</span>      <span class="mi">9</span>      <span class="mi">18</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mo">03</span><span class="p">:</span><span class="mi">50</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mo">03</span>       <span class="mi">493</span>     <span class="mf">2.5</span>
+<span class="mi">1</span>      <span class="mi">2</span>      <span class="mi">13</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mo">06</span><span class="p">:</span><span class="mi">27</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mi">18</span>       <span class="mi">351</span>     <span class="mf">1.3</span>
+<span class="mi">2</span>      <span class="mi">9</span>      <span class="mi">18</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mi">32</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mi">51</span>       <span class="mi">319</span>     <span class="mf">1.3</span>
+<span class="mi">3</span>     <span class="mi">43</span>      <span class="mi">11</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mo">06</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">09</span>       <span class="mi">723</span>     <span class="mf">3.5</span>
+<span class="mi">4</span>     <span class="mi">42</span>      <span class="mi">23</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mo">03</span><span class="p">:</span><span class="mi">38</span>  <span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">18</span> <span class="mo">00</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span><span class="mi">10</span>      <span class="mi">1052</span>     <span class="mf">4.6</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    We can access the columns of the DataFrame with the column name:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">feed</span><span class="p">[</span><span class="s">"intake"</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="mi">0</span>    <span class="mf">2.5</span>
+<span class="mi">1</span>    <span class="mf">1.3</span>
+<span class="mi">2</span>    <span class="mf">1.3</span>
+<span class="mi">3</span>    <span class="mf">3.5</span>
+<span class="mi">4</span>    <span class="mf">4.6</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">intake</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">float64</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">feed</span><span class="p">[</span><span class="s">"duration"</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="mi">0</span>     <span class="mi">493</span>
+<span class="mi">1</span>     <span class="mi">351</span>
+<span class="mi">2</span>     <span class="mi">319</span>
+<span class="mi">3</span>     <span class="mi">723</span>
+<span class="mi">4</span>    <span class="mi">1052</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    And also remove columns, note that the
+    <span class="tt">
+     inplace
+    </span>
+    option can be used to modify an existing object and is more efficient.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="c"># Make a copy with dropped column</span>
+<span class="n">feed2</span> <span class="o">=</span> <span class="n">feed</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s">"trough"</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c"># Modify existing object</span>
+<span class="n">feed</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s">"trough"</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    And select data from the DataFrame e.g.
+    <span class="intersentencespace">
+    </span>
+    select all data from cow number 1 and plot feed intake vs feeding bout duration:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="n">cow1</span> <span class="o">=</span> <span class="n">feed</span><span class="p">[</span><span class="n">feed</span><span class="p">[</span><span class="s">"cowID"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">cow1</span><span class="p">[</span><span class="s">"duration"</span><span class="p">],</span> <span class="n">cow1</span><span class="p">[</span><span class="s">"intake"</span><span class="p">],</span> <span class="s">'o'</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">"Feeding time (s)"</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s">"Feed intake (kg)"</span><span class="p">)</span>
+</pre>
+    </div>
+   </div>
+   <div class="graphics image">
+    <img alt="images/plotting/scipy_figure11_1" src="images/plotting/scipy_figure11_1.png"/>
+   </div>
+   <p>
+    We can easily calculate the total feed intake and feeding time for each cow by grouping the dataset by “cowID” column and applying the sum function.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">feed_sums</span> <span class="o">=</span> <span class="n">feed</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"cowID"</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">feed_sums</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+       <span class="n">duration</span>  <span class="n">intake</span>
+<span class="n">cowID</span>
+<span class="mi">1</span>          <span class="mi">9778</span>    <span class="mf">73.6</span>
+<span class="mi">2</span>         <span class="mi">11868</span>    <span class="mf">66.0</span>
+<span class="mi">3</span>           <span class="mi">858</span>     <span class="mf">2.4</span>
+<span class="mi">4</span>          <span class="mi">9796</span>    <span class="mf">68.8</span>
+<span class="mi">5</span>         <span class="mi">12848</span>    <span class="mf">69.7</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    You can also apply several aggregate function passing them as a list
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="o">&gt;&gt;&gt;</span> <span class="n">feed</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">"cowID"</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">])</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+      <span class="n">duration</span>             <span class="n">intake</span>
+           <span class="nb">sum</span>         <span class="n">std</span>    <span class="nb">sum</span>       <span class="n">std</span>
+<span class="n">cowID</span>
+<span class="mi">1</span>         <span class="mi">9778</span>  <span class="mf">136.811512</span>   <span class="mf">73.6</span>  <span class="mf">0.995150</span>
+<span class="mi">2</span>        <span class="mi">11868</span>  <span class="mf">235.607678</span>   <span class="mf">66.0</span>  <span class="mf">1.480723</span>
+<span class="mi">3</span>          <span class="mi">858</span>  <span class="mf">109.874474</span>    <span class="mf">2.4</span>  <span class="mf">0.551362</span>
+<span class="mi">4</span>         <span class="mi">9796</span>  <span class="mf">491.439436</span>   <span class="mf">68.8</span>  <span class="mf">3.548356</span>
+<span class="mi">5</span>        <span class="mi">12848</span>  <span class="mf">227.878629</span>   <span class="mf">69.7</span>  <span class="mf">1.546469</span>
+</pre>
+    </div>
+   </div>
+  </div>
+  <div id="cha-5_footnotes">
+   <ol class="footnotes">
+    <li id="cha-5_footnote-1">
+     <a href="http://www.scipy.org/stackspec.html" target="_blank">
+      http://www.scipy.org/stackspec.html
+     </a>
+     <a class="arrow" href="#cha-5_footnote-ref-1">
+      ↑
+     </a>
+    </li>
+   </ol>
+  </div>
+ </div>
+
+
+        <div class="footer" style = "text-align: center;">&copy; <a href="http://mpastell.com">Matti Pastell</a> 2016</div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6474352-9', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>

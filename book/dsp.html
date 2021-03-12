@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Measurements and Data Analysis for Agricultural Engineers using Python</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="http://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<!-- <link rel="stylesheet" href="css/softcover.css"> -->
+<link rel="stylesheet" href="css/pygments.css">
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+
+<script src = "js/jquery-2.2.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<!-- <link rel="stylesheet" href="css/normalize.css"> -->
+<!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+
+<link rel="stylesheet" href="css/custom.css">
+
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+    "HTML-CSS": {
+      availableFonts: ["TeX"],
+    },
+    TeX: {
+      extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"],
+      equationNumbers: {
+        autoNumber: "AMS",
+        
+      },
+      Macros: {
+        PolyTeX:    "Poly{\\TeX}",
+        PolyTeXnic: "Poly{\\TeX}nic",
+        "softcover": "\\texttt{softcover}",
+    "unitvec": ["{\\hat #1}", 1]
+      }
+    },
+    showProcessingMessages: false,
+    messageStyle: "none",
+    imageFont: null
+      });
+    
+ </script>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+ <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#chapters-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PyAgEng</a><p class="navbar-text"> - Matti Pastell</p>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-right" id="chapters-nav">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Table of Contents<span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="index.html"><strong>Table of Contents</strong></a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="preface.html"><strong>Preface</strong></a></li>
+                    
+                    <li role="separator" class="divider"></li>
+                    
+                        <li><a href="sampling.html"> <strong>Chapter 1: </strong>Measurement basics</a></li>
+                    
+                        <li><a href="dataloggers.html"> <strong>Chapter 2: </strong>Datalogger hardware and sensor connections</a></li>
+                    
+                        <li><a href="connecting_to_computers.html"> <strong>Chapter 3: </strong>Connecting loggers to computers</a></li>
+                    
+                        <li><a href="programming.html"> <strong>Chapter 4: </strong>Introduction to Programming and Python</a></li>
+                    
+                        <li><a href="scipy.html"> <strong>Chapter 5: </strong>Scientific Python</a></li>
+                    
+                        <li><a href="plotting.html"> <strong>Chapter 6: </strong>Plotting</a></li>
+                    
+                        <li><a href="spectrum.html"> <strong>Chapter 7: </strong>Frequency Analysis</a></li>
+                    
+                        <li><a href="dsp.html"> <strong>Chapter 8: </strong>Digital Signal Processing</a></li>
+                    
+                        <li><a href="references.html"> <strong>Chapter 9: </strong>References</a></li>
+                    
+                
+
+                  </ul>
+            </li>
+        </ul>
+    </div>
+
+</div> <!-- container-fluid -->
+</nav>
+
+
+<div class = "container">
+
+    <div class="row">
+        <div class = "twelwe columns col-md-12">
+
+             <div id="book">
+  <div class="chapter" data-chapter="dsp" data-number="8" data-tralics-id="cid64" id="cid64">
+   <h1>
+    <a class="heading hyperref" href="dsp.html#cid64">
+     <span class="number">
+      Chapter 8
+     </span>
+     Digital Signal Processing
+    </a>
+   </h1>
+  </div>
+  <div class="section" data-number="8.1" data-tralics-id="cid65" id="cid65">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid65">
+     <span class="number">
+      8.1
+     </span>
+     What is Digital Signal Processing?
+    </a>
+   </h2>
+   <p>
+    This chapter provides a quick overview of digital signal processing
+    <strong>
+     DSP
+    </strong>
+    .
+    <span class="intersentencespace">
+    </span>
+    DSP is inherent part of many measurement system and at least
+post processing of data before actual analysis and is therefore included
+in this course.
+   </p>
+   <div class="aside" data-number="8.1" data-tralics-id="uid329" id="uid329">
+    <div class="heading">
+     <span class="number">
+      Box 8.1.
+     </span>
+     <span class="description">
+      Signal processing
+     </span>
+    </div>
+    <p>
+     The purpose of signal processing is to improve the quality of
+a signal by suppressing noise.
+     <span class="intersentencespace">
+     </span>
+     It can also be used to get rid
+off redundant information to store and transmit data more efficiently.
+    </p>
+    <p>
+     SciPy has extensive DSP functionality in
+     <code>
+      scipy.signal
+     </code>
+     namespace.
+     <span class="intersentencespace">
+     </span>
+    </p>
+   </div>
+   <ul>
+    <li>
+     DSP deals with digital signals on computers.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Analog signal processing is implemented using components: resistors,
+capacitors, inductors.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Digital filters are more accurate and cheaper than analog ones and
+don’t suffer from aging.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+  </div>
+  <div class="section" data-number="8.2" data-tralics-id="cid66" id="cid66">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid66">
+     <span class="number">
+      8.2
+     </span>
+     Filter types
+    </a>
+   </h2>
+   <p>
+    Filtering aims to remove unwanted noise from a signal or separate
+several sources from one measured signal.
+   </p>
+   <ul>
+    <li>
+     <strong>
+      Lowpass filter
+     </strong>
+     is used to remove high frequencies.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Highpass filter
+     </strong>
+     is used to remove low frequencies.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Bandpass filter
+     </strong>
+     is used to remove low and high frequencies.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Bandreject filter
+     </strong>
+     is used to remove a certain frequency band between low and high frequencies.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <div class="aside" data-number="8.2" data-tralics-id="uid337" id="uid337">
+    <div class="heading">
+     <span class="number">
+      Box 8.2.
+     </span>
+     <span class="description">
+      Ideal filters
+     </span>
+    </div>
+    <p>
+     Filters are not perfect so in practice filtered data also contains
+filtered frequencies, but they are greatly attenuated.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="8.3" data-tralics-id="cid67" id="cid67">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid67">
+     <span class="number">
+      8.3
+     </span>
+     Filter properties
+    </a>
+   </h2>
+   <div class="aside" data-number="8.3" data-tralics-id="uid338" id="uid338">
+    <div class="heading">
+     <span class="number">
+      Box 8.3.
+     </span>
+     <span class="description">
+      Choosing the correct filter
+     </span>
+    </div>
+    <p>
+     Filters can be optimized for either time domain or frequency
+domain performance, but it is not possible to optimize a filter
+for both applications.
+    </p>
+   </div>
+   <ul>
+    <li>
+     <strong>
+      Time domain
+     </strong>
+     performance of the filter is measured with step response
+and phase response.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Frequency domain
+     </strong>
+     performance is measured with amplitude response.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Step and Amplitude response can be calculated from impulse response.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    The frequency response of a filter can be obtained from its impulse
+response by Fourier transforming it and the step response is the
+cumulative sum of the impulse response.
+    <span class="intersentencespace">
+    </span>
+    Chapter 14 of (Smith 1997)
+provides a good introduction to filters.
+   </p>
+   <div class="aside" data-number="8.4" data-tralics-id="uid342" id="uid342">
+    <div class="heading">
+     <span class="number">
+      Box 8.4.
+     </span>
+     <span class="description">
+      Filtering causes distortion
+     </span>
+    </div>
+    <p>
+     Every filter causes some amount of distortion to filtered
+signal.
+     <span class="intersentencespace">
+     </span>
+     It is important to be aware of the properties of the
+filter you use.
+    </p>
+   </div>
+   <p>
+    The properties of a filter are characterized by the following
+concepts and
+    <a class="hyperref" href="dsp.html#fig-properties">
+     Figure
+     <span class="ref">
+      8.1
+     </span>
+    </a>
+   </p>
+   <ul>
+    <li>
+     <strong>
+      Amplitude response
+     </strong>
+     is the ratio between input and output signals.
+     <span class="intersentencespace">
+     </span>
+     The aim is to get a sharp attenuation and no ripple on passband (
+     <a class="hyperref" href="dsp.html#fig-properties">
+      Figure
+      <span class="ref">
+       8.1
+      </span>
+     </a>
+     a).
+     <span class="intersentencespace">
+     </span>
+     It is sometimes also called the frequency response.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Phase response
+     </strong>
+     is the change in the phase of the input signal after filtering.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Linear phase
+     </strong>
+     filters have the same phase shift for all frequencies.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Zero phase
+     </strong>
+     filters have no phase shift.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Impulse response
+     </strong>
+     is the filters output when the input is a unit signal.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Step response
+     </strong>
+     is the filters output when the input is a step signal.
+     <span class="intersentencespace">
+     </span>
+     Good step
+response is sharp and doesn’t overshoot.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <div class="center figure" data-number="8.1" data-tralics-id="uid349" id="fig-properties">
+    <div class="graphics image">
+     <img alt="images/manual/f_properties" src="images/manual/f_properties.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 8.1:
+     </span>
+     <span class="description">
+      Filter terminology for step and amplitude response.
+      <span class="intersentencespace">
+      </span>
+      100th order
+Blackman FIR lowpass filter.
+     </span>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="8.4" data-tralics-id="cid68" id="cid68">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid68">
+     <span class="number">
+      8.4
+     </span>
+     Filter properties using SciPy
+    </a>
+   </h2>
+   <p>
+    SciPy filter design and analysis code is in
+    <code>
+     scipy.signal
+    </code>
+    namespace.
+    <span class="intersentencespace">
+    </span>
+    There are several function to design and analyze filters.
+   </p>
+   <p>
+    However SciPy doesn’t have good functions for plotting amplitude
+response or phase response.
+    <span class="intersentencespace">
+    </span>
+    So here are two useful functions that can be
+used to plot filter properties.
+    <span class="intersentencespace">
+    </span>
+    You’ll need to import
+    <code>
+     scipy.signal
+    </code>
+    in order to use them.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+</pre>
+    </div>
+   </div>
+   <div class="subsection" data-number="8.4.1" data-tralics-id="uid350" id="uid350">
+    <h3>
+     <a class="heading hyperref" href="dsp.html#uid350">
+      <span class="number">
+       8.4.1
+      </span>
+      Frequency response
+     </a>
+    </h3>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="k">def</span> <span class="nf">plot_freqz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">w</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">freqz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">h_dB</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">log10</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="n">pi</span><span class="p">,</span> <span class="n">h_dB</span><span class="p">)</span>
+    <span class="n">ylim</span><span class="p">([</span><span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">h_dB</span><span class="p">),</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span> <span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+    <span class="n">ylabel</span><span class="p">(</span><span class="s">'Magnitude (db)'</span><span class="p">)</span>
+    <span class="n">xlabel</span><span class="p">(</span><span class="s">r'Normalized Frequency (x$\pi$rad/sample)'</span><span class="p">)</span>
+    <span class="n">title</span><span class="p">(</span><span class="s">r'Amplitude response'</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="k">def</span> <span class="nf">plot_phasez</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">w</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">freqz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">h_Phase</span> <span class="o">=</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">arctan2</span><span class="p">(</span><span class="n">imag</span><span class="p">(</span><span class="n">h</span><span class="p">),</span><span class="n">real</span><span class="p">(</span><span class="n">h</span><span class="p">)))</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="n">pi</span><span class="p">,</span> <span class="n">h_Phase</span><span class="p">)</span>
+    <span class="n">ylabel</span><span class="p">(</span><span class="s">'Phase (radians)'</span><span class="p">)</span>
+    <span class="n">xlabel</span><span class="p">(</span><span class="s">r'Normalized Frequency (x$\pi$rad/sample)'</span><span class="p">)</span>
+    <span class="n">title</span><span class="p">(</span><span class="s">r'Phase response'</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="8.5" data-tralics-id="cid69" id="cid69">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid69">
+     <span class="number">
+      8.5
+     </span>
+     Impulse response
+    </a>
+   </h2>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="k">def</span> <span class="nf">plot_impz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">==</span> <span class="nb">int</span><span class="p">:</span> <span class="c">#FIR</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c"># IIR</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">impulse</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="n">l</span><span class="p">);</span> <span class="n">impulse</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span><span class="mf">1.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">impulse</span><span class="p">)</span>
+    <span class="n">stem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">linefmt</span><span class="o">=</span><span class="s">'b-'</span><span class="p">,</span> <span class="n">basefmt</span><span class="o">=</span><span class="s">'b-'</span><span class="p">,</span> <span class="n">markerfmt</span><span class="o">=</span><span class="s">'bo'</span><span class="p">)</span>
+    <span class="n">ylabel</span><span class="p">(</span><span class="s">'Amplitude'</span><span class="p">)</span>
+    <span class="n">xlabel</span><span class="p">(</span><span class="s">r'n (samples)'</span><span class="p">)</span>
+    <span class="n">title</span><span class="p">(</span><span class="s">r'Impulse response'</span><span class="p">)</span>
+</pre>
+    </div>
+   </div>
+   <div class="subsection" data-number="8.5.1" data-tralics-id="uid351" id="uid351">
+    <h3>
+     <a class="heading hyperref" href="dsp.html#uid351">
+      <span class="number">
+       8.5.1
+      </span>
+      Step response
+     </a>
+    </h3>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="k">def</span> <span class="nf">plot_stepz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">==</span> <span class="nb">int</span><span class="p">:</span> <span class="c">#FIR</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c"># IIR</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">impulse</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="n">l</span><span class="p">);</span> <span class="n">impulse</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span><span class="mf">1.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">impulse</span><span class="p">)</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+    <span class="n">ylabel</span><span class="p">(</span><span class="s">'Amplitude'</span><span class="p">)</span>
+    <span class="n">xlabel</span><span class="p">(</span><span class="s">r'n (samples)'</span><span class="p">)</span>
+    <span class="n">title</span><span class="p">(</span><span class="s">r'Step response'</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+   </div>
+   <div class="subsection" data-number="8.5.2" data-tralics-id="uid352" id="uid352">
+    <h3>
+     <a class="heading hyperref" href="dsp.html#uid352">
+      <span class="number">
+       8.5.2
+      </span>
+      Plot all together
+     </a>
+    </h3>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="k">def</span> <span class="nf">plot_filterz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+    <span class="n">plot_freqz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+    <span class="n">plot_phasez</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+    <span class="n">plot_impz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+    <span class="n">plot_stepz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">wspace</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="8.6" data-tralics-id="cid70" id="cid70">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid70">
+     <span class="number">
+      8.6
+     </span>
+     Decibels
+    </a>
+   </h2>
+   <p>
+    A decibel is dimensionless unit that compares the ratio of numbers
+in logarithmic scale.
+    <span class="intersentencespace">
+    </span>
+    It is often used to express the power ratio of
+two signals.
+   </p>
+   <p>
+    In signal processing we are usually interested in the amplitude
+ratio of two signals.
+    <span class="intersentencespace">
+    </span>
+    Usually before and after filtering.
+   </p>
+   <div class="equation" data-number="8.1" data-tralics-id="uid353" id="uid353">
+    \begin{align}
+\text{Power:  dB} = 10 \text{log}_{10} \frac{P_2}{P_1}
+\end{align}
+   </div>
+   <div class="equation" data-number="8.2" data-tralics-id="uid354" id="uid354">
+    \begin{align}
+  \text{Amplitude:  dB} = 20 \text{log}_{10} \frac{A_2}{A_1}
+\end{align}
+   </div>
+   <div class="table" data-number="8.1" data-tralics-id="uid355" id="uid355">
+    <table class="tabular">
+     <tr class="top_border bottom_border">
+      <td class="left_border align_left right_border">
+       dB scale
+      </td>
+      <td class="align_left right_border">
+       Linear scale
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       60 dB
+      </td>
+      <td class="align_left right_border">
+       1000
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       40 dB
+      </td>
+      <td class="align_left right_border">
+       100
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       20 dB
+      </td>
+      <td class="align_left right_border">
+       10
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       0 dB
+      </td>
+      <td class="align_left right_border">
+       1
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       -20 dB
+      </td>
+      <td class="align_left right_border">
+       0.2
+      </td>
+     </tr>
+     <tr>
+      <td class="left_border align_left right_border">
+       -40 dB
+      </td>
+      <td class="align_left right_border">
+       0.01
+      </td>
+     </tr>
+     <tr class="bottom_border">
+      <td class="left_border align_left right_border">
+       -60 dB
+      </td>
+      <td class="align_left right_border">
+       0.001
+      </td>
+     </tr>
+    </table>
+    <div class="caption">
+     <span class="header">
+      Table 8.1:
+     </span>
+     <span class="description">
+      Amplitude ratio
+     </span>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="8.7" data-tralics-id="cid71" id="cid71">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid71">
+     <span class="number">
+      8.7
+     </span>
+     Moving average filter
+    </a>
+   </h2>
+   <p>
+    <strong>
+     Moving average
+    </strong>
+    is a simple lowpass filter.
+    <span class="intersentencespace">
+    </span>
+    It replaces samples with the average of
+    <em>
+     n
+    </em>
+    samples.
+   </p>
+   <p>
+    The commonly used variant is the central moving average, here is how you
+calculate it for 5 points:
+   </p>
+   <div class="equation" data-number="8.3" data-tralics-id="uid356" id="uid356">
+    \begin{align}
+y_t = \frac{x_{t-2} + x_{t-1} + x_{t} + x_{t+1} + x_{t+2}}{5}
+\end{align}
+   </div>
+   <p class="noindent">
+    where
+    <span class="inline_math">
+     \(  y_t  \)
+    </span>
+    is
+    <span class="inline_math">
+     \(  t  \)
+    </span>
+    th of the filtered signal and
+    <span class="inline_math">
+     \(  x  \)
+    </span>
+    is the
+original signal.
+   </p>
+   <div class="aside" data-number="8.5" data-tralics-id="uid357" id="uid357">
+    <div class="heading">
+     <span class="number">
+      Box 8.5.
+     </span>
+     <span class="description">
+      When to use moving average?
+     </span>
+    </div>
+    <p>
+     Moving average is an optimal filter for time domain signals that
+contain white noise.
+     <span class="intersentencespace">
+     </span>
+     For noise with specific frequency you can get
+better performance with FIR or IIR filters.
+    </p>
+   </div>
+   <p>
+    <a class="hyperref" href="dsp.html#fig-ma_example">
+     Figure
+     <span class="ref">
+      8.3
+     </span>
+    </a>
+    shows the effect of number of points
+used in filtering a signal.
+    <span class="intersentencespace">
+    </span>
+    Greater number of points provides smoother
+result, but it also “cuts the corners” of the signal.
+    <span class="intersentencespace">
+    </span>
+    Finding the
+correct number of points for each case is done using experimentation
+and plotting the original signal and filtered signal to the same plot
+and zooming close enough to rapid changes helps in the process.
+   </p>
+   <div class="subsection" data-number="8.7.1" data-tralics-id="uid358" id="uid358">
+    <h3>
+     <a class="heading hyperref" href="dsp.html#uid358">
+      <span class="number">
+       8.7.1
+      </span>
+      Moving average using SciPy.
+     </a>
+    </h3>
+    <p>
+     SciPy doesn’t have a builtin implementation of a moving average filter,
+but it is easy to implement it.
+     <span class="intersentencespace">
+     </span>
+     A moving average of order
+     <span class="inline_math">
+      \( n \)
+     </span>
+     has an
+impulse response with
+     <span class="inline_math">
+      \( n \)
+     </span>
+     elements that all have the value of
+     <span class="inline_math">
+      \( 1/n \)
+     </span>
+     .
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+
+<span class="k">def</span> <span class="nf">ma</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="c">#Create impulse response</span>
+    <span class="n">xf</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="c">#Filter the signal</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">xf</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <p>
+     Moving average filters have good performance for time domain
+signals, but their amplitude response is pretty terrible.
+     <span class="intersentencespace">
+     </span>
+     You can see
+from
+     <a class="hyperref" href="dsp.html#fig-ma_properties">
+      Figure
+      <span class="ref">
+       8.2
+      </span>
+     </a>
+     that the response is not very
+sharp and there is a lot of ripple in the passband.
+    </p>
+    <p>
+     <a class="hyperref" href="dsp.html#fig-ma_properties">
+      Figure
+      <span class="ref">
+       8.2
+      </span>
+     </a>
+     was created using following
+python code using the functions we defined earlier.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">b</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mi">11</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">plot_filterz</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="center figure" data-number="8.2" data-tralics-id="uid359" id="fig-ma_properties">
+     <div class="graphics image">
+      <img alt="images/DSP/dsp_ma_properties_1" src="images/DSP/dsp_ma_properties_1.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 8.2:
+      </span>
+      <span class="description">
+       Properties of 11 point moving average filter
+      </span>
+     </div>
+    </div>
+    <p>
+     Another advantage of moving average filter is that it can be
+calculated using an efficient recursive
+algorithm.
+     <span class="intersentencespace">
+     </span>
+     See (Smith 1997) Ch 15 p.
+     <span class="intersentencespace">
+     </span>
+     282.
+    </p>
+   </div>
+  </div>
+  <div class="section" data-number="8.8" data-tralics-id="cid72" id="cid72">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid72">
+     <span class="number">
+      8.8
+     </span>
+     Median filter
+    </a>
+   </h2>
+   <p>
+    The median filter is similar to moving average, but is uses the moving
+median instead of average.
+    <span class="intersentencespace">
+    </span>
+    It is nonlinear filter so you can’t
+calculate its step or amplitude response.
+    <span class="intersentencespace">
+    </span>
+    Median filter can be
+used to suppress heavy non-Gaussian noise in time domain signals
+e.g.
+    <span class="intersentencespace">
+    </span>
+    randomly occurring high peaks.
+   </p>
+   <p>
+    <code>
+     scipy.signal.medfilt
+    </code>
+    in Python.
+   </p>
+   <p>
+    A comparison of median filter and moving average filter is shown in
+    <a class="hyperref" href="dsp.html#fig-ma_example">
+     Figure
+     <span class="ref">
+      8.3
+     </span>
+    </a>
+   </p>
+  </div>
+  <div class="section" data-number="8.9" data-tralics-id="cid73" id="cid73">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid73">
+     <span class="number">
+      8.9
+     </span>
+     Example: Comparing moving average and median filter
+    </a>
+   </h2>
+   <p>
+    Let’s see how moving average filters with different order and median
+filter can handle a noisy ramp signal.
+    <span class="intersentencespace">
+    </span>
+    We’ll first create a ramp signal
+with added gaussian noise:
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="n">ym</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span><span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">repeat</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)])</span>
+<span class="n">noisy</span> <span class="o">=</span> <span class="n">ym</span><span class="o">+</span><span class="n">randn</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+</pre>
+    </div>
+   </div>
+   <p>
+    Then filter it with three diffent MA filters and a median filter and
+plot the results.
+    <span class="intersentencespace">
+    </span>
+    The example also demonstrates matplotlib’s
+object oriented API and axis-sharing between subplots.
+   </p>
+   <div class="code">
+    <div class="highlight">
+     <pre><span class="c">#Moving average filters</span>
+<span class="n">ym11</span> <span class="o">=</span> <span class="n">ma</span><span class="p">(</span><span class="n">noisy</span><span class="p">)</span>
+<span class="n">ym31</span> <span class="o">=</span> <span class="n">ma</span><span class="p">(</span><span class="n">noisy</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="c">#Median filter from scipy.signal</span>
+<span class="n">ymed11</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">medfilt</span><span class="p">(</span><span class="n">noisy</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+
+<span class="c">#Plots with shared x and y-axis</span>
+<span class="n">f</span><span class="p">,</span> <span class="p">((</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">),</span> <span class="p">(</span><span class="n">ax3</span><span class="p">,</span> <span class="n">ax4</span><span class="p">))</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+                                           <span class="n">sharex</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">noisy</span><span class="p">,</span> <span class="s">'k'</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"a) Noisy signal"</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ym11</span><span class="p">,</span> <span class="s">'k'</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"b) Moving average filter n = 11"</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ym31</span><span class="p">,</span> <span class="s">'k'</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"b) Moving average filter n = 31"</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ymed11</span><span class="p">,</span> <span class="s">'k'</span><span class="p">)</span>
+<span class="n">ax4</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"b) Median filter n = 31"</span><span class="p">)</span>
+<span class="c">#subplots_adjust(hspace=0.4)</span>
+</pre>
+    </div>
+   </div>
+   <div class="center figure" data-number="8.3" data-tralics-id="uid360" id="fig-ma_example">
+    <div class="graphics image">
+     <img alt="images/DSP/dsp_ma_example_1" src="images/DSP/dsp_ma_example_1.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 8.3:
+     </span>
+     <span class="description">
+      Comparison of moving average filters of different length with median filter for a ramp signal with random noise.
+      <span class="intersentencespace">
+      </span>
+     </span>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="8.10" data-tralics-id="cid74" id="cid74">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid74">
+     <span class="number">
+      8.10
+     </span>
+     FIR filters
+    </a>
+   </h2>
+   <ul>
+    <li>
+     <strong>
+      FIR
+     </strong>
+     filters have finite impulse response.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Convolution
+     </strong>
+     used to compute the filtered signal.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Only the measured signal is used in the calculation.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     You can get excellent frequency domain performance with FIR filters.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Overshoot in step response and ripple in stopband.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Commonly used filters: Blackmann, Hamming.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     The computation is slow in comparison to IIR filters.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+   <p>
+    <a class="hyperref" href="dsp.html#fig-fir_response">
+     Figure
+     <span class="ref">
+      8.4
+     </span>
+    </a>
+    shows the time and frequency domain
+properties of 100th order Hamming lowpass filter.
+    <span class="intersentencespace">
+    </span>
+    The amplitude
+response has sharp roll off and the phase is linear in the
+passband.
+    <span class="intersentencespace">
+    </span>
+    There is mild overshoot in the step response.
+    <span class="intersentencespace">
+    </span>
+    The roll off
+can be made almost arbitrarily sharp using even higher orders.
+    <span class="intersentencespace">
+    </span>
+    If you
+need to filter frequency specific noise from a time domain signal a
+linear phase FIR filter is a good choice.
+   </p>
+   <div class="subsection" data-number="8.10.1" data-tralics-id="uid368" id="uid368">
+    <h3>
+     <a class="heading hyperref" href="dsp.html#uid368">
+      <span class="number">
+       8.10.1
+      </span>
+      FIR filters with SciPy
+     </a>
+    </h3>
+    <p>
+     Design 100th order lowpass filter using hamming window, b is the impulse
+response filter stopband is set to 0.2 which equals
+     <span class="inline_math">
+      \( 0.2 \cdot 0.5 \cdot \)
+     </span>
+     samplerate.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="c">#Design filter</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">firwin</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">cutoff</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span> <span class="n">window</span> <span class="o">=</span> <span class="s">"hamming"</span><span class="p">)</span>
+<span class="c">#Plot properties</span>
+<span class="n">plot_filterz</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="center figure" data-number="8.4" data-tralics-id="uid369" id="fig-fir_response">
+     <div class="graphics image">
+      <img alt="images/DSP/dsp_fir_response_1" src="images/DSP/dsp_fir_response_1.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 8.4:
+      </span>
+      <span class="description">
+       Properties 100th order Hamming-window lowpass filter.
+       <span class="intersentencespace">
+       </span>
+      </span>
+     </div>
+    </div>
+    <p>
+     Use the filter and plot results.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="mi">1024</span><span class="p">))</span>
+<span class="o">+</span> <span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1024</span><span class="p">)</span><span class="o">*</span><span class="mf">0.2</span> <span class="o">+</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">1024</span><span class="p">));</span>
+<span class="n">xfiltered</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="mi">200</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s">"Original signal"</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">xfiltered</span><span class="p">[:</span><span class="mi">200</span><span class="p">],</span> <span class="s">"--k"</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s">"Filtered signal"</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+</pre>
+     </div>
+    </div>
+    <div class="graphics image">
+     <img alt="images/DSP/dsp_figure13_1" src="images/DSP/dsp_figure13_1.png"/>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="8.11" data-tralics-id="cid75" id="cid75">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid75">
+     <span class="number">
+      8.11
+     </span>
+     IIR filters
+    </a>
+   </h2>
+   <ul>
+    <li>
+     <strong>
+      IIR
+     </strong>
+     filters have infinite impulse response.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     <strong>
+      Recursion
+     </strong>
+     is used to compute the filtered signal.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     They can also be used to design filters with frequency domain
+properties.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Overshoot in step response and ripple in passband.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Measured and previous filtered values are be used in the
+calculation.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Commonly used filters: Butterworth, Chebyshev, Elliptic.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     The computation is very fast.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     You can get zero phase response by using a IIR filter forward and
+backward
+    </li>
+   </ul>
+   <p>
+    <a class="hyperref" href="dsp.html#fig-cheby">
+     Figure
+     <span class="ref">
+      8.5
+     </span>
+    </a>
+    shows the properties of 12th order Chebyshev
+II lowpass filter.
+    <span class="intersentencespace">
+    </span>
+    The roll of is not as sharp as for the FIR filter in
+    <a class="hyperref" href="dsp.html#fig-fir_response">
+     Figure
+     <span class="ref">
+      8.4
+     </span>
+    </a>
+    and there is more overshoot in the
+step response.
+    <span class="intersentencespace">
+    </span>
+    The filter however has only 12 coefficients instead of
+100 of the FIR filter making it considerably more efficient
+computationally.
+   </p>
+   <p>
+    The properties of 12th order Butterworth filter (which less aggressive
+IIR filter) are shown in
+    <a class="hyperref" href="dsp.html#fig-butter">
+     Figure
+     <span class="ref">
+      8.6
+     </span>
+    </a>
+    .
+    <span class="intersentencespace">
+    </span>
+    It has smooth
+roll of and doesn’t overshoot as much making it a better candidate for
+time domain applications.
+   </p>
+   <div class="subsection" data-number="8.11.1" data-tralics-id="uid378" id="uid378">
+    <h3>
+     <a class="heading hyperref" href="dsp.html#uid378">
+      <span class="number">
+       8.11.1
+      </span>
+      IIR filters with SciPy
+     </a>
+    </h3>
+    <p>
+     The list IIR filters that can be designed with SciPy can be found from
+     <code>
+      scipy.signal
+     </code>
+     documentation.
+     <span class="intersentencespace">
+     </span>
+     Here are a few examples:
+    </p>
+    <p>
+     Design 12th order chebyshev lowpass filter with stopband attenuation of
+80dB filter stopband is set to 0.2 which means
+     <span class="inline_math">
+      \( 0.2 \cdot 0.5 \cdot \)
+     </span>
+     samplerate (
+     <a class="hyperref" href="dsp.html#fig-cheby">
+      Figure
+      <span class="ref">
+       8.5
+      </span>
+     </a>
+     ).
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">cheby2</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">plot_filterz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="center figure" data-number="8.5" data-tralics-id="uid379" id="fig-cheby">
+     <div class="graphics image">
+      <img alt="images/DSP/dsp_cheby_1" src="images/DSP/dsp_cheby_1.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 8.5:
+      </span>
+      <span class="description">
+       Properties 12th order Chebyshev II lowpass filter
+      </span>
+     </div>
+    </div>
+    <p>
+     Design 12th order lowpass butterworth filter with stopband at 0.2
+in
+     <a class="hyperref" href="dsp.html#fig-butter">
+      Figure
+      <span class="ref">
+       8.6
+      </span>
+     </a>
+     .
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">);</span>
+<span class="n">plot_filterz</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="center figure" data-number="8.6" data-tralics-id="uid380" id="fig-butter">
+     <div class="graphics image">
+      <img alt="images/DSP/dsp_butter_1" src="images/DSP/dsp_butter_1.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 8.6:
+      </span>
+      <span class="description">
+       Filter properties for a 12th order lowpass butterworth filter.
+       <span class="intersentencespace">
+       </span>
+      </span>
+     </div>
+    </div>
+    <p>
+     The above commands are similar to the ones found from MATLAB, there is
+also another option:
+     <code>
+      iirdesign
+     </code>
+     command.
+     <span class="intersentencespace">
+     </span>
+     Some examples.
+    </p>
+    <p>
+     Let’s define 2 filters and plot their amplitude response: Elliptic
+bandpass filter and chebyshev I highpass filter.
+     <span class="intersentencespace">
+     </span>
+     Parameter
+     <code>
+      wp
+     </code>
+     defines the pass band and
+     <code>
+      ws
+     </code>
+     defines the stop band.
+    </p>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">be</span><span class="p">,</span> <span class="n">ae</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">iirdesign</span><span class="p">(</span><span class="n">wp</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span> <span class="n">ws</span><span class="o">=</span> <span class="p">[</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">],</span>
+                       <span class="n">gstop</span><span class="o">=</span> <span class="mi">60</span><span class="p">,</span> <span class="n">gpass</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ftype</span><span class="o">=</span><span class="s">'ellip'</span><span class="p">)</span>
+<span class="n">plot_freqz</span><span class="p">(</span><span class="n">be</span><span class="p">,</span><span class="n">ae</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="center figure" data-number="8.7" data-tralics-id="uid381" id="fig-iir_design">
+     <div class="graphics image">
+      <img alt="images/DSP/dsp_iir_design_1" src="images/DSP/dsp_iir_design_1.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 8.7:
+      </span>
+      <span class="description">
+       Elliptic bandpass filter
+      </span>
+     </div>
+    </div>
+    <div class="code">
+     <div class="highlight">
+      <pre><span class="n">bb</span><span class="p">,</span> <span class="n">ab</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">iirdesign</span><span class="p">(</span><span class="n">wp</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span>
+                       <span class="n">gstop</span><span class="o">=</span> <span class="mi">60</span><span class="p">,</span> <span class="n">gpass</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ftype</span><span class="o">=</span><span class="s">'cheby1'</span><span class="p">)</span>
+<span class="n">plot_freqz</span><span class="p">(</span><span class="n">bb</span><span class="p">,</span><span class="n">ab</span><span class="p">)</span>
+</pre>
+     </div>
+    </div>
+    <div class="center figure" data-number="8.8" data-tralics-id="uid382" id="fig-cheby1">
+     <div class="graphics image">
+      <img alt="images/DSP/dsp_cheby1_1" src="images/DSP/dsp_cheby1_1.png"/>
+     </div>
+     <div class="caption">
+      <span class="header">
+       Figure 8.8:
+      </span>
+      <span class="description">
+       Chebyshev I high pass filter
+      </span>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="8.12" data-tralics-id="cid76" id="cid76">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid76">
+     <span class="number">
+      8.12
+     </span>
+     Filtering example
+    </a>
+   </h2>
+   <p>
+    Here is an example of using different filters on signal
+    <a class="hyperref" href="dsp.html#fig-xshort">
+     Figure
+     <span class="ref">
+      8.9
+     </span>
+    </a>
+    a.
+    <span class="intersentencespace">
+    </span>
+    We can see that the signal is contaminated
+with noise, but we don’t know if it is white noise or if it has a
+specific frequency.
+   </p>
+   <div class="center figure" data-number="8.9" data-tralics-id="uid383" id="fig-xshort">
+    <div class="graphics image">
+     <img alt="images/manual/xshort" src="images/manual/xshort.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 8.9:
+     </span>
+     <span class="description">
+      Signals in time domain
+     </span>
+    </div>
+   </div>
+   <p>
+    We start the analysis by plotting the periodogram of the signal
+(
+    <a class="hyperref" href="dsp.html#fig-xspectra">
+     Figure
+     <span class="ref">
+      8.10
+     </span>
+    </a>
+    a).
+    <span class="intersentencespace">
+    </span>
+    It reveals that there is high frequency
+noise at around 0.9.
+    <span class="intersentencespace">
+    </span>
+    (The unit is relative to 0.5
+    <span class="inline_math">
+     \( \cdot \)
+    </span>
+    sampling rate, 0.9 becomes
+    <span class="inline_math">
+     \( 0.9 \cdot 0.5 \cdot \)
+    </span>
+    sample rate
+in actual units) and the interesting frequencies are clearly below 0.4.
+    <span class="intersentencespace">
+    </span>
+    This means we can use a lowpass filter with stopband at 0.4 to remove the
+noise.
+   </p>
+   <p>
+    Figures
+    <a class="hyperref" href="dsp.html#fig-xshort">
+     <span class="ref">
+      8.9
+     </span>
+    </a>
+    and
+    <a class="hyperref" href="dsp.html#fig-xspectra">
+     <span class="ref">
+      8.10
+     </span>
+    </a>
+    show the effect
+of using 100th order FIR hamming filter to the time domain signal and
+the PSD. Also the effect of 5 point moving average filter is shown for
+reference.
+    <span class="intersentencespace">
+    </span>
+    The FIR filter is clearly the right choice for this signal,
+it preserves the time domain features nicely (
+    <em>
+     Beware of
+small phase shift for time critical applications
+    </em>
+    ) and completely eliminates
+the high frequency noise.
+    <span class="intersentencespace">
+    </span>
+    The moving average fails to remove the high
+frequency noise, but “cuts” the peaks from decreasing the amplitude.
+   </p>
+   <div class="center figure" data-number="8.10" data-tralics-id="uid384" id="fig-xspectra">
+    <div class="graphics image">
+     <img alt="images/manual/spectra" src="images/manual/spectra.png"/>
+    </div>
+    <div class="caption">
+     <span class="header">
+      Figure 8.10:
+     </span>
+     <span class="description">
+      Signals in frequency domain
+     </span>
+    </div>
+   </div>
+  </div>
+  <div class="section" data-number="8.13" data-tralics-id="cid77" id="cid77">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid77">
+     <span class="number">
+      8.13
+     </span>
+     Modifying sample rate
+    </a>
+   </h2>
+   <p>
+    The sampling rate of a digital signal can be changed
+computationally.
+    <span class="intersentencespace">
+    </span>
+    There are two basic operations:
+   </p>
+   <p>
+    <strong>
+     Decimation
+    </strong>
+    is used to lower to sample rate.
+    <span class="intersentencespace">
+    </span>
+    The operation uses an antialising
+filter to make sure there aren’t too high frequency components in
+the downsampled signal.
+    <span class="intersentencespace">
+    </span>
+    <code>
+     signal.decimate
+    </code>
+    in SciPy.
+   </p>
+   <p>
+    <strong>
+     Interpolation
+    </strong>
+    Increases the sampling rate of the signal It is mainly used for
+digital to analog conversion to get more continuous results for e.g.
+    <span class="intersentencespace">
+    </span>
+    audio.
+   </p>
+   <p>
+    <strong>
+     NOTE: Interpolation doesn’t fix too low sample rate.
+    </strong>
+   </p>
+  </div>
+  <div class="section" data-number="8.14" data-tralics-id="cid78" id="cid78">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid78">
+     <span class="number">
+      8.14
+     </span>
+     Detrending
+    </a>
+   </h2>
+   <p>
+    Detrending means removing the slowly changing trends from a higher
+frequency signal.
+    <span class="intersentencespace">
+    </span>
+    It is required for spectral analysis and can also be
+used to remove the effect of sensor drift from time domain
+measurements.
+   </p>
+   <p>
+    <strong>
+     Some methods for detrending are:
+    </strong>
+   </p>
+   <ul>
+    <li>
+     Subtracting the moving average or moving median from the signal.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Fitting a polynomial model to the data and working with residuals.
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     Using a highpass filter.
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ul>
+  </div>
+  <div class="section" data-number="8.15" data-tralics-id="cid79" id="cid79">
+   <h2>
+    <a class="heading hyperref" href="dsp.html#cid79">
+     <span class="number">
+      8.15
+     </span>
+     Exercises
+    </a>
+   </h2>
+   <ol>
+    <li>
+     When would you use a moving average filter?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     What are the advantages of IIR filters over FIR filters and
+vice versa?
+     <span class="intersentencespace">
+     </span>
+    </li>
+    <li>
+     How can you check if the noise in a signal is random noise?
+     <span class="intersentencespace">
+     </span>
+    </li>
+   </ol>
+  </div>
+ </div>
+
+
+        <div class="footer" style = "text-align: center;">&copy; <a href="http://mpastell.com">Matti Pastell</a> 2016</div>
+        </div>
+    </div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6474352-9', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
